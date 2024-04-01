@@ -1,0 +1,202 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+" Source your .vimrc
+source ~/.vimrc
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=8
+set history=1000
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+"map <leader>r <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+""https://github.com/JetBrains/ideavim/discussions/303?sort=top
+"""" Jonathan
+let mapleader=" "
+""" Set
+set ignorecase "ignore case in search
+set relativenumber "relative line numbers
+set number "show current line number
+set surround
+
+" Open find window
+set NERDTree
+nnoremap <leader>pv :NERDTree<CR>
+
+" easier home/end
+map H ^
+map L $
+
+""" Remaps
+"" Keep cursor centered when navigating horizontally
+" page up/down
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+" searching
+nnoremap <n> nzzzv
+nnoremap <N> Nzzzv
+
+" Move selection up/down
+vnoremap J :m '>+1<CR>gv=gv'
+vnoremap K :m '<-2<CR>gv=gv'
+
+" Paste without overriding register
+xnoremap <leader>p \"_dP<CR>
+
+""https://github.com/JetBrains/ideavim/discussions/303?sort=top
+" location
+nmap <C-i> <Action>(Back)
+nmap <C-o> <Action>(Forward)
+
+" window
+nmap <leader>ww <Action>(HideAllWindows)
+nmap <C-Tab> <Action>(PreviousTab)
+nmap <Tab> <Action>(NextTab)
+nmap <leader>wp <Action>(PinActiveEditorTab)
+
+" menu
+"nmap <leader>mm <Action>(MainMenu)
+"nmap <leader>ma <Action>(AnalyzeMenu)
+"nmap <leader>mb <Action>(BuildMenu)
+"nmap <leader>mc <Action>(CodeMenu)
+"nmap <leader>mf <Action>(FindMenuGroup)
+"nmap <leader>mg <Action>(GoToMenu)
+"nmap <leader>ms <Action>(ScopeViewPopupMenu)
+"nmap <leader>mt <Action>(EditorTabPopupMenu)
+"nmap <leader>mw <Action>(ToolWindowsGroup)
+
+" file
+"nmap <leader>of <Action>(OpenFile)
+"nmap <leader>yp <Action>(CopyAbsolutePath)
+"nmap <leader>rf <Action>(RecentFiles)
+"nmap <leader>rl <Action>(RecentLocations)
+"nmap <leader>rp <Action>(ManageRecentProjects)
+"nmap <leader>sh <Action>(LocalHistory.ShowHistory)
+"nmap <leader>sf <Action>(ShowFilePath)
+"nmap <leader>si <Action>(SelectIn)
+"nmap <leader>fp <Action>(FindInPath)
+"nmap <leader>rp <Action>(ReplaceInPath)
+"nmap <leader>sw <Action>($SearchWeb)
+
+" tag
+nmap <leader>fu <Action>(FindUsages)
+nmap <leader>fs <Action>(FileStructurePopup)
+nmap <leader>su <Action>(ShowUsages)
+nmap <leader>hl <Action>(HighlightUsagesInFile)
+nmap <leader>qp <Action>(QuickPreview)
+nmap <leader>qd <Action>(QuickDefinition)
+nmap <leader>qD <Action>(QuickTypeDefinition)
+
+" code
+map <leader>c <Action>(CommentByLineComment)
+map <leader>C <Action>(CommentByBlockComment)
+nmap <leader>qf <Action>(ShowIntentionActions)
+nmap <leader>se <Action>(ShowErrorDescription)
+nmap <leader>om <Action>(OverrideMethods)
+nmap <leader>im <Action>(ImplementMethods)
+nmap <leader>fc <Action>(ReformatCode)
+nmap <leader>ic <Action>(InspectCode)
+nmap <leader>so <Action>(SelectAllOccurrences)
+nmap <leader>gc <Action>(Generate)
+nmap <leader>gt <Action>(GoToTest)
+
+" run
+nmap <leader>rc <Action>(ContextRun)
+nmap <leader>rx<Action>(chooseRunConfiguration)
+nmap <leader>rr <Action>(Rerun)
+nmap <leader>rt <Action>(RunTests)
+nmap <leader>rs <Action>(Stop)
+
+" debug
+nmap <leader>dc <Action>(ContextDebug)
+nmap <leader>dx <Action>(Debug)
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>de <Action>(EditBreakpoint)
+nmap <leader>dv <Action>(ViewBreakpoints)
+
+" build
+nmap <leader>bb <Action>(BuildMenu)
+
+" refactor
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>re <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>uw <Action>(Unwrap)
+nmap <leader>sw <Action>(SurroundWith)
+nmap <leader>sd <Action>(SafeDelete)
+nmap <leader>oi <Action>(OptimizeImports)
+
+" hierarchy
+nmap <leader>hc <Action>(CallHierarchy)
+nmap <leader>hm <Action>(MethodHierarchy)
+nmap <leader>ht <Action>(TypeHierarchy)
+
+" collapse
+nmap zz <Action>(ExpandCollapseToggleAction)
+nmap za <Action>(CollapseAllRegions)
+nmap zA <Action>(ExpandAllRegions)
+
+" zen
+nmap <leader>z <Action>(ToggleZenMode)
+
+" []
+nmap [b <Action>(PreviousTab)
+nmap ]b <Action>(NextTab)
+nmap [g <Action>(GotoPreviousError)
+nmap ]g <Action>(GotoNextError)
+nmap [u <Action>(GotoPrevElementUnderCaretUsage)
+nmap ]u <Action>(GotoNextElementUnderCaretUsage)
+nmap [o <Action>(PreviousOccurence)
+nmap ]o <Action>(NextOccurence)
+nmap [m <Action>(MethodUp)
+nmap ]m <Action>(MethodDown)
+nmap [c <Action>(JumpToLastChange)
+nmap ]c <Action>(JumpToNextChange)
+
+" goto
+nmap <leader>a <Action>(GotoAction)
+nmap ga <Action>(GotoAction)
+nmap pc <Action>(GotoClass)
+nmap pf <Action>(GotoFile)
+nmap gs <Action>(GotoSymbol)
+nmap gt <Action>(GoToTest)
+nmap gT <Action>(TextSearchAction)
+nmap go <Action>(GotoSuperMethod)
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gI <Action>(QuickImplementations)
+nmap gn <Action>(ShowNavBar)
+
+" terminal
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+nmap <leader>tc <Action>(Terminal.OpenInTerminal)
+
+" bookmark
+nmap mm <Action>(ToggleBookmark)
+nmap ms <Action>(ShowBookmarks)
