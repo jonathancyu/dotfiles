@@ -141,6 +141,8 @@ eval "$(zoxide init --cmd cd zsh)"
 export PATH="$PATH:/opt/nvim/"
 alias vim=nvim
 
+# Add scripts to path
+export PATH="$PATH:$HOME/.local/scripts"
 
 export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
