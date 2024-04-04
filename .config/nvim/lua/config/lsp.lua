@@ -1,9 +1,4 @@
 -- lsp-zero config
-local lsp = require('lsp-zero').preset('recommended')
-
-lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({buffer = bufnr})
-end)
 
 -- Initialize mason
 require('mason').setup({})
