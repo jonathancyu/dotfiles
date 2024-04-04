@@ -26,7 +26,7 @@ vim.opt.incsearch = true
 
 -- Colors
 vim.opt.termguicolors = true
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "120"
 
 -- Disable mouse interaction
 vim.opt.mouse = ""

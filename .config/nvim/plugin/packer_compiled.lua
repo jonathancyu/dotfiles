@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/Users/aa710193/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  gitsigns = {
+    loaded = true,
+    path = "/Users/aa710193/.local/share/nvim/site/pack/packer/start/gitsigns",
+    url = "https://github.com/lewis6991/gitsigns"
+  },
   harpoon = {
     loaded = true,
     path = "/Users/aa710193/.local/share/nvim/site/pack/packer/start/harpoon",

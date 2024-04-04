@@ -1,5 +1,5 @@
 -- lsp-zero config
-local lsp = require('lsp-zero').preset({})
+local lsp = require('lsp-zero').preset('recommended')
 
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({buffer = bufnr})
@@ -13,6 +13,7 @@ require('mason-lspconfig').setup({
 })
 
 -- Add lua lsp config
+require('lspconfig').pyright.setup({})
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 
@@ -37,3 +38,5 @@ cmp.setup({
         end,
     },
 })
+
+vim.lsp.set_log_level('debug')
