@@ -31,5 +31,8 @@ vim.opt.colorcolumn = "120"
 -- Disable mouse interaction
 vim.opt.mouse = ""
 
+-- Better netrw
+vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 -- Other
 vim.opt.updatetime = 250
+
