@@ -2,6 +2,9 @@ vim.g.mapleader = " "
 -- pv = Project View
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+-- Restore last session
+vim.keymap.set('n', '<leader>rs', [[<cmd>lua require("persistence").load()<cr>]])
+
 -- Move selection up/down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

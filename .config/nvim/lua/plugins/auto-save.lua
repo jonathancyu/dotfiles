@@ -8,6 +8,16 @@ return {
             options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- sessionoptions used for saving
             pre_save = nil, -- a function to call before saving the session
             save_empty = false, -- don't save if there are no open file buffers
+            condition = function()
+                local fn = vim.fn
+
+                local filepath = fn.expand("%:p")  -- Get the full path of the current buffer
+
+                -- Check if the file is located in the ~/.config/nvim directory
+                if string.find(filepath, "^" .. fn.expand("~/.config/nvim")) == 1 then
+                    return false  -- Don't save files in ~/.config/nvim
+                end
+            end
         })
     end,
 }

@@ -19,6 +19,7 @@ return {
         opts = {}
     },
 
+
     -- File navigation
     {
         'theprimeagen/harpoon',
@@ -45,7 +46,7 @@ return {
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
         -- or                            , branch = '0.1.x',
         dependencies = { {'nvim-lua/plenary.nvim'} },
-        config = function(plugin)
+        config = function()
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
             vim.keymap.set('n', '<C-p>', builtin.git_files, {})
@@ -57,27 +58,35 @@ return {
 
     -- Git
     {
-        'tpope/vim-fugitive', 
-        config = function(plugin)
+        'tpope/vim-fugitive',
+        config = function()
             vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
         end
     },
-    { 'lewis6991/gitsigns.nvim', opts = {} },
+    {
+        'lewis6991/gitsigns.nvim',
+        opts = {} },
 
     -- Undoing
     {
         'mbbill/undotree',
-        config = function(plugin) 
+        config = function()
             vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
         end
     },
 
-    -- Automatic closing
+    -- Bracket stuff
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
-        config = true
-        -- use opts = {} for passing setup options
-        -- this is equalent to setup({}) function
+        config = true,
+        opts = {}
+    },
+
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        opts = {}
     }
 }

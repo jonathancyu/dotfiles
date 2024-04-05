@@ -126,16 +126,20 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
+
+# brew
 export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
 
 # pyenv
-# export PATH="$HOME/.pyenv/bin:$PATH"
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
+
+# altuin
+eval "$(atuin init zsh)"
 
 # Neovim
 export PATH="$PATH:/opt/nvim/"
@@ -154,3 +158,5 @@ export PATH="$PATH:$NVM_DIR/versions/node/v20.12.1/bin/npm" # This sets the NPM 
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+eval "$(atuin init zsh)"
