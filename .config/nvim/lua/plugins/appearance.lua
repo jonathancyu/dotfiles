@@ -1,8 +1,13 @@
 return {
     {
+        'folke/todo-comments.nvim',
+        dependencies = {'nvim-lua/plenary.nvim'},
+        opts = {}
+    },
+    {
         'rebelot/kanagawa.nvim',
         name = 'kanagawa',
-        config = function(plugin)
+        config = function()
             require('kanagawa').setup({
                 theme = 'dark'
             })

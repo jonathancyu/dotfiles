@@ -1,12 +1,28 @@
 return {
-    "folke/which-key.nvim",
-    { "folke/neoconf.nvim", cmd = "Neoconf" },
-    "folke/neodev.nvim",
+    -- Praise folke
+    {
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = {}
+    },
+    { 'folke/neoconf.nvim', cmd = 'Neoconf' },
+    { 'folke/neodev.nvim', opts = {}},
+
+    -- Debugging
+    {
+        'folke/trouble.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons'},
+        opts = {}
+    },
 
     -- File navigation
     {
-        'theprimeagen/harpoon', 
-        config = function(plugin)
+        'theprimeagen/harpoon',
+        config = function()
             local mark = require('harpoon.mark')
             local ui = require('harpoon.ui')
 
