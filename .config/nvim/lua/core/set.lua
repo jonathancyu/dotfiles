@@ -27,6 +27,10 @@ vim.opt.isfname:append("@-@")
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
+-- Split normally
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- Colors
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = "120"

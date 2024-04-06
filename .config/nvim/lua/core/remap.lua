@@ -1,9 +1,6 @@
 vim.g.mapleader = " "
 -- pv = Project View
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
--- Restore last session
-vim.keymap.set('n', '<leader>rs', [[<cmd>lua require("persistence").load()<cr>]])
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Project view' })
 
 -- Move selection up/down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -30,8 +27,8 @@ vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Easy home/end
-vim.keymap.set("n", "H", "^")
-vim.keymap.set("n", "L", "$")
+vim.keymap.set({'n', 'v'}, "H", "^")
+vim.keymap.set({'n', 'v'}, "L", "$")
 
 -- Unbind Q
 vim.keymap.set("n", "Q", "<nop>")
