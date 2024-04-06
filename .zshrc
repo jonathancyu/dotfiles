@@ -154,8 +154,12 @@ export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # Lazy load nvm
-export PATH="$PATH:$NVM_DIR/versions/node/v20.12.1/bin/npm" # This sets the NPM path so that nvim can find it 
-#
+
+# HACK: not happy about this
+# Make npm and node avaiable before nvm is loaded
+export DEFAULT_NODE="v20.12.1"
+export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
