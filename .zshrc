@@ -155,6 +155,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # Lazy load nvm
 
+# TODO: lazy load nvm upon calling node/npm?
 # HACK: not happy about this
 # Make npm and node avaiable before nvm is loaded
 export DEFAULT_NODE="v20.12.1"
