@@ -138,8 +138,10 @@ eval "$(pyenv init -)"
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
 
-# altuin
+# atuin
 eval "$(atuin init zsh)"
+
+
 
 # Neovim
 export PATH="$PATH:/opt/nvim/"
@@ -159,4 +161,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-eval "$(atuin init zsh)"
