@@ -21,6 +21,9 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- Easy pane navigation
+vim.keymap.set('n', '<C-c>', '<C-w>c') -- I think this might be illegal
+vim.keymap.set('i', '<C-c>', '<Esc><C-w>c')
+
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
@@ -37,3 +40,6 @@ vim.keymap.set({'n', 'v'}, "L", "$")
 
 -- Unbind Q
 vim.keymap.set("n", "Q", "<nop>")
+
+-- Paste without overwriting register
+vim.keymap.set("x", "<leader>p", [["_dP]])

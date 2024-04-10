@@ -4,6 +4,9 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+-- Use system clipboard
+vim.opt.clipboard = 'unnamedplus'
+
 -- Smart indent
 vim.opt.smartindent = true
 

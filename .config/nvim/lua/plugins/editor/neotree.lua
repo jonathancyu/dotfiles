@@ -24,6 +24,11 @@ return {
                 leave_dirs_open = true
             }
         },
+        window = {
+            mappings = {
+                ['Z'] = 'expand_all_nodes',
+            }
+        }
     },
     keys = {
         { '<leader>n', '<cmd>Neotree toggle<cr>', desc = 'Toggle neotree'}

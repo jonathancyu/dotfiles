@@ -2,7 +2,7 @@ return {
     "tamton-aquib/duck.nvim",
 
     keys = {
-        { '<leader>dd',
+        { 'Q',
             function()
                 require("duck").hatch('🐄')
             end,
@@ -17,7 +17,8 @@ return {
         { '<leader>da',
             function()
                 require("duck").cook_all()
-            end
+            end,
+            desc = 'Kill all moos'
         }
     },
 }
