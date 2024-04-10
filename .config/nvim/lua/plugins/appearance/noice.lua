@@ -1,3 +1,4 @@
+-- TODO: https://www.reddit.com/r/neovim/comments/1bvk2ft/is_there_a_way_to_change_the_color_of_the_frame/
 return {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -10,6 +11,13 @@ return {
         "rcarriga/nvim-notify",
     },
     opts = {
+        cmdline = {
+            format = {
+                cmdline     = { icon = ''},
+                search_down = { icon = ' '},
+                search_up   = { icon = ' '}
+            }
+        },
         lsp = {
             -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
             override = {

@@ -4,5 +4,4 @@ require('lazy').setup({
     {import = 'plugins.extra'},
     {import = 'plugins.lsp'},
     {import = 'plugins.navigation'},
-    {import = 'plugins.run'}
 })

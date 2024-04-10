@@ -112,7 +112,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-
+# Secrets
+export GITHUB_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'GITHUB_AUTH_TOKEN' -w)
+export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
+source ~/.secrets # HACK: keychain doesnt store pip PIP_ARTIFACTORY_CREDS correctly
 
 # Aliases
 alias h='history | grep '
@@ -146,6 +149,7 @@ eval "$(atuin init zsh)"
 # Neovim
 export PATH="$PATH:/opt/nvim/"
 alias vim=nvim
+alias vi=nvim
 
 # Add scripts to path
 export PATH="$PATH:$HOME/.local/scripts"
