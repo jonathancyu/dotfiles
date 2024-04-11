@@ -3,7 +3,14 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/dotfiles ~/workspace/runway ~/workspace/SARS ~/workspace/datastage ~/workspace/poc ~/workspace/SyssecLab/differential-privacy -mindepth 1 -maxdepth 1 -type d | fzf)
+    directories=(~/dotfiles)
+    
+    # Append find results into directories
+    while IFS= read -r dir; do
+      directories+=("$dir")
+    done < <(find ~/dotfiles ~/workspace/runway ~/workspace/SARS ~/workspace/datastage ~/workspace/poc ~/workspace/SyssecLab/differential-privacy -mindepth 1 -maxdepth 1 -type d)
+
+    selected=$(printf "%s\n" "${directories[@]}" | fzf)
 fi
 
 if [[ -z $selected ]]; then
