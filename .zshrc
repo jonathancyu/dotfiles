@@ -78,9 +78,9 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-git
-zsh-autosuggestions
-zsh-vi-mode
+    git
+    zsh-autosuggestions
+    zsh-vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -142,9 +142,8 @@ eval "$(pyenv init -)"
 eval "$(zoxide init --cmd cd zsh)" 
 
 # atuin
-eval "$(atuin init zsh)"
-
-
+# zsh-vi-mode overrides atuin bindings, so we need to do this
+zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
 # Neovim
 export PATH="$PATH:/opt/nvim/"
