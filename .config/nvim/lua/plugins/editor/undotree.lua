@@ -1,6 +1,6 @@
 return {
     'mbbill/undotree',
-    branch = 'v3.x',
+    branch = '*',
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-tree/nvim-web-devicons',
