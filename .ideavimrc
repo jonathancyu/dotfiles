@@ -47,7 +47,7 @@ set surround
 
 " Open find window
 set NERDTree
-nnoremap <leader>pv :NERDTree<CR>
+nnoremap <leader>n :NERDTree<CR>
 
 " easier home/end
 map H ^
@@ -71,14 +71,23 @@ xnoremap <leader>p \"_dP<CR>
 
 ""https://github.com/JetBrains/ideavim/discussions/303?sort=top
 " location
-nmap <C-i> <Action>(Back)
-nmap <C-o> <Action>(Forward)
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
 
 " window
 nmap <leader>ww <Action>(HideAllWindows)
 nmap <C-Tab> <Action>(PreviousTab)
 nmap <Tab> <Action>(NextTab)
 nmap <leader>wp <Action>(PinActiveEditorTab)
+
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+imap <C-h> <Esc><C-w>h
+imap <C-j> <Esc><C-w>j
+imap <C-k> <Esc><C-w>k
+imap <C-l> <Esc><C-w>l
 
 " menu
 "nmap <leader>mm <Action>(MainMenu)
@@ -167,8 +176,8 @@ nmap <leader>z <Action>(ToggleZenMode)
 " []
 nmap [b <Action>(PreviousTab)
 nmap ]b <Action>(NextTab)
-nmap [g <Action>(GotoPreviousError)
-nmap ]g <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)zz
+nmap ]d <Action>(GotoNextError)zz
 nmap [u <Action>(GotoPrevElementUnderCaretUsage)
 nmap ]u <Action>(GotoNextElementUnderCaretUsage)
 nmap [o <Action>(PreviousOccurence)
@@ -181,8 +190,8 @@ nmap ]c <Action>(JumpToNextChange)
 " goto
 nmap <leader>a <Action>(GotoAction)
 nmap ga <Action>(GotoAction)
-nmap pc <Action>(GotoClass)
-nmap pf <Action>(GotoFile)
+"nmap pc <Action>(GotoClass)
+nmap <leader>pf <Action>(GotoFile)
 nmap gs <Action>(GotoSymbol)
 nmap gt <Action>(GoToTest)
 nmap gT <Action>(TextSearchAction)
