@@ -2,11 +2,8 @@ return {
     'rebelot/kanagawa.nvim',
     name = 'kanagawa',
     config = function()
-        require('kanagawa').setup({
-            theme = 'dark'
-        })
+        require('kanagawa').load('wave')
         vim.opt.termguicolors = true
-        vim.cmd.colorscheme('kanagawa')
     end
 
 }
