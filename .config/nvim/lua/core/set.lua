@@ -39,7 +39,7 @@ vim.opt.termguicolors = true
 vim.opt.colorcolumn = "120"
 
 -- Disable mouse interaction
-vim.opt.mouse = ""
+-- vim.opt.mouse = ""
 
 -- Better netrw
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro nocursorline'
