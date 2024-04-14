@@ -13,9 +13,9 @@ return {
 
                 local filepath = fn.expand("%:p")  -- Get the full path of the current buffer
 
-                -- Check if the file is located in the ~/.config/nvim directory
-                if string.find(filepath, "^" .. fn.expand("~/.config/nvim")) == 1 then
-                    return false  -- Don't save files in ~/.config/nvim
+                -- Check if the file is located in the ~/dotfiles/.config/nvim directory
+                if string.find(filepath, "^" .. fn.expand("~/dotfiles/.config/nvim")) == 1 then
+                    return false  -- Don't save files in ~/dotfiles/.config/nvim
                 end
             end
         })
