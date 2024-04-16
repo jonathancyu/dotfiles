@@ -123,7 +123,7 @@ alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
 
 # pnpm
-export PNPM_HOME="/Users/aa710193/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
