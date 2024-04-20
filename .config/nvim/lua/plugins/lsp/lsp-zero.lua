@@ -53,6 +53,7 @@ return {
         }
         local lspconfig = require('lspconfig')
         local servers = {
+            {name = 'bashls', capabilities = {}},
             {name = 'lua_ls', capabilities = {}},
             {name = 'pyright', capabilities = {}},
             {name = 'jdtls', capabilities = {
