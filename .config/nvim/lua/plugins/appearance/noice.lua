@@ -13,7 +13,7 @@ return {
     opts = {
         cmdline = {
             format = {
-                cmdline     = { icon = ''},
+                cmdline     = { icon = ''},
                 search_down = { icon = ' '},
                 search_up   = { icon = ' '}
             }
