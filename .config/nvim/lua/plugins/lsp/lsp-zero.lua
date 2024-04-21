@@ -12,7 +12,7 @@ return {
             'williamboman/mason-lspconfig.nvim',
             opts = {
                 ensure_installed = {
-                    'pyright', 'lua_ls', 'bashls'
+                    'pyright', 'lua_ls', 'bashls', 'rust_analyzer'
                 },
                 automatic_installation = true
             }
