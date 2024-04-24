@@ -21,9 +21,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- Easy pane navigation
-vim.keymap.set('n', '<C-c>', '<C-w>c') -- I think this might be illegal
+vim.keymap.set('n', '<C-c>', '<C-w>c')
 vim.keymap.set('i', '<C-c>', '<Esc><C-w>c')
 
+--[[
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
@@ -33,6 +34,7 @@ vim.keymap.set("i", "<C-h>", "<Esc><C-w>h")
 vim.keymap.set("i", "<C-j>", "<Esc><C-w>j")
 vim.keymap.set("i", "<C-k>", "<Esc><C-w>k")
 vim.keymap.set("i", "<C-l>", "<Esc><C-w>l")
+]]
 
 -- Easy home/end
 vim.keymap.set({'n', 'v'}, "H", "^")
