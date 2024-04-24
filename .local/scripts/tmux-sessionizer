@@ -3,12 +3,34 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    directories=(~/dotfiles)
+    find_directories=()
     
+    hostname=$(hostname)
+    case $hostname in
+        "AB95544")
+            find_directories=(
+                ~/workspace/playground
+                ~/dotfiles/.config
+                ~/workspace/runway
+                ~/workspace/docwf
+                ~/workspace/SARS
+                ~/workspace/datastage
+                ~/workspace/poc
+                ~/workspace/SyssecLab/darpa
+                ~/workspace/SyssecLab/differential-privacy
+            )
+            ;;
+        *)
+            echo "Machine not recognized"
+            ;;
+    esac
+    find_output=$(find "${find_directories[@]}" -mindepth 1 -maxdepth 1 -type d)
+
     # Append find results into directories
+    directories=(~/dotfiles)
     while IFS= read -r dir; do
       directories+=("$dir")
-    done < <(find ~/workspace/playground ~/dotfiles/.config ~/workspace/runway ~/workspace/docwf ~/workspace/SARS ~/workspace/datastage ~/workspace/poc ~/workspace/SyssecLab/differential-privacy -mindepth 1 -maxdepth 1 -type d)
+    done <<< "$find_output"
 
     selected=$(printf "%s\n" "${directories[@]}" | fzf)
 fi
