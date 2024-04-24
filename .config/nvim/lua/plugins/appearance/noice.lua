@@ -8,9 +8,17 @@ return {
         -- OPTIONAL:
         --   `nvim-notify` is only needed, if you want to use the notification view.
         --   If not available, we use `mini` as the fallback
-        "rcarriga/nvim-notify",
+        {
+            "rcarriga/nvim-notify",
+            opts = {
+                stages = 'slide',
+                timeout = 2000,
+                -- top_down = false
+            }
+        },
     },
     opts = {
+        -- messages = { enabled = false },
         cmdline = {
             format = {
                 cmdline     = { icon = ''},
