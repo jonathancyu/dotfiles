@@ -6,5 +6,24 @@ import = [
 TERM = "xterm-256color"
 
 [font]
-size = 12
+size = 14
 normal = { family = "MesloLGM Nerd Font", style = "Regular"}
+bold = { style = "Regular"}
+builtin_box_drawing = true
+
+
+[window]
+decorations = "None"
+# blur = true
+# opacity = 0.1
+option_as_alt = "Both"
+
+[keyboard]
+# TODO: <C-S-?> implementation?
+# bindings = [
+#     { key = "J", mods = "Control|Shift",  chars = "\\x1b[74;5u"}
+# ]
+
+[scrolling]
+multiplier = 0
+
