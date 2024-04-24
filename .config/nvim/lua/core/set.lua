@@ -13,6 +13,7 @@ vim.opt.smartindent = true
 -- Line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.cursorline = true
 
 -- Word wrap and view options
 vim.opt.wrap = false
