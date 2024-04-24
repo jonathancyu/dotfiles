@@ -112,6 +112,7 @@ battery_status()
 main()
 {
   symbols=( "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" )
+  # symbols=( "" "" "" "" "" ) # TODO: is there a better icon set?
 
   status=$(battery_status)
   percentage=$(battery_percent)
