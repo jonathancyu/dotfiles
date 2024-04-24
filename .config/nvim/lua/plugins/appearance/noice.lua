@@ -12,7 +12,7 @@ return {
             "rcarriga/nvim-notify",
             opts = {
                 stages = 'slide',
-                timeout = 2000,
+                timeout = 1500,
                 -- top_down = false
             }
         },
