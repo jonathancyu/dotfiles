@@ -148,6 +148,7 @@ zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 export PATH="$PATH:/opt/nvim/"
 alias vim=nvim
 alias vi=nvim
+alias vimdiff='nvim -d'
 
 # TODO: can this be done in nvim?
 # Java environment variables
@@ -167,6 +168,10 @@ alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
 # Make npm and node avaiable before nvm is loaded
 export DEFAULT_NODE="v20.12.1"
 export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
+
+# kubernetes
+source <(kubectl completion zsh)
+export KUBECONFIG=$HOME/.kube/config
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
