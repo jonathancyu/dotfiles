@@ -4,6 +4,9 @@ ctrl + shift - f : open -a "/Applications/Firefox.app/"
 ctrl + shift - t : open -a "/Applications/Microsoft Teams classic.app/"
 
 # Yabai shortcuts
+# Toggle menu bar opacity
+hyper - b : yabai -m config menubar_opacity $(( 1 - $(yabai -m config menubar_opacity) ))
+
 # Vertical Half splits
 hyper - h : yabai -m window --grid 1:2:0:0:1:1  # Left half
 hyper - l : yabai -m window --grid 1:2:1:0:1:1  # Right half
