@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 -- pv = Project View
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Project view' })
 
