@@ -1,0 +1,29 @@
+{
+    "left": {
+        "hyper": "yabai -m ",
+        "lesshyper": {
+            "bsp": "yabai -m window --swap west",
+            "float": "yabai -m window --grid 1:2:0:0:1:1"
+        }
+    },
+    "right": {
+        "lesshyper": {
+            "bsp": "yabai -m window --swap east",
+            "float": "yabai -m window --grid 1:2:1:0:1:1"
+        }
+    },
+    "up": {
+        "hyper": "yabai -m window --display next && yabai -m display --focus next",
+        "lesshyper": {
+            "bsp": "yabai -m window --swap north",
+            "float": ""
+        }
+    },
+    "down": {
+        "hyper": "yabai -m window --display prev && yabai -m display --focus prev",
+        "lesshyper": {
+            "bsp": "yabai -m window --swap south",
+            "float": ""
+        }
+    }
+}
