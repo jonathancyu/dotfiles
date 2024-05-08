@@ -1,6 +1,14 @@
 return {
     -- Lists all problems
     'folke/trouble.nvim',
+    -- branch = 'dev',
     dependencies = { 'nvim-tree/nvim-web-devicons'},
-    opts = {}
+    opts = {},
+    -- keys = {
+    --     {
+    --         'gr',
+    --         '<cmd>Trouble lsp '
+    --     }
+    --
+    -- }
 }

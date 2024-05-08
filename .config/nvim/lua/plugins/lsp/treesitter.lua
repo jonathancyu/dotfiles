@@ -39,6 +39,7 @@ return {
                     "yaml",
                 },
             })
+            vim.treesitter.language.register('toml', 'spotifyd.conf')
         end
     },
 

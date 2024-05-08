@@ -1,3 +1,4 @@
+
 return {
     'Pocco81/auto-save.nvim',
     enabled = true,
@@ -8,8 +9,12 @@ return {
             options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- sessionoptions used for saving
             pre_save = nil, -- a function to call before saving the session
             save_empty = false, -- don't save if there are no open file buffers
-            condition = function()
+            condition = function(buffer)
                 local fn = vim.fn
+                -- TODO: this should be a set lookup in a blacklist
+                if vim.bo[buffer].filetype == "harpoon" then
+                    return false
+                end
 
                 local filepath = fn.expand("%:p")  -- Get the full path of the current buffer
 

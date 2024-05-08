@@ -2,11 +2,11 @@ return {
     "tamton-aquib/duck.nvim",
 
     keys = {
-        { 'Q',
+        { '<C-q>',
             function()
                 require("duck").hatch('🐄')
             end,
-            desc = 'Moo'
+            desc = 'Spawn Moo'
         },
         { '<leader>dk',
             function()
