@@ -1,5 +1,6 @@
 # Program shortcuts
 ctrl - t : open -a "/Applications/Alacritty.app/"
+ctrl - i : open -a "/Applications/IntelliJ IDEA.app/"
 ctrl + shift - f : open -a "/Applications/Firefox.app/"
 ctrl + shift - t : open -a "/Applications/Microsoft Teams classic.app/"
 

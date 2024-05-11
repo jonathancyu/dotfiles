@@ -145,7 +145,6 @@ eval "$(zoxide init --cmd cd zsh)"
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
 # Neovim
-export PATH="$PATH:/opt/nvim/"
 alias vim=nvim
 alias vi=nvim
 alias vimdiff='nvim -d'
