@@ -27,6 +27,7 @@ return {
         'theprimeagen/harpoon',
         branch = 'harpoon2',
         keys = keys,
+        opts = {}
     },
     {
         'letieu/harpoon-lualine',

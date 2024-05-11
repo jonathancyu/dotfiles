@@ -5,4 +5,5 @@ require('lazy').setup({
     {import = 'plugins.git'},
     {import = 'plugins.lsp'},
     {import = 'plugins.navigation'},
+    {import = 'plugins.run'},
 })
