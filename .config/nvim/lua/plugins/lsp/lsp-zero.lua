@@ -14,7 +14,10 @@ return {
                 ensure_installed = {
                     'pyright', 'lua_ls', 'bashls', 'rust_analyzer'
                 },
-                automatic_installation = true
+                automatic_installation = true,
+                inlay_hints = {
+                    enabled = true
+                }
             }
         },
 
