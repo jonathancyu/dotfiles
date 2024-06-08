@@ -15,7 +15,10 @@ return {
                     'harpoon2',
                     indicators = { ' 1 ', ' 2 ', ' 3 ', ' 4 ' },
                     active_indicators = { '[1]', '[2]', '[3]', '[4]' },
-                }
+                },
+                {
+                    'copilot'
+                },
             }
         }
     }
