@@ -1,7 +1,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
--- pv = Project View
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Project view' })
+
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open diagnostic [E]rror messages" })
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfist list" })
+
+-- Escape clears search highlight
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Move selection up/down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -19,8 +23,12 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Easy pane navigation
-vim.keymap.set('n', '<C-c>', '<C-w>c')
-vim.keymap.set('i', '<C-c>', '<Esc><C-w>c')
+vim.keymap.set("n", "<C-c>", "<C-w>c")
+vim.keymap.set("i", "<C-c>", "<Esc><C-w>c")
+
+-- Map arrow keys to navigate cmp
+vim.keymap.set("i", '<Up>', '<C-p>')
+vim.keymap.set("i", '<Down>', '<C-n>')
 
 --[[
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -35,8 +43,8 @@ vim.keymap.set("i", "<C-l>", "<Esc><C-w>l")
 ]]
 
 -- Easy home/end
-vim.keymap.set({'n', 'v'}, "H", "^")
-vim.keymap.set({'n', 'v'}, "L", "$")
+vim.keymap.set({ "n", "v" }, "H", "^")
+vim.keymap.set({ "n", "v" }, "L", "$")
 
 -- Unbind Q
 vim.keymap.set("n", "Q", "<nop>")
