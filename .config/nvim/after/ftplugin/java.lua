@@ -1,0 +1,8 @@
+-- vim.keymap.set(
+--     'n',
+--     '<leader>td',
+--     function ()
+--         require('jdtls.dap').test_nearest_method()
+--     end,
+--     { desc = 'Show [d]ebug menu' }
+-- )
