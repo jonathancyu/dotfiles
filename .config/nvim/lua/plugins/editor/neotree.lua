@@ -1,5 +1,10 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+        'MunifTanjim/nui.nvim',
+    },
     opts = {
         auto_clean_after_session_restore = true, -- Don't brick tree when restoring session
         name = {
@@ -27,10 +32,11 @@ return {
         window = {
             mappings = {
                 ['Z'] = 'expand_all_nodes',
+                ['\\'] = 'close_window',
             }
         }
     },
     keys = {
-        { '<leader>n', '<cmd>Neotree toggle<cr>', desc = 'Toggle neotree'}
+        { '\\', ':Neotree reveal<CR>', desc = 'Reveal neoTree'}
     }
 }
