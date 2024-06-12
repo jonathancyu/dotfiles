@@ -26,7 +26,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-c>", "<C-w>c")
 vim.keymap.set("i", "<C-c>", "<Esc><C-w>c")
 
--- Map arrow keys to navigate cmp
+-- Map arrow keys to navigate cmp so I can fn + jk
 vim.keymap.set("i", '<Up>', '<C-p>')
 vim.keymap.set("i", '<Down>', '<C-n>')
 
