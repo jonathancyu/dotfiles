@@ -16,6 +16,7 @@ else
                 ~/workspace/SARS
                 ~/workspace/datastage
                 ~/workspace/poc
+                ~/workspace/projects
                 ~/workspace/SyssecLab/darpa
                 ~/workspace/SyssecLab/differential-privacy
             )
@@ -27,7 +28,7 @@ else
     find_output=$(find "${find_directories[@]}" -mindepth 1 -maxdepth 1 -type d)
 
     # Append find results into directories
-    directories=(~/dotfiles)
+    directories=(~/workspace/ ~/dotfiles)
     while IFS= read -r dir; do
       directories+=("$dir")
     done <<< "$find_output"
