@@ -1,6 +1,6 @@
 # Program shortcuts
 ctrl - t : open -a "/Applications/Alacritty.app/"
-ctrl - i : open -a "/Applications/IntelliJ IDEA.app/"
+ctrl + shift - i : open -a "/Applications/IntelliJ IDEA.app/"
 ctrl + shift - f : open -a "/Applications/Firefox.app/"
 ctrl + shift - t : open -a "/Applications/Microsoft Teams classic.app/"
 
@@ -21,6 +21,10 @@ ctrl + alt + cmd - h    : yabai-layers.sh "left"  "lesshyper"
 ctrl + alt + cmd - j    : yabai-layers.sh "down"  "lesshyper"
 ctrl + alt + cmd - k    : yabai-layers.sh "up"    "lesshyper"
 ctrl + alt + cmd - l    : yabai-layers.sh "right" "lesshyper"
+
+# Navigate desktops
+# hyper - <    : yabai -m window --space prev --focus
+# hyper - >    : yabai -m window --space next --focus
 
 # Third splits
 ctrl + alt + cmd - y : yabai -m window --grid 1:3:0:0:1:1  # Left 1/3
