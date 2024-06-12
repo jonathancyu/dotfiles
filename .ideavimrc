@@ -6,6 +6,10 @@
 " Source your .vimrc
 source ~/.vimrc
 
+" Use system clipboard
+set clipboard+=unnamed
+
+
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
@@ -123,9 +127,7 @@ nmap <leader>qd <Action>(QuickDefinition)
 nmap <leader>qD <Action>(QuickTypeDefinition)
 
 " code
-map <leader>c <Action>(CommentByLineComment)
-map <leader>C <Action>(CommentByBlockComment)
-nmap <leader>qf <Action>(ShowIntentionActions)
+nmap <leader>ca <Action>(ShowIntentionActions)
 nmap <leader>se <Action>(ShowErrorDescription)
 nmap <leader>om <Action>(OverrideMethods)
 nmap <leader>im <Action>(ImplementMethods)
@@ -193,7 +195,7 @@ nmap ga <Action>(GotoAction)
 "nmap pc <Action>(GotoClass)
 nmap <leader>pf <Action>(GotoFile)
 nmap gs <Action>(GotoSymbol)
-nmap gt <Action>(GoToTest)
+nmap gt <Action>(GotoTest)
 nmap gT <Action>(TextSearchAction)
 nmap go <Action>(GotoSuperMethod)
 nmap gd <Action>(GotoDeclaration)
