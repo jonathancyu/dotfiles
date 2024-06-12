@@ -1,12 +1,13 @@
 {
     "left": {
-        "hyper": "yabai -m ",
+        "hyper": "yabai -m window --space prev --focus",
         "lesshyper": {
             "bsp": "yabai -m window --swap west",
             "float": "yabai -m window --grid 1:2:0:0:1:1"
         }
     },
     "right": {
+        "hyper": "yabai -m window --space next --focus",
         "lesshyper": {
             "bsp": "yabai -m window --swap east",
             "float": "yabai -m window --grid 1:2:1:0:1:1"
