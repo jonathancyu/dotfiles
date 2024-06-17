@@ -30,7 +30,8 @@ return { -- LSP Configuration & Plugins
                 local telescope = require('telescope.builtin')
 
                 map('gd', telescope.lsp_definitions, '[G]oto [D]efinition')
-                map('gr', telescope.lsp_references, '[G]oto [R]eferences')
+                -- trouble takes care of this
+                -- map('gr', telescope.lsp_references, '[G]oto [R]eferences')
                 map('gI', telescope.lsp_implementations, '[G]oto [I]mplementation')
 
                 -- Jump to the type of the word under your cursor.
