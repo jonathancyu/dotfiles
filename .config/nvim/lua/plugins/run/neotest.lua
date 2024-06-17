@@ -19,7 +19,7 @@ return {
         {'<leader>td', function() require('neotest').run.run({strategy = 'dap'}) end, desc = '[d]ebug nearest test'},
         {'<leader>tf', function() require('neotest').run.run(vim.fn.expand('%')) end, desc = 'Run all tests in [f]ile'},
         {'<leader>ts', function() require('neotest').run.stop() end, desc = '[s]top nearest test'},
-        {'<leader>ta', function() require('neotest').run.attach() end, desc = '[a]ttach to nearest test'},
+        {'<leader>ta', function() require('neotest').run.run(vim.fn.getcwd()) end, desc = 'Run [a]ll tests'},
         {'<leader>tm', function() require('neotest').summary.toggle() end, desc = 'Toggle test su[m]mary'},
     },
     config = function()

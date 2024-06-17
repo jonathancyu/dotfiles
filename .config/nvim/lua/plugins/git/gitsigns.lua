@@ -36,12 +36,13 @@ return {
 			map('n', '<leader>hb', function()
 				gitsigns.blame_line({ full = true })
 			end, { desc = 'Blame line' })
-			map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Toggle current line blame' })
+            -- Replaced by blame.nnim
+			-- map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = 'Toggle current line blame' })
+			map('n', '<leader>gd', gitsigns.toggle_deleted, { desc = 'Toggle deleted' })
 			map('n', '<leader>hd', gitsigns.diffthis, { desc = 'Diff unstaged changes?' })
 			map('n', '<leader>hD', function()
 				gitsigns.diffthis('~')
 			end, { desc = 'Diff previous commit?' })
-			map('n', '<leader>td', gitsigns.toggle_deleted, { desc = 'Toggle deleted' })
 
 			-- Text object
 			map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'Select hunk' })
