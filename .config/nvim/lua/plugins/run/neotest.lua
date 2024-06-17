@@ -15,12 +15,12 @@ return {
     },
     lazy = false,
     keys = {
-        {'<leader>tr', function() require('neotest').run.run() end, desc = '[r]un nearest test'},
-        {'<leader>td', function() require('neotest').run.run({strategy = 'dap'}) end, desc = '[d]ebug nearest test'},
-        {'<leader>tf', function() require('neotest').run.run(vim.fn.expand('%')) end, desc = 'Run all tests in [f]ile'},
-        {'<leader>ts', function() require('neotest').run.stop() end, desc = '[s]top nearest test'},
-        {'<leader>ta', function() require('neotest').run.run(vim.fn.getcwd()) end, desc = 'Run [a]ll tests'},
-        {'<leader>tm', function() require('neotest').summary.toggle() end, desc = 'Toggle test su[m]mary'},
+        {'<leader>tr', function() require('neotest').run.run() end, desc = '[R]un nearest test'},
+        {'<leader>td', function() require('neotest').run.run({strategy = 'dap'}) end, desc = '[D]ebug nearest test'},
+        {'<leader>tf', function() require('neotest').run.run(vim.fn.expand('%')) end, desc = 'Test [F]ile'},
+        {'<leader>tS', function() require('neotest').run.stop() end, desc = '[S]top nearest test'},
+        {'<leader>ta', function() require('neotest').run.run(vim.fn.getcwd()) end, desc = 'Run [A]ll tests'},
+        {'<leader>ts', function() require('neotest').summary.toggle() end, desc = 'Test [S]ummary'},
     },
     config = function()
         require('neotest').setup({

@@ -4,7 +4,7 @@ return {
     keys = {
         {
             '<leader>gb', '<cmd>BlameToggle window<CR>',
-            desc = 'Toggle git blame'
+            desc = '[B]lame'
         }
     }
 }

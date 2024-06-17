@@ -4,8 +4,8 @@ return {
     opts = { options = vim.opt.sessionoptions:get() },
     -- stylua: ignore
     keys = {
-        { "<leader>rs", function() require("persistence").load() end, desc = "Restore Session" },
-        { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-        { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+        { "<leader>ps", function() require("persistence").load() end, desc = "Restore [S]ession" },
+        { "<leader>pl", function() require("persistence").load({ last = true }) end, desc = "Restore [L]ast Session" },
+        { "<leader>pd", function() require("persistence").stop() end, desc = "[D]on't Save Current Session" },
     },
 }

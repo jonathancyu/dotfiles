@@ -11,11 +11,11 @@ return {
     keys = {
         {
             '<leader>rl', '<cmd>OverseerRun<cr>',
-            desc = 'List run configs'
+            desc = '[L]ist run configs'
         },
         {
             '<leader>ro', '<cmd>OverseerOpen<cr>',
-            desc = 'Open runs'
+            desc = '[O]pen runs'
         },
         {
             '<leader>rp', function ()
@@ -27,7 +27,7 @@ return {
                     overseer.run_action(tasks[1], "restart")
                 end
             end,
-            desc = 'Run previous'
+            desc = 'Run [p]revious'
         }
     }
 }

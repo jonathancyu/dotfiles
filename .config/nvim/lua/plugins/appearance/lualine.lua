@@ -9,6 +9,7 @@ return {
             ignore_focus = {'neo-tree', 'fugitive'}
         },
         sections = {
+            lualine_b = { 'branch', 'diff', 'diagnostics' },
             lualine_x = {
                 -- '%=',
                 {
