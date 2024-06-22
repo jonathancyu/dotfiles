@@ -1,11 +1,17 @@
 return {
     'stevearc/conform.nvim',
-
-    ---@type conform.FormatterConfig
+    keys = {
+        {
+            "<leader>f",
+            mode = { "n" },
+            function () require("conform").format({ async = true, lsp_format = "fallback" }) end,
+            desc = "[F]ormat",
+        },
+    },
     opts = {
         formatters_by_ft = {
-            lua = { 'stylua'},
-            rust = { 'rustfmt' }
-        }
+            lua = { 'stylua' },
+            rust = { 'rustfmt' },
+        },
     },
 }
