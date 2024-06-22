@@ -15,5 +15,12 @@ return {
 			lua = { 'stylua' },
 			rust = { 'rustfmt' },
 		},
+		format_on_save = function(bufnr)
+			local autoformat_whitelist = { c = true, cpp = true }
+			return {
+				timeout_ms = 500,
+				lsp_fallback = autoformat_whitelist[vim.bo[bufnr].filetype],
+			}
+		end,
 	},
 }
