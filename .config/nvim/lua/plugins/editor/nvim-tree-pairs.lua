@@ -1,4 +1,4 @@
 return {
-    'yorickpeterse/nvim-tree-pairs',
-    opts = {}
+	'yorickpeterse/nvim-tree-pairs',
+	opts = {},
 }

@@ -18,9 +18,9 @@ return {
 
 			-- Actions
 			map('n', '<leader>gs', gitsigns.stage_hunk, { desc = '[S]tage hunk' })
-            map('v', '<leader>gs', function()
-                gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                end, { desc = '[S]tage hunk' })
+			map('v', '<leader>gs', function()
+				gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+			end, { desc = '[S]tage hunk' })
 			map('n', '<leader>gr', gitsigns.reset_hunk, { desc = '[R]eset hunk' })
 			map('v', '<leader>gr', function()
 				gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })

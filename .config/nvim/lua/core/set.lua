@@ -66,4 +66,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Other
 opt.updatetime = 250
-

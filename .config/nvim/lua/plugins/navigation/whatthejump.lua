@@ -1,3 +1,3 @@
 return {
-    'lewis6991/whatthejump.nvim'
+	'lewis6991/whatthejump.nvim',
 }
