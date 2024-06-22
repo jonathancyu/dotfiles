@@ -8,6 +8,6 @@ return {
 		'MunifTanjim/nui.nvim',
 	},
 	keys = {
-		{ '<leader>u', vim.cmd.UndotreeToggle, desc = 'Toggle undotree' },
+		{ '<leader>u', vim.cmd.UndotreeToggle, desc = '[U]ndotree' },
 	},
 }

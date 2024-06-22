@@ -108,6 +108,7 @@ local config = function()
 			settings = {
 				Lua = {
 					completion = {
+						autoRequire = false,
 						callSnippet = 'Replace',
 					},
 					diagnostics = { disable = { 'missing-fields' } },

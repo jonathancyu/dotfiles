@@ -6,6 +6,6 @@ return {
 	},
 	opts = { lsp = { auto_attach = true } },
 	keys = {
-		{ '<leader>m', '<cmd>Navbuddy<cr>' },
+		{ '<leader>n', '<cmd>Navbuddy<cr>', desc = '[N]avbuddy' },
 	},
 }

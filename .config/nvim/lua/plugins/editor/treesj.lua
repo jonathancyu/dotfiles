@@ -1,7 +1,7 @@
 return {
 	'Wansmer/treesj',
 	keys = {
-		{ '<space>j', ':TSJToggle<CR>', desc = 'Toggle [j]oin line' },
+		{ '<space>j', ':TSJToggle<CR>', desc = '[J]oin object (Toggle)' },
 	},
 	dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
 	opts = {

@@ -4,7 +4,7 @@ local keys = {
 		function()
 			require('harpoon'):list():add()
 		end,
-		desc = 'Add file to harpoon',
+		desc = '[A]dd to harpoon',
 	},
 	{
 		'<C-e>',

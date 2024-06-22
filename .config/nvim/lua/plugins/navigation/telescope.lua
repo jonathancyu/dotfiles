@@ -56,15 +56,15 @@ return {
 			vim.keymap.set('n', '<leader>sr', builtin.git_files, { desc = '[S]earch in [R]epository' })
 			vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 			vim.keymap.set('n', '<leader>sc', builtin.resume, { desc = '[S]earch [C]ontinue' })
-			vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set('n', '<leader>s<leader>', builtin.buffers, { desc = '[S]earch [ ] existing buffers' })
+			vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch recent files ("." for repeat)' })
+			vim.keymap.set('n', '<leader>so', builtin.buffers, { desc = '[S]earch [O]pen buffers' })
 
-			vim.keymap.set('n', '<leader>/', function()
+			vim.keymap.set('n', '<leader>sb', function()
 				builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
 					winblend = 10,
 					previewer = false,
 				}))
-			end, { desc = '[/] Fuzzily search in current buffer' })
+			end, { desc = '[Search] current [B]uffer' })
 
 			vim.keymap.set('n', '<leader>s/', function()
 				builtin.live_grep({

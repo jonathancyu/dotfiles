@@ -1,8 +1,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open diagnostic [E]rror messages' })
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfist list' })
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open [E]rror' })
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Add to [Q]uickfixes' })
 
 -- Escape clears search highlight
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
