@@ -1,5 +1,5 @@
 return {
-	'Pocco81/auto-save.nvim',
+	'okuuva/auto-save.nvim',
 	enabled = true,
 
 	config = function()
