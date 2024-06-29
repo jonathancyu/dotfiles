@@ -16,20 +16,21 @@ return {
 				vim.keymap.set(mode, l, r, opts)
 			end
 
-			-- Actions
-			map('n', '<leader>gs', gitsigns.stage_hunk, { desc = '[S]tage hunk' })
-			map('v', '<leader>gs', function()
+			-- Hunks
+			map('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[S]tage hunk' })
+			map('v', '<leader>hs', function()
 				gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
 			end, { desc = '[S]tage hunk' })
-			map('n', '<leader>gr', gitsigns.reset_hunk, { desc = '[R]eset hunk' })
-			map('v', '<leader>gr', function()
+			map('n', '<leader>hr', gitsigns.reset_hunk, { desc = '[R]eset hunk' })
+			map('v', '<leader>hr', function()
 				gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
 			end, { desc = '[R]eset hunk' })
+			map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = '[U]ndo stage hunk' })
+			map('n', '<leader>hp', gitsigns.preview_hunk, { desc = '[P]review hunk' })
 
+			-- Git
 			map('n', '<leader>gS', gitsigns.stage_buffer, { desc = '[S]tage buffer' })
-			map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = '[U]ndo stage hunk' })
 			map('n', '<leader>gR', gitsigns.reset_buffer, { desc = '[R]eset buffer' })
-			map('n', '<leader>gp', gitsigns.preview_hunk, { desc = '[P]review hunk' })
 			map('n', '<leader>gd', gitsigns.toggle_deleted, { desc = 'Toggle [D]eleted' })
 			map('n', '<leader>gd', gitsigns.diffthis, { desc = '[D]iff unstaged changes' })
 			map('n', '<leader>gD', function()

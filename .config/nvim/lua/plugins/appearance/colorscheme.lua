@@ -1,6 +1,5 @@
 return {
 	'rebelot/kanagawa.nvim',
-	name = 'kanagawa',
 	priority = 100,
 	config = function()
 		local kanagawa = require('kanagawa')

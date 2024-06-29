@@ -55,7 +55,14 @@ return {
 			function()
 				require('neotest').summary.toggle()
 			end,
-			desc = 'Test [S]ummary',
+			desc = '[T]est [S]ummary',
+		},
+		{
+			'<leader>tw',
+			function()
+				require('neotest').run.attach()
+			end,
+			desc = '[W]atch test',
 		},
 	},
 	config = function()
@@ -63,7 +70,7 @@ return {
 			adapters = {
 				require('neotest-python')({
 					python = 'venv/bin/python',
-
+					args = { '-s' },
 					pytest_discover_instances = true,
 				}),
 				require('neotest-rust'),

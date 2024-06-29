@@ -22,9 +22,12 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
--- Easy pane navigation
+-- Easy close buffer
 vim.keymap.set('n', '<C-c>', '<C-w>c')
 vim.keymap.set('i', '<C-c>', '<Esc><C-w>c')
+
+-- Split tab
+vim.keymap.set('n', '<leader>wt', '<cmd>tab split<CR>', { desc = 'Send [W]indow to new [T]ab' })
 
 -- Map arrow keys to navigate cmp so I can fn + jk
 vim.keymap.set('i', '<Up>', '<C-p>')

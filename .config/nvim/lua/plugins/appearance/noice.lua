@@ -38,13 +38,6 @@ return {
 			{
 				filter = {
 					event = 'msg_show',
-					find = 'AutoSave',
-				},
-				opts = { skip = true },
-			},
-			{
-				filter = {
-					event = 'msg_show',
 					kind = '',
 					find = 'written',
 				},

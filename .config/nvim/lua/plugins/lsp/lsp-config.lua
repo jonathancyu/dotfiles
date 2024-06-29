@@ -29,7 +29,7 @@ local config = function()
 			--  Similar to document symbols, except searches over your entire project.
 			map('<leader>sW', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace symbols')
 
-			map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
+			map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 			map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 			map('K', vim.lsp.buf.hover, 'Hover Documentation')
 			map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -120,8 +120,9 @@ local config = function()
 	require('mason').setup() -- Ensure Mason is installed
 
 	local ensure_installed = vim.tbl_keys(servers or {})
-	vim.list_extend(ensure_installed, {
+	vim.list_extend(ensure_installed, { -- Add formatters
 		'stylua',
+		'black',
 	})
 	require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
