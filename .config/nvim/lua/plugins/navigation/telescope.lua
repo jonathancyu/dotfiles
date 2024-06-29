@@ -33,7 +33,15 @@ return {
 			{ 'folke/trouble.nvim' },
 		},
 		config = function()
+			-- Open telescope results with Trouble
+			local open_with_trouble = require('trouble.sources.telescope').open
 			require('telescope').setup({
+				defaults = {
+					mappings = {
+						i = { ['<C-t>'] = open_with_trouble },
+						n = { ['<C-t>'] = open_with_trouble },
+					},
+				},
 				extensions = {
 					['ui-select'] = {
 						require('telescope.themes').get_dropdown(),
@@ -77,23 +85,6 @@ return {
 			vim.keymap.set('n', '<leader>sn', function()
 				builtin.find_files({ cwd = vim.fn.stdpath('config') })
 			end, { desc = '[S]earch [N]eovim files' })
-
-			-- Open telescope results with Trouble
-			local open_with_trouble = require('trouble.sources.telescope').open
-
-			-- Use this to add more results without clearing the trouble list
-			local add_to_trouble = require('trouble.sources.telescope').add
-
-			local telescope = require('telescope')
-
-			telescope.setup({
-				defaults = {
-					mappings = {
-						i = { ['<c-t>'] = open_with_trouble },
-						n = { ['<c-t>'] = open_with_trouble },
-					},
-				},
-			})
 		end,
 	},
 }
