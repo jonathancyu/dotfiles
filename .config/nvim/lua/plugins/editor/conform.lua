@@ -14,6 +14,7 @@ return {
 		formatters_by_ft = {
 			lua = { 'stylua' },
 			rust = { 'rustfmt' },
+			python = { 'black' },
 		},
 		format_after_save = function(bufnr)
 			-- Enable autoformat on certain filetypes
