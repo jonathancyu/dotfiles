@@ -32,9 +32,11 @@ return {
 		branch = 'harpoon2',
 		keys = keys,
 		opts = {},
+		lazy = false,
 	},
 	{
 		'letieu/harpoon-lualine',
 		dependencies = { 'theprimeagen/harpoon', 'nvim-lualine/lualine.nvim' },
+		lazy = false,
 	},
 }
