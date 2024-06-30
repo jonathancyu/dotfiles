@@ -38,6 +38,13 @@ return {
 			{
 				filter = {
 					event = 'msg_show',
+					find = '~/.config/nvim/lua/plugins/appearance/noice.lua',
+				},
+				opts = { skip = true },
+			},
+			{
+				filter = {
+					event = 'msg_show',
 					kind = '',
 					find = 'written',
 				},
