@@ -44,6 +44,7 @@ return {
 	dependencies = {
 		'nvim-tree/nvim-web-devicons',
 		'folke/persistence.nvim',
+		'jonathancyu/kanagawa.nvim',
 	},
 	config = function()
 		local alpha = require('alpha')
@@ -58,11 +59,30 @@ return {
 		-- 	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
 		-- 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 		-- }
-		dashboard.section.buttons.val = {
+        local palette = require('kanagawa.palette')
+        local button_hl = 'Number'
+        vim.api.nvim_set_hl(0, 'AlphaHeader', { fg = palette.crystalBlue })
+        vim.api.nvim_set_hl(0,button_hl, { fg = palette.fujiWhite })
+        vim.api.nvim_set_hl(0, 'AlphaShortcut', { fg = palette.sakuraPink })
+
+        local buttons = {
 			dashboard.button('r', '    [R]estore Last Session', ':lua require("persistence").load() <CR>'),
 			dashboard.button('f', '    [F]ind File', '<leader>sf'),
-			dashboard.button('Q', '󰅚    [Q]uit', ':qa<CR>'),
+			dashboard.button('n', '    [N]ew File', '[[<cmd> ene <BAR> startinsert <cr>]]'),
+            dashboard.button("l", "󰒲    [L]azy", "<cmd> Lazy <cr>"),
+			dashboard.button('Q', '    [Q]uit', ':qa<CR>'),
 		}
+
+		for _, button in ipairs(buttons) do
+			button.opts.hl = button_hl
+			button.opts.hl_shortcut = 'AlphaShortcut'
+		end
+		dashboard.section.buttons.val = buttons
+
+		dashboard.section.header.opts.hl = 'AlphaHeader'
+		dashboard.section.buttons.opts.hl = 'Number'
+		dashboard.section.footer.opts.hl = 'AlphaFooter'
+
 		local handle = io.popen('fortune')
 		local fortune = handle:read('*a')
 		handle:close()

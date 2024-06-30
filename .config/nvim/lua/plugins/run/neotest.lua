@@ -7,7 +7,7 @@ return {
 		'antoinemadec/FixCursorHold.nvim',
 		'nvim-treesitter/nvim-treesitter',
 		-- Kanagawa should be loaded as well
-		'rebelot/kanagawa.nvim',
+		'jonathancyu/kanagawa.nvim',
 		-- Adapters
 		'nvim-neotest/neotest-python',
 		'rcasia/neotest-java',

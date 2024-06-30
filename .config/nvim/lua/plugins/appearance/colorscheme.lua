@@ -1,5 +1,5 @@
 return {
-	'rebelot/kanagawa.nvim',
+	'jonathancyu/kanagawa.nvim',
 	priority = 100,
 	config = function()
 		local kanagawa = require('kanagawa')
