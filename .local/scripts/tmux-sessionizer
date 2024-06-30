@@ -11,6 +11,7 @@ else
             find_directories=(
                 ~/workspace/playground
                 ~/workspace/reference
+                ~/workspace/open-source
                 ~/dotfiles/.config
                 ~/workspace/runway
                 ~/workspace/docwf

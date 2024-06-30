@@ -59,29 +59,30 @@ return {
 		-- 	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
 		-- 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 		-- }
-        local palette = require('kanagawa.palette')
-        local button_hl = 'Number'
-        vim.api.nvim_set_hl(0, 'AlphaHeader', { fg = palette.crystalBlue })
-        vim.api.nvim_set_hl(0,button_hl, { fg = palette.fujiWhite })
-        vim.api.nvim_set_hl(0, 'AlphaShortcut', { fg = palette.sakuraPink })
+		-- TODO: can we make button color different than the shortcut?
+		local header_hl = 'Comment'
+		local footer_hl = 'Text'
+		local button_hl = 'Normal'
+		local shortcut_hl = 'Text'
 
-        local buttons = {
+		local buttons = {
 			dashboard.button('r', '    [R]estore Last Session', ':lua require("persistence").load() <CR>'),
 			dashboard.button('f', '    [F]ind File', '<leader>sf'),
 			dashboard.button('n', '    [N]ew File', '[[<cmd> ene <BAR> startinsert <cr>]]'),
-            dashboard.button("l", "󰒲    [L]azy", "<cmd> Lazy <cr>"),
+			dashboard.button('-', '    Browse Files', '-'),
+			dashboard.button('l', '󰒲    [L]azy', '<cmd> Lazy <cr>'),
 			dashboard.button('Q', '    [Q]uit', ':qa<CR>'),
 		}
 
 		for _, button in ipairs(buttons) do
 			button.opts.hl = button_hl
-			button.opts.hl_shortcut = 'AlphaShortcut'
+			button.opts.hl_shortcut = shortcut_hl
 		end
 		dashboard.section.buttons.val = buttons
 
-		dashboard.section.header.opts.hl = 'AlphaHeader'
-		dashboard.section.buttons.opts.hl = 'Number'
-		dashboard.section.footer.opts.hl = 'AlphaFooter'
+		dashboard.section.header.opts.hl = header_hl
+		dashboard.section.buttons.opts.hl = button_hl
+		dashboard.section.footer.opts.hl = footer_hl
 
 		local handle = io.popen('fortune')
 		local fortune = handle:read('*a')
