@@ -6,7 +6,7 @@ import = [
 TERM = "xterm-256color"
 
 [font]
-size = 16
+size = 13
 normal = { family = "MesloLGM Nerd Font", style = "Regular"}
 bold = { style = "Regular"}
 builtin_box_drawing = true
