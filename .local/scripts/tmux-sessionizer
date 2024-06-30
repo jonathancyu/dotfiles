@@ -10,6 +10,7 @@ else
         "AB95544")
             find_directories=(
                 ~/workspace/playground
+                ~/workspace/reference
                 ~/dotfiles/.config
                 ~/workspace/runway
                 ~/workspace/docwf
