@@ -12,7 +12,7 @@ return {
 		dir = vim.fn.expand(vim.fn.stdpath('state') .. '/sessions/'), -- directory where session files are saved
 		options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- sessionoptions used for saving
 		debounce = 135,
-		noautocmd = true, -- avoid triggering formatting
+		-- noautocmd = true, -- avoid triggering formatting -- BREAKS rustfmt
 		-- condition = function(buffer)
 		-- 	local fn = vim.fn
 		-- 	-- TODO: this should be a set lookup in a blacklist
