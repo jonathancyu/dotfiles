@@ -9,6 +9,8 @@ else
     case $hostname in
         "AB95544")
             find_directories=(
+                ~/workspace/boss
+                ~/workspace/tlink
                 ~/workspace/playground
                 ~/workspace/reference
                 ~/workspace/open-source
