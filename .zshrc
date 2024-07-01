@@ -140,6 +140,9 @@ eval "$(pyenv init -)"
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
 
+# Lazygit
+alias lg=lazygit
+
 # atuin
 # zsh-vi-mode overrides atuin bindings, so we need to do this
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
