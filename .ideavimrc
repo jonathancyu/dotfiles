@@ -19,8 +19,7 @@ set history=1000
 " Do incremental searching.
 set incsearch
 
-" Don't use Ex mode, use Q for formatting.
-map Q gq
+map Q <nop>
 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 
@@ -51,11 +50,7 @@ set surround
 
 " Open find window
 set NERDTree
-nnoremap <leader>n :NERDTree<CR>
-
-" easier home/end
-map H ^
-map L $
+nnoremap \\ :NERDTree<CR>
 
 """ Remaps
 "" Keep cursor centered when navigating horizontally
@@ -79,7 +74,7 @@ nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
 
 " window
-nmap <leader>ww <Action>(HideAllWindows)
+nmap <leader>wh <Action>(HideAllWindows)
 nmap <C-Tab> <Action>(PreviousTab)
 nmap <Tab> <Action>(NextTab)
 nmap <leader>wp <Action>(PinActiveEditorTab)
@@ -88,10 +83,7 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
-imap <C-h> <Esc><C-w>h
-imap <C-j> <Esc><C-w>j
-imap <C-k> <Esc><C-w>k
-imap <C-l> <Esc><C-w>l
+nmap <C-c> <C-w>c
 
 " menu
 "nmap <leader>mm <Action>(MainMenu)
@@ -128,12 +120,12 @@ nmap <leader>qD <Action>(QuickTypeDefinition)
 
 " code
 nmap <leader>ca <Action>(ShowIntentionActions)
-nmap <leader>se <Action>(ShowErrorDescription)
-nmap <leader>om <Action>(OverrideMethods)
-nmap <leader>im <Action>(ImplementMethods)
-nmap <leader>fc <Action>(ReformatCode)
-nmap <leader>ic <Action>(InspectCode)
-nmap <leader>so <Action>(SelectAllOccurrences)
+nmap <leader>e <Action>(ShowErrorDescription)
+"nmap <leader>om <Action>(OverrideMethods)
+"nmap <leader>im <Action>(ImplementMethods)
+nmap <leader>f <Action>(ReformatCode)
+"nmap <leader>ic <Action>(InspectCode)
+"nmap <leader>so <Action>(SelectAllOccurrences)
 nmap <leader>gc <Action>(Generate)
 nmap <leader>gt <Action>(GoToTest)
 
@@ -148,11 +140,11 @@ nmap <leader>rs <Action>(Stop)
 nmap <leader>dc <Action>(ContextDebug)
 nmap <leader>dx <Action>(Debug)
 nmap <leader>db <Action>(ToggleLineBreakpoint)
-nmap <leader>de <Action>(EditBreakpoint)
-nmap <leader>dv <Action>(ViewBreakpoints)
+"nmap <leader>de <Action>(EditBreakpoint)
+"nmap <leader>dv <Action>(ViewBreakpoints)
 
 " build
-nmap <leader>bb <Action>(BuildMenu)
+"nmap <leader>bb <Action>(BuildMenu)
 
 " refactor
 nmap <leader>rn <Action>(RenameElement)
@@ -193,7 +185,7 @@ nmap ]c <Action>(JumpToNextChange)
 nmap <leader>a <Action>(GotoAction)
 nmap ga <Action>(GotoAction)
 "nmap pc <Action>(GotoClass)
-nmap <leader>pf <Action>(GotoFile)
+nmap <leader>sf <Action>(GotoFile)
 nmap gs <Action>(GotoSymbol)
 nmap gt <Action>(GotoTest)
 nmap gT <Action>(TextSearchAction)
