@@ -42,9 +42,13 @@ local header_text = [[
 return {
 	'goolord/alpha-nvim',
 	dependencies = {
+		-- Plugin dependencies
 		'nvim-tree/nvim-web-devicons',
+
+		-- Hotkey dependencies
 		'folke/persistence.nvim',
-		'jonathancyu/kanagawa.nvim',
+		'nvim-telescope/telescope.nvim',
+		'stevearc/oil.nvim',
 	},
 	config = function()
 		local alpha = require('alpha')
@@ -66,10 +70,10 @@ return {
 		local shortcut_hl = 'Text'
 
 		local buttons = {
-			dashboard.button('r', '    [R]estore Last Session', ':lua require("persistence").load() <CR>'),
-			dashboard.button('f', '    [F]ind File', '<leader>sf'),
-			dashboard.button('n', '    [N]ew File', '[[<cmd> ene <BAR> startinsert <cr>]]'),
-			dashboard.button('-', '    Browse Files', '-'),
+			dashboard.button('r', '    [R]estore Last Session', '<cmd>lua require("persistence").load() <cr>'),
+			dashboard.button('f', '    [F]ind File', '<cmd>lua require("telescope.builtin").find_files() <cr>'),
+			dashboard.button('n', '    [N]ew File', '<cmd> ene <BAR> startinsert <cr>'),
+			dashboard.button('b', '    [B]rowse Files', '<cmd>Oil<cr>'),
 			dashboard.button('l', '󰒲    [L]azy', '<cmd> Lazy <cr>'),
 			dashboard.button('Q', '    [Q]uit', ':qa<CR>'),
 		}
