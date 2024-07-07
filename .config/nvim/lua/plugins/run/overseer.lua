@@ -6,7 +6,6 @@ return {
 	opts = {
 		templates = {
 			'builtin',
-			'user.run_python',
 		},
 	},
 	keys = {
