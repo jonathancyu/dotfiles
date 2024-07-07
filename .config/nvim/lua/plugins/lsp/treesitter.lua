@@ -52,6 +52,8 @@ return {
 						keymaps = {
 							['af'] = '@function.outer',
 							['if'] = '@function.inner',
+							['ac'] = '@comment.outer', -- TODO: fix
+							['ic'] = '@comment.inner',
 						},
 					},
 				},
