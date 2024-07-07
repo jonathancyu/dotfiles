@@ -1,5 +1,6 @@
 import = [
-    "~/.config/alacritty/themes/themes/kanagawa_wave.toml"
+    # "~/.config/alacritty/themes/themes/kanagawa_wave.toml"
+    "~/.config/alacritty/cyberdream.toml"
 ]
 
 [env]
@@ -14,8 +15,8 @@ builtin_box_drawing = true
 
 [window]
 decorations = "buttonless"
-# blur = true
-# opacity = 0.1
+blur = true
+opacity = 0.6
 option_as_alt = "Both"
 
 [keyboard]
