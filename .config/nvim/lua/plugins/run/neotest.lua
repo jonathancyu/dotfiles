@@ -80,17 +80,17 @@ return {
 			},
 		})
 		-- Fix colors
-		local colors = require('plugins.appearance.colorscheme').colors
-		vim.api.nvim_set_hl(0, 'NeotestBorder', { fg = colors.fujiGray })
-		vim.api.nvim_set_hl(0, 'NeotestIndent', { fg = colors.fujiGray })
-		vim.api.nvim_set_hl(0, 'NeotestExpandMarker', { fg = colors.fujiGray })
-		vim.api.nvim_set_hl(0, 'NeotestDir', { fg = colors.fujiGray })
-		vim.api.nvim_set_hl(0, 'NeotestFile', { fg = colors.fujiGray })
-		vim.api.nvim_set_hl(0, 'NeotestFailed', { fg = colors.samuraiRed })
-		vim.api.nvim_set_hl(0, 'NeotestPassed', { fg = colors.springGreen })
-		vim.api.nvim_set_hl(0, 'NeotestSkipped', { fg = colors.fujiGray })
-		vim.api.nvim_set_hl(0, 'NeotestRunning', { fg = colors.carpYellow })
-		vim.api.nvim_set_hl(0, 'NeotestNamespace', { fg = colors.crystalBlue })
-		vim.api.nvim_set_hl(0, 'NeotestAdapterName', { fg = colors.oniViolet })
+		-- local colors = require('plugins.appearance.colorscheme').colors
+		-- vim.api.nvim_set_hl(0, 'NeotestBorder', { fg = colors.fujiGray })
+		-- vim.api.nvim_set_hl(0, 'NeotestIndent', { fg = colors.fujiGray })
+		-- vim.api.nvim_set_hl(0, 'NeotestExpandMarker', { fg = colors.fujiGray })
+		-- vim.api.nvim_set_hl(0, 'NeotestDir', { fg = colors.fujiGray })
+		-- vim.api.nvim_set_hl(0, 'NeotestFile', { fg = colors.fujiGray })
+		-- vim.api.nvim_set_hl(0, 'NeotestFailed', { fg = colors.samuraiRed })
+		-- vim.api.nvim_set_hl(0, 'NeotestPassed', { fg = colors.springGreen })
+		-- vim.api.nvim_set_hl(0, 'NeotestSkipped', { fg = colors.fujiGray })
+		-- vim.api.nvim_set_hl(0, 'NeotestRunning', { fg = colors.carpYellow })
+		-- vim.api.nvim_set_hl(0, 'NeotestNamespace', { fg = colors.crystalBlue })
+		-- vim.api.nvim_set_hl(0, 'NeotestAdapterName', { fg = colors.oniViolet })
 	end,
 }
