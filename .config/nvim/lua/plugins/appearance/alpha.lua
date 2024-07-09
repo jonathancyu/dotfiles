@@ -75,7 +75,7 @@ return {
 			dashboard.button('n', '    [N]ew File', '<cmd> ene <BAR> startinsert <cr>'),
 			dashboard.button('b', '    [B]rowse Files', '<cmd>Oil<cr>'),
 			dashboard.button('l', '󰒲    [L]azy', '<cmd> Lazy <cr>'),
-			dashboard.button('Q', '    [Q]uit', ':qa<CR>'),
+			dashboard.button('q', '    [Q]uit', ':qa<CR>'),
 		}
 
 		for _, button in ipairs(buttons) do
