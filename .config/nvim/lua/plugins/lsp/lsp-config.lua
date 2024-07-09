@@ -96,7 +96,7 @@ local config = function()
 				java = {
 					configuration = {
 						runtimes = {
-							name = '21.0.1-amzn',
+							name = 'default',
 							path = '$HOME/.sdkman/candidates/java/current',
 							default = true,
 						},
@@ -126,6 +126,15 @@ local config = function()
 	})
 	require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
+	require('java').setup({
+		spring_boot_tools = {
+			enable = true,
+		},
+		jdk = {
+			auto_install = false,
+		},
+	})
+
 	require('mason-lspconfig').setup({
 		handlers = {
 			function(server_name)
@@ -148,7 +157,7 @@ return { -- LSP Configuration & Plugins
 		'WhoIsSethDaniel/mason-tool-installer.nvim',
 
 		-- Useful status updates for LSP.
-		{ 'j-hui/fidget.nvim', opts = {} },
+		-- { 'j-hui/fidget.nvim', opts = {} },
 
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
