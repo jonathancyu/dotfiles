@@ -9,15 +9,19 @@ TERM = "xterm-256color"
 [font]
 size = 13
 normal = { family = "MesloLGM Nerd Font", style = "Regular"}
-bold = { style = "Regular"}
+bold = { style = "SemiBold"}
+bold_italic = { style = "BoldItalic"}
+italic = { style = "Italic"}
 builtin_box_drawing = true
-
 
 [window]
 decorations = "buttonless"
 blur = true
 opacity = 0.6
 option_as_alt = "Both"
+dynamic_padding = false
+padding = {y = 7, x = 2}
+
 
 [keyboard]
 # TODO: <C-S-?> implementation?
