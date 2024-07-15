@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+CURRENT_SESSION=$(tmux display-message -p '#S')
+
+ALL_WINDOWS=$(tmux list-windows -t $CURRENT_SESSION)
+
+LAZYGIT_WINDOWS=$(printf "%s\n" "$ALL_WINDOWS" | grep lazygit | awk -F: '{print $1}')
+
+if [ -z "$LAZYGIT_WINDOWS" ]; then
+    tmux new-window lazygit
+else
+    FIRST_WINDOW=$(printf "%s\n" "$LAZYGIT_WINDOWS" | head -n 1)
+    tmux select-window -t $FIRST_WINDOW
+fi
