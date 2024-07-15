@@ -113,6 +113,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Secrets
 export GITHUB_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'GITHUB_AUTH_TOKEN' -w)
+export ARTIFACTORY_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'ARTIFACTORY_AUTH_TOKEN' -w)
 export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
 source ~/.secrets # HACK: keychain doesnt store pip PIP_ARTIFACTORY_CREDS correctly
 
