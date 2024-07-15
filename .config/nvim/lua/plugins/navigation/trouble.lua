@@ -19,13 +19,13 @@ return {
 		},
 		{
 			'gr',
-			function()
-				require('trouble.api').toggle({
-					pinned = true,
-					source = 'lsp',
-				})
-			end,
+			'<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
 			desc = '[G]o to [R]eferences',
+		},
+		{
+			'<leader>xt',
+			'<cmd>Trouble todo<cr>',
+			desc = '[R]eferences',
 		},
 		{
 			'<leader>xr',
