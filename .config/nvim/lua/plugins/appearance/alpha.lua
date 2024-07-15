@@ -49,12 +49,16 @@ return {
 		'folke/persistence.nvim',
 		'nvim-telescope/telescope.nvim',
 		'stevearc/oil.nvim',
+
+		-- art :D
+		'MaximilianLloyd/ascii.nvim',
 	},
 	config = function()
 		local alpha = require('alpha')
 		local dashboard = require('alpha.themes.dashboard')
 		local header = dashboard.section.header
-		header.val = vim.split(header_text, '\n', { plain = true })
+		header.val = require('ascii').art.animals.pandas.oreo
+		-- header.val = vim.split(header_text, '\n', { plain = true })
 		-- header.val = {
 		-- 	[[                               __                ]],
 		-- 	[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
