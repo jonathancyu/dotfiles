@@ -6,7 +6,7 @@
 --   single = to_border_map({ "┌", "─", "┐", "│", "┘", "─", "└", "│" }),
 --   solid = to_border_map({ " ", " ", " ", " ", " ", " ", " ", " " }),
 -- }
-local header_text = [[
+local laptop = [[
            ╭──────────────────────────────────────────────────────────╮
            │ ╭─────────────────────╮          ╭─────────────────────╮ │
            │ │  5    }             ╰──────────╯            11:09 PM │ │
@@ -39,6 +39,29 @@ local header_text = [[
 ┌────────────────────────────────────────────────────────────────────────────────┐
 ╰────────────────────────────────────────────────────────────────────────────────╯
 ]]
+
+local function random_header(dashboard)
+	local header = dashboard.section.header
+
+	local art = require('ascii').art
+	local onepiece = art.anime.onepiece
+	local header_weights = {}
+	header_weights[art.animals.pandas.oreo] = 5
+	header_weights[onepiece.zoro] = 1
+	header_weights[onepiece.luffy] = 1
+	header_weights[laptop] = 1
+	header_weights[art.text.neovim.delta_corps_priest1] = 1
+	header_weights[art.text.neovim.sharp] = 2
+
+	local header_choices = {}
+	for value, weight in pairs(header_weights) do
+		for _ = 0, weight do
+			table.insert(header_choices, value)
+		end
+	end
+
+	header.val = header_choices[math.random(#header_choices)]
+end
 return {
 	'goolord/alpha-nvim',
 	dependencies = {
@@ -56,8 +79,8 @@ return {
 	config = function()
 		local alpha = require('alpha')
 		local dashboard = require('alpha.themes.dashboard')
-		local header = dashboard.section.header
-		header.val = require('ascii').art.animals.pandas.oreo
+
+		random_header(dashboard)
 		-- header.val = vim.split(header_text, '\n', { plain = true })
 		-- header.val = {
 		-- 	[[                               __                ]],
