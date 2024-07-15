@@ -59,9 +59,6 @@ return {
 				end,
 			},
 		})
-		-- Insert ( after selecting function/method
-		local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-		cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 		-- Show git completions in commmit window
 		cmp.setup.filetype('gitcommit', {
