@@ -66,4 +66,5 @@ return {
 		opts = { useDefaultKeymaps = true },
 	},
 	{ 'nvim-treesitter/playground' },
+	{ 'nvim-treesitter/nvim-treesitter-context' },
 }

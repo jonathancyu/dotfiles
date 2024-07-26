@@ -64,6 +64,13 @@ return {
 			end,
 			desc = '[W]atch test',
 		},
+		{
+			'<leader>tp',
+			function()
+				require('neotest').run.run_last()
+			end,
+			desc = '[P]revious test',
+		},
 	},
 	config = function()
 		require('neotest').setup({
