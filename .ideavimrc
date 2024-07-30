@@ -118,8 +118,12 @@ nmap <leader>qp <Action>(QuickPreview)
 nmap <leader>qd <Action>(QuickDefinition)
 nmap <leader>qD <Action>(QuickTypeDefinition)
 
+"git
+nmap <leader>hp <Action>(ChangesView.Diff)
+nmap <leader>hr <Action>(ChangesView.Revert)
+
 " code
-nmap <leader>ca <Action>(ShowIntentionActions)
+nmap <leader>a <Action>(ShowIntentionActions)
 nmap <leader>e <Action>(ShowErrorDescription)
 "nmap <leader>om <Action>(OverrideMethods)
 "nmap <leader>im <Action>(ImplementMethods)
@@ -127,7 +131,7 @@ nmap <leader>f <Action>(ReformatCode)
 "nmap <leader>ic <Action>(InspectCode)
 "nmap <leader>so <Action>(SelectAllOccurrences)
 nmap <leader>gc <Action>(Generate)
-nmap <leader>gt <Action>(GoToTest)
+nmap <leader>ot <Action>(GoToTest)
 
 " run
 nmap <leader>rc <Action>(ContextRun)
@@ -182,11 +186,11 @@ nmap [c <Action>(JumpToLastChange)
 nmap ]c <Action>(JumpToNextChange)
 
 " goto
-nmap <leader>a <Action>(GotoAction)
+"nmap <leader>a <Action>(GotoAction)
 nmap ga <Action>(GotoAction)
 "nmap pc <Action>(GotoClass)
 nmap <leader>sf <Action>(GotoFile)
-nmap gs <Action>(GotoSymbol)
+"nmap gs <Action>(GotoSymbol)
 nmap gt <Action>(GotoTest)
 nmap gT <Action>(TextSearchAction)
 nmap go <Action>(GotoSuperMethod)

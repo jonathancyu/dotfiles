@@ -30,7 +30,11 @@ local config = function()
 			map('<leader>sW', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace symbols')
 
 			map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-			map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+			map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
+			vim.keymap.set('v', '<leader>a', vim.lsp.buf.code_action, {
+				buffer = event.buf,
+				desc = 'LSP: [A]ction',
+			})
 			map('K', vim.lsp.buf.hover, 'Hover Documentation')
 			map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
@@ -158,7 +162,7 @@ return { -- LSP Configuration & Plugins
 
 		-- Useful status updates for LSP.
 		-- { 'j-hui/fidget.nvim', opts = {} },
-
+		'nvimtools/none-ls.nvim',
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
 		{ 'folke/neodev.nvim', opts = {} },

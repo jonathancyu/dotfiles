@@ -1,6 +1,6 @@
 local keys = {
 	{
-		'<leader>a',
+		'<leader>ca',
 		function()
 			require('harpoon'):list():add()
 		end,
