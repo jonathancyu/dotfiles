@@ -1,4 +1,4 @@
-local colorscheme = 'cyberdream'
+local colorscheme = 'kanagawa'
 return {
 	{
 		'scottmckendry/cyberdream.nvim',
