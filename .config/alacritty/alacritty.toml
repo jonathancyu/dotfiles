@@ -8,7 +8,7 @@ TERM = "xterm-256color"
 
 [font]
 size = 13
-normal = { family = "MesloLGM Nerd Font", style = "Regular"}
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular"}
 bold = { style = "Bold"}
 bold_italic = { style = "Bold Italic"}
 italic = { style = "Italic"}
