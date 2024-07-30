@@ -33,17 +33,10 @@ vim.keymap.set('n', '<leader>wt', '<cmd>tab split<CR>', { desc = 'Send [W]indow 
 vim.keymap.set('i', '<Up>', '<C-p>')
 vim.keymap.set('i', '<Down>', '<C-n>')
 
---[[
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
-
-vim.keymap.set("i", "<C-h>", "<Esc><C-w>h")
-vim.keymap.set("i", "<C-j>", "<Esc><C-w>j")
-vim.keymap.set("i", "<C-k>", "<Esc><C-w>k")
-vim.keymap.set("i", "<C-l>", "<Esc><C-w>l")
-]]
+vim.keymap.set('n', '<C-S-h>', '<cmd>vertical resize -5<cr>')
+vim.keymap.set('n', '<C-S-l>', '<cmd>vertical resize +5<cr>')
+vim.keymap.set('n', '<C-S-j>', '<cmd>horizontal resize -5<cr>')
+vim.keymap.set('n', '<C-S-k>', '<cmd>horizontal resize +5<cr>')
 
 -- Easy home/end
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
