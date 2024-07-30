@@ -9,6 +9,19 @@ return {
 			end,
 			desc = '[F]ormat',
 		},
+		{
+			'<leader>cf',
+			mode = { 'n' },
+			function()
+				if vim.g.disable_autoformat == true then
+					vim.g.disable_autoformat = false
+				else
+					vim.g.disable_autoformat = true
+				end
+				require('conform').format({ async = true, lsp_format = 'fallback' })
+			end,
+			desc = 'Disable auto[f]ormat',
+		},
 	},
 	opts = {
 		formatters_by_ft = {
@@ -16,6 +29,13 @@ return {
 			rust = { 'rustfmt' },
 			python = { 'black' },
 		},
+		format_on_save = function(bufnr)
+			-- Disable with a global or buffer-local variable
+			if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+				return
+			end
+			return { timeout_ms = 500, lsp_format = 'fallback' }
+		end,
 		format_after_save = function(bufnr)
 			-- Enable autoformat on certain filetypes
 			local enabled_filetypes = { 'lua', 'rust' }
