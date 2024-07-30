@@ -3,39 +3,21 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    find_directories=()
-    
-    hostname=$(hostname)
-    case $hostname in
-        "AB95544")
-            find_directories=(
-                ~/workspace/boss
-                ~/workspace/tlink
-                ~/workspace/playground
-                ~/workspace/reference
-                ~/workspace/open-source
-                ~/dotfiles/.config
-                ~/workspace/runway
-                ~/workspace/docwf
-                ~/workspace/SARS
-                ~/workspace/datastage
-                ~/workspace/poc
-                ~/workspace/projects
-                ~/workspace/SyssecLab/darpa
-                ~/workspace/SyssecLab/differential-privacy
-            )
-            ;;
-        *)
-            echo "Machine not recognized"
-            ;;
-    esac
-    find_output=$(find "${find_directories[@]}" -mindepth 1 -maxdepth 1 -type d)
-
-    # Append find results into directories
+    # Add directories to fzf later
     directories=(~/workspace/ ~/dotfiles)
-    while IFS= read -r dir; do
-      directories+=("$dir")
-    done <<< "$find_output"
+
+    for dir in $(find ~/dotfiles/.config -mindepth 1 -maxdepth 1 -type d); do
+        directories+=("$dir")
+    done
+
+
+    find_directories_depth_2=(
+        ~/workspace
+        ~/workspace/SyssecLab
+    )
+    for dir in $(find "${find_directories_depth_2[@]}" -mindepth 2 -maxdepth 2 -type d); do
+        directories+=("$dir")
+    done
 
     selected=$(printf "%s\n" "${directories[@]}" | fzf)
 fi
