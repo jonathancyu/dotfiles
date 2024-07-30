@@ -1,5 +1,6 @@
 return {
-	'kosayoda/nvim-lightbulb',
+	-- 'kosayoda/nvim-lightbulb',
+	'lvim-tech/nvim-lightbulb',
 	opts = {
 		autocmd = { enabled = true },
 		-- Modes
