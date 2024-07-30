@@ -8,12 +8,15 @@ return {
 	},
 
 	config = function()
+		-- deprecated sources here https://github.com/nvimtools/none-ls.nvim/issues/58
 		local null_ls = require('null-ls')
 		null_ls.setup({
 			sources = {
-				null_ls.builtins.diagnostics.pylint,
+				require('none-ls.diagnostics.ruff'),
+				require('none-ls.diagnostics.yamllint'),
 				null_ls.builtins.code_actions.refactoring,
 			},
+			debug = true,
 		})
 	end,
 }
