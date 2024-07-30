@@ -11,7 +11,7 @@ return {
 		-- Adapters
 		'nvim-neotest/neotest-python',
 		'rcasia/neotest-java',
-		'rouge8/neotest-rust',
+		'mrcjkb/rustaceanvim',
 	},
 	lazy = false,
 	keys = {
@@ -80,24 +80,24 @@ return {
 					args = { '-s' },
 					pytest_discover_instances = true,
 				}),
-				require('neotest-rust'),
+				require('rustaceanvim.neotest'),
 				require('neotest-java')({
 					ignore_wrapper = false,
 				}),
 			},
 		})
 		-- Fix colors
-		-- local colors = require('plugins.appearance.colorscheme').colors
-		-- vim.api.nvim_set_hl(0, 'NeotestBorder', { fg = colors.fujiGray })
-		-- vim.api.nvim_set_hl(0, 'NeotestIndent', { fg = colors.fujiGray })
-		-- vim.api.nvim_set_hl(0, 'NeotestExpandMarker', { fg = colors.fujiGray })
-		-- vim.api.nvim_set_hl(0, 'NeotestDir', { fg = colors.fujiGray })
-		-- vim.api.nvim_set_hl(0, 'NeotestFile', { fg = colors.fujiGray })
-		-- vim.api.nvim_set_hl(0, 'NeotestFailed', { fg = colors.samuraiRed })
-		-- vim.api.nvim_set_hl(0, 'NeotestPassed', { fg = colors.springGreen })
-		-- vim.api.nvim_set_hl(0, 'NeotestSkipped', { fg = colors.fujiGray })
-		-- vim.api.nvim_set_hl(0, 'NeotestRunning', { fg = colors.carpYellow })
-		-- vim.api.nvim_set_hl(0, 'NeotestNamespace', { fg = colors.crystalBlue })
-		-- vim.api.nvim_set_hl(0, 'NeotestAdapterName', { fg = colors.oniViolet })
+		local colors = require('kanagawa.palette')
+		vim.api.nvim_set_hl(0, 'NeotestBorder', { fg = colors.fujiGray })
+		vim.api.nvim_set_hl(0, 'NeotestIndent', { fg = colors.fujiGray })
+		vim.api.nvim_set_hl(0, 'NeotestExpandMarker', { fg = colors.fujiGray })
+		vim.api.nvim_set_hl(0, 'NeotestDir', { fg = colors.fujiGray })
+		vim.api.nvim_set_hl(0, 'NeotestFile', { fg = colors.fujiGray })
+		vim.api.nvim_set_hl(0, 'NeotestFailed', { fg = colors.samuraiRed })
+		vim.api.nvim_set_hl(0, 'NeotestPassed', { fg = colors.springGreen })
+		vim.api.nvim_set_hl(0, 'NeotestSkipped', { fg = colors.fujiGray })
+		vim.api.nvim_set_hl(0, 'NeotestRunning', { fg = colors.carpYellow })
+		vim.api.nvim_set_hl(0, 'NeotestNamespace', { fg = colors.crystalBlue })
+		vim.api.nvim_set_hl(0, 'NeotestAdapterName', { fg = colors.oniViolet })
 	end,
 }
