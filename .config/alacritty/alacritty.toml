@@ -15,7 +15,7 @@ italic = { style = "Italic"}
 builtin_box_drawing = true
 
 [window]
-decorations = "none"
+decorations = "buttonless"
 # blur = true
 # opacity = 0.8
 option_as_alt = "Both"

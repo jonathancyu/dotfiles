@@ -133,6 +133,9 @@ esac
 # brew
 export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
 
+# pip scripts
+export PATH="/Users/aa710193/.local/bin:$PATH"
+
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
