@@ -13,3 +13,5 @@ end, { desc = '[R]un nearest test' })
 vim.keymap.set('n', '<leader>ts', function()
 	vim.cmd('JavaTestViewLastReport')
 end, { desc = '[T]est [S]ummary' })
+
+vim.g.disable_autoformat = true
