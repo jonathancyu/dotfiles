@@ -112,10 +112,11 @@ source $ZSH/oh-my-zsh.sh
 
 
 # Secrets
-export GITHUB_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'GITHUB_AUTH_TOKEN' -w)
-export ARTIFACTORY_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'ARTIFACTORY_AUTH_TOKEN' -w)
-export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
-source ~/.secrets # HACK: keychain doesnt store pip PIP_ARTIFACTORY_CREDS correctly
+if command -v security > /dev/null 2>&1; then
+    export GITHUB_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'GITHUB_AUTH_TOKEN' -w)
+    export ARTIFACTORY_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'ARTIFACTORY_AUTH_TOKEN' -w)
+    export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
+fi
 
 # Aliases
 alias h='history | grep '
@@ -131,10 +132,10 @@ case ":$PATH:" in
 esac
 
 # brew
-export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
 # pip scripts
-export PATH="/Users/aa710193/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
