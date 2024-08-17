@@ -1,5 +1,7 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/Library/Python/3.9/bin:$HOME/bin:/usr/local/bin:$PATH
+# Profile zsh startup
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -141,6 +143,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+alias pip=pip3
 
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
@@ -184,3 +187,7 @@ export KUBECONFIG=$HOME/.kube/config
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi
