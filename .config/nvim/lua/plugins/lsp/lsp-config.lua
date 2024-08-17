@@ -127,6 +127,7 @@ local config = function()
 	vim.list_extend(ensure_installed, { -- Add formatters
 		'stylua',
 		'black',
+		'ruff',
 	})
 	require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
