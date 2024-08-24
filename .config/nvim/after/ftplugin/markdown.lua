@@ -1,1 +1,1 @@
-require('after.common.prose')
+require('utility.prose').setup()
