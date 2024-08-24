@@ -126,6 +126,9 @@ alias main='git checkout main; git pull; git fetch -p'
 alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
 
+# colima
+export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
@@ -184,10 +187,14 @@ export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
 source <(kubectl completion zsh)
 export KUBECONFIG=$HOME/.kube/config
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
+#Lazy load sdkman
+sdk() {
+  unset -f sdk
+  [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+  sdk "$@"
+}
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
