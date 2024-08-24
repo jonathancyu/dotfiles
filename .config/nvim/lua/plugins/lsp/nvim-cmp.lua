@@ -7,7 +7,6 @@ return {
 		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-cmdline',
 		'Dosx001/cmp-commit',
-		'windwp/nvim-autopairs',
 		'L3MON4D3/LuaSnip',
 		'onsails/lspkind.nvim',
 	},
@@ -74,7 +73,6 @@ return {
 				name = { 'buffer' },
 			},
 		})
-
 		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline(':', {
 			mapping = cmp.mapping.preset.cmdline(),
