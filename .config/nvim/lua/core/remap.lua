@@ -47,3 +47,6 @@ vim.keymap.set('n', 'Q', '<nop>')
 
 -- Paste without overwriting register
 vim.keymap.set('x', '<leader>p', [["_dP]])
+
+--  More reasonable toggle fold
+vim.keymap.set('n', 'zt', 'za', {desc = '[T]oggle fold under cursor'})

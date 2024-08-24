@@ -6,7 +6,7 @@ return {
 			function()
 				require('zen-mode').toggle({
 					window = {
-						width = 200,
+						width = 150,
 					},
 					options = {
 						-- TODO: make this work
