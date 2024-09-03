@@ -1,6 +1,7 @@
 return {
 	{
 		'lervag/vimtex',
+		lazy = false,
 		init = function()
 			-- Can't be lazy loaded, so need to use init
 			vim.g.tex_flavor = 'latex'

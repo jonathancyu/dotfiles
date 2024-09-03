@@ -14,6 +14,7 @@ return {
 			sources = {
 				require('none-ls.diagnostics.ruff'),
 				require('none-ls.diagnostics.yamllint'),
+				require('none-ls.formatting.latexindent'),
 				null_ls.builtins.code_actions.refactoring,
 			},
 			debug = true,

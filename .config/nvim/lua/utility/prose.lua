@@ -1,6 +1,6 @@
 local function setup()
 	local opt = vim.opt
-	opt.colorcolumn = '101'
+	opt.colorcolumn = '0'
 	opt.wrap = true
 	opt.spell = true
 	opt.linebreak = true
