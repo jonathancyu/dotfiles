@@ -115,10 +115,10 @@ return {
 		dashboard.section.buttons.opts.hl = button_hl
 		dashboard.section.footer.opts.hl = footer_hl
 
-		local handle = io.popen('fortune')
-		local fortune = handle:read('*a')
-		handle:close()
-		dashboard.section.footer.val = fortune
+		-- local handle = io.popen('fortune')
+		-- local fortune = handle:read('*a')
+		-- handle:close()
+		-- dashboard.section.footer.val = fortune
 
 		dashboard.config.opts.noautocmd = true
 
