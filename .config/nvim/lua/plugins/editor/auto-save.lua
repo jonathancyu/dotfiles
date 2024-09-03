@@ -11,7 +11,7 @@ return {
 		},
 		dir = vim.fn.expand(vim.fn.stdpath('state') .. '/sessions/'), -- directory where session files are saved
 		options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- sessionoptions used for saving
-		debounce = 135,
+		debounce = 100,
 		-- noautocmd = true, -- avoid triggering formatting -- BREAKS rustfmt
 		-- condition = function(buffer)
 		-- 	local fn = vim.fn
