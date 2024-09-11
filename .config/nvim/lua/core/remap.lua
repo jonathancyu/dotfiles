@@ -1,6 +1,15 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+-- Better jk
+vim.keymap.set('n', 'j', function()
+	return vim.v.count == 0 and 'gj' or 'j'
+end, { noremap = true, expr = true })
 
+vim.keymap.set('n', 'k', function()
+	return vim.v.count == 0 and 'gk' or 'k'
+end, { noremap = true, expr = true })
+
+-- Quickfix/error stuff
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open [E]rror' })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Add to [Q]uickfixes' })
 
@@ -49,4 +58,4 @@ vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
 --  More reasonable toggle fold
-vim.keymap.set('n', 'zt', 'za', {desc = '[T]oggle fold under cursor'})
+vim.keymap.set('n', 'zt', 'za', { desc = '[T]oggle fold under cursor' })
