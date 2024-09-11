@@ -85,6 +85,11 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 nmap <C-c> <C-w>c
 
+" Search
+nmap <leader>sf <Action>(GotoFile)
+nmap <leader>sg <Action>(FindInPath)
+nmap <leader>ss <Action>(SearchEverywhere)
+
 " menu
 "nmap <leader>mm <Action>(MainMenu)
 "nmap <leader>ma <Action>(AnalyzeMenu)
@@ -189,7 +194,6 @@ nmap ]c <Action>(JumpToNextChange)
 "nmap <leader>a <Action>(GotoAction)
 nmap ga <Action>(GotoAction)
 "nmap pc <Action>(GotoClass)
-nmap <leader>sf <Action>(GotoFile)
 "nmap gs <Action>(GotoSymbol)
 nmap gt <Action>(GotoTest)
 nmap gT <Action>(TextSearchAction)
