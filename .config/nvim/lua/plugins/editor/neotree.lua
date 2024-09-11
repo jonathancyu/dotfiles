@@ -11,14 +11,7 @@ return {
 			trailing_slash = true,
 			use_git_status_colors = true,
 		},
-		git_status = {
-			status = {
-				added = '',
-				modified = '', -- We use git status colors, so these are redundant
-				renamed = '',
-				untracked = '?',
-			},
-		},
+		git_status = false,
 		filesystem = {
 			filtered_items = {
 				hide_gitignored = false,
@@ -35,6 +28,12 @@ return {
 				['\\'] = 'close_window',
 			},
 		},
+		default_component_configs = {
+			file_size = {
+				enabled = false
+			}
+
+		}
 	},
 	keys = {
 		{ '\\', ':Neotree reveal<CR>', desc = 'Reveal neoTree' },
