@@ -33,12 +33,18 @@ return {
 			{ 'folke/trouble.nvim' },
 		},
 		config = function()
+			local builtin = require('telescope.builtin')
+			local cycle_find_files = require('telescope.cycle_find_files')
+			-- Enable cycling between git files and normal files
 			-- Open telescope results with Trouble
 			local open_with_trouble = require('trouble.sources.telescope').open
 			require('telescope').setup({
 				defaults = {
 					mappings = {
-						i = { ['<C-t>'] = open_with_trouble },
+						i = {
+							['<C-t>'] = open_with_trouble,
+							['<C-Space>'] = cycle_find_files.next,
+						},
 						n = { ['<C-t>'] = open_with_trouble },
 					},
 				},
@@ -61,11 +67,12 @@ return {
 			pcall(require('telescope').load_extension, 'fzf')
 			pcall(require('telescope').load_extension, 'ui-select')
 
-			local builtin = require('telescope.builtin')
 			local dropdown = require('telescope.themes').get_dropdown({})
 			-- Files
-			vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-			vim.keymap.set('n', '<leader>sr', builtin.git_files, { desc = '[S]earch in [R]epository' })
+			vim.keymap.set('n', '<leader>sf', function ()
+				cycle_find_files()
+			end, { desc = '[S]earch [F]iles' })
+			-- vim.keymap.set('n', '<leader>sr', builtin.git_files, { desc = '[S]earch in [R]epository' })
 			vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch recent files ("." for repeat)' })
 
 			-- Meta

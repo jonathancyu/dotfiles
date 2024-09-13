@@ -98,7 +98,7 @@ return {
 
 		local buttons = {
 			dashboard.button('r', '    [R]estore Last Session', '<cmd>lua require("persistence").load() <cr>'),
-			dashboard.button('f', '    [F]ind File', '<cmd>lua require("telescope.builtin").git_files() <cr>'),
+			dashboard.button('f', '    [F]ind File', '<cmd>lua require("telescope.cycle_find_files")() <cr>'),
 			dashboard.button('n', '    [N]ew File', '<cmd> ene <BAR> startinsert <cr>'),
 			dashboard.button('b', '    [B]rowse Files', '<cmd>Oil<cr>'),
 			dashboard.button('l', '󰒲    [L]azy', '<cmd> Lazy <cr>'),
