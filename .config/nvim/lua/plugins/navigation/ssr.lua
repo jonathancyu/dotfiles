@@ -18,4 +18,14 @@ return {
 			replace_all = '<leader><cr>',
 		},
 	},
+	keys = {
+		{
+			'<leader>sr',
+			function()
+				require('ssr').open()
+			end,
+			{ 'n', 'x' },
+			desc = "Structural [S]earch and [Replace]"
+		},
+	},
 }
