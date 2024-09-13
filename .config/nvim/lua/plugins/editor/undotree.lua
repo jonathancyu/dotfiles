@@ -1,6 +1,5 @@
 return {
 	'mbbill/undotree',
-	branch = '*',
 	lazy = false,
 	dependencies = {
 		'nvim-lua/plenary.nvim',
