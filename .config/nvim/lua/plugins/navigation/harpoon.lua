@@ -1,10 +1,10 @@
 local keys = {
 	{
-		'<leader>ca',
+		'<leader>ch',
 		function()
 			require('harpoon'):list():add()
 		end,
-		desc = '[A]dd to harpoon',
+		desc = 'Add to [h]arpoon',
 	},
 	{
 		'<C-e>',

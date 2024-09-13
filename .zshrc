@@ -118,6 +118,7 @@ if command -v security > /dev/null 2>&1; then
     export GITHUB_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'GITHUB_AUTH_TOKEN' -w)
     export ARTIFACTORY_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'ARTIFACTORY_AUTH_TOKEN' -w)
     export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
+    export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
 fi
 
 # Aliases

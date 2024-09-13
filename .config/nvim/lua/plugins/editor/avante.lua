@@ -17,10 +17,23 @@ return {
 	lazy = false,
 	version = false, -- set this if you want to always pull the latest change
 	config = function()
-		local opts ={
-				provider = 'claude',
-				-- add any opts here
-			}
+		local prefix = '<leader>ca'
+		local opts = {
+			provider = 'claude',
+
+			-- add any opts here
+			mappings = {
+				ask = prefix .. 'a',
+				edit = prefix .. 'e',
+				refresh = prefix .. 'r',
+				toggle = {
+					default = prefix .. 't',
+					debug = prefix .. 'd',
+					hint = prefix .. 'h',
+					suggestion = prefix .. 's',
+				},
+			},
+		}
 		if can_init_llm() then
 			require('avante').setup(opts)
 		end
