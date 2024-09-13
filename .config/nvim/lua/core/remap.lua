@@ -9,6 +9,9 @@ vim.keymap.set('n', 'k', function()
 	return vim.v.count == 0 and 'gk' or 'k'
 end, { noremap = true, expr = true })
 
+-- Toggle relative line numbers
+vim.keymap.set('n', '<leader>cn', '<cmd>set rnu!<cr>', {desc = 'Toggle relative line [n]umbers'})
+
 -- Quickfix/error stuff
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open [E]rror' })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Add to [Q]uickfixes' })
