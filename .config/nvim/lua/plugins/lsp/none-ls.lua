@@ -12,7 +12,8 @@ return {
 		local null_ls = require('null-ls')
 		null_ls.setup({
 			sources = {
-				require('none-ls.diagnostics.ruff'),
+				-- TODO: disabled due to "ruff failed to handle a request from the editor"
+				-- require('none-ls.diagnostics.ruff'),
 				require('none-ls.diagnostics.yamllint'),
 				require('none-ls.formatting.latexindent'),
 				null_ls.builtins.code_actions.refactoring,
