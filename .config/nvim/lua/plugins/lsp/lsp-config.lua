@@ -98,6 +98,11 @@ local config = function()
 		jdtls = {
 			settings = {
 				java = {
+					inlayHints = {
+						parameterNames = {
+							enambled = "all"
+						}
+					},
 					configuration = {
 						runtimes = {
 							name = 'default',
@@ -127,7 +132,7 @@ local config = function()
 	vim.list_extend(ensure_installed, { -- Add formatters
 		'stylua',
 		'black',
-		'ruff',
+		-- 'ruff',
 	})
 	require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
