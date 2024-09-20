@@ -12,20 +12,18 @@ return {
 		dir = vim.fn.expand(vim.fn.stdpath('state') .. '/sessions/'), -- directory where session files are saved
 		options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- sessionoptions used for saving
 		debounce = 100,
-		-- noautocmd = true, -- avoid triggering formatting -- BREAKS rustfmt
-		-- condition = function(buffer)
-		-- 	local fn = vim.fn
-		-- 	-- TODO: this should be a set lookup in a blacklist
-		-- 	if vim.bo[buffer].filetype == 'harpoon' then
-		-- 		return false
-		-- 	end
-		--
-		-- 	local filepath = fn.expand('%:p') -- Get the full path of the current buffer
-		--
-		-- 	-- Check if the file is located in the ~/dotfiles/.config/nvim directory
-		-- 	if string.find(filepath, '^' .. fn.expand('~/dotfiles/.config/nvim')) == 1 then
-		-- 		return false -- Don't save files in ~/dotfiles/.config/nvim
-		-- 	end
-		-- end,
+		condition = function(buffer)
+			local fn = vim.fn
+			local utils = require('auto-save.utils.data')
+
+			if
+				fn.getbufvar(buffer, '&modifiable') == 1
+				-- change here is adding harpoon file type to exclusion list
+				and utils.not_in(fn.getbufvar(buffer, '&filetype'), { 'harpoon' })
+			then
+				return true
+			end
+			return false
+		end,
 	},
 }
