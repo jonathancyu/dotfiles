@@ -2,22 +2,25 @@ local function can_init_llm()
 	local whitelist = {
 		'dotfiles/.config',
 		'workspace/projects',
+		'boss/boss-support',
+		'differential-privacy/prov-dp',
 	}
 	local cwd = vim.fn.getcwd()
 	for _, name in ipairs(whitelist) do
-		if cwd:find(name) then
+		if string.find(cwd, name, 1, true) then
 			return true
 		end
 	end
 	return false
 end
+
 return {
 	'yetone/avante.nvim',
 	event = 'VeryLazy',
 	lazy = false,
 	version = false, -- set this if you want to always pull the latest change
 	config = function()
-		local prefix = '<leader>ca'
+		local prefix = '<leader>l'
 		local opts = {
 			provider = 'claude',
 
@@ -69,9 +72,9 @@ return {
 			-- Make sure to set this up properly if you have lazy=true
 			'MeanderingProgrammer/render-markdown.nvim',
 			opts = {
-				file_types = { 'markdown', 'Avante' },
+				file_types = { 'Avante' },
 			},
-			ft = { 'markdown', 'Avante' },
+			ft = { 'Avante' },
 		},
 	},
 }
