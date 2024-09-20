@@ -11,7 +11,6 @@ return {
 			trailing_slash = true,
 			use_git_status_colors = true,
 		},
-		git_status = false,
 		filesystem = {
 			filtered_items = {
 				hide_gitignored = false,
@@ -30,12 +29,17 @@ return {
 		},
 		default_component_configs = {
 			file_size = {
-				enabled = false
-			}
-
-		}
+				enabled = false,
+			},
+		},
 	},
 	keys = {
-		{ '\\', ':Neotree reveal<CR>', desc = 'Reveal neoTree' },
+		{
+			'\\',
+			function()
+				vim.cmd('Neotree reveal')
+			end,
+			desc = 'Reveal neoTree',
+		},
 	},
 }
