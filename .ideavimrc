@@ -9,6 +9,7 @@ source ~/.vimrc
 " Use system clipboard
 set clipboard+=unnamed
 
+let mapleader=" "
 
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
@@ -27,6 +28,13 @@ map Q <nop>
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
+" enable easymotion (I wish i could have flash)
+set easymotion
+" nnoremap f <Plug>(easymotion-f)
+" nnoremap F <Plug>(easymotion-F)
+" nnoremap t <Plug>(easymotion-t)
+" nnoremap T <Plug>(easymotion-T)
+
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
@@ -40,8 +48,6 @@ Plug 'tpope/vim-commentary'
 "map \b <Action>(ToggleLineBreakpoint)
 
 ""https://github.com/JetBrains/ideavim/discussions/303?sort=top
-"""" Jonathan
-let mapleader=" "
 """ Set
 set ignorecase "ignore case in search
 set relativenumber "relative line numbers
@@ -174,7 +180,7 @@ nmap za <Action>(CollapseAllRegions)
 nmap zA <Action>(ExpandAllRegions)
 
 " zen
-nmap <leader>z <Action>(ToggleZenMode)
+nmap <leader>z <Action>(ToggleDistractionFreeMode)
 
 " []
 nmap [b <Action>(PreviousTab)
