@@ -7,16 +7,17 @@ return { -- Useful plugin to show you pending keybinds.
 		require('which-key').setup()
 
 		require('which-key').add({
-			{ '<leader>c', desc = '[C]ode' },
-			{ '<leader>d', desc = '[D]ebug' },
+			{ '<leader>c', desc = '[C]ode', icon = { icon = ' ', color = 'orange' } },
+			{ '<leader>d', desc = '[D]ebug', icon = { icon = '󰃤 ', color = 'red' } },
 			{ '<leader>g', desc = '[G]it' },
-			{ '<leader>h', desc = 'Git [H]unk' },
+			{ '<leader>h', desc = 'Git [H]unk', icon = { name = 'git' } },
 			{ '<leader>h', desc = 'Git [H]unk', mode = 'v' },
-			{ '<leader>s', desc = '[S]earch' },
-			{ '<leader>t', desc = '[T]est' },
+			{ '<leader>l', desc = '[L]LM', icon = { icon = ' ', color = 'green' } },
+			{ '<leader>s', desc = '[S]earch', icon = { icon = '', color = 'blue' } },
+			{ '<leader>t', desc = '[T]est', icon = {} },
 			{ '<leader>r', desc = '[R]un' },
-			{ '<leader>w', desc = '[W]indow' },
-			{ '<leader>x', desc = 'Trouble' },
+			{ '<leader>w', desc = '[W]indow', icon = { icon = ' ', color = 'blue' } },
+			{ '<leader>x', desc = 'Trouble', icon = { icon = '󱖫 ', color = 'green' } },
 		})
 	end,
 }
