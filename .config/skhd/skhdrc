@@ -3,6 +3,7 @@ ctrl - t : open -a "/Applications/Alacritty.app/"
 ctrl + shift - i : open -a "/Applications/IntelliJ IDEA.app/"
 ctrl + shift - f : open -a "/Applications/Firefox.app/"
 ctrl + shift - t : open -a "/Applications/Microsoft Teams.app/"
+ctrl + shift - s : open -a "/Applications/Slack.app/"
 
 # Yabai shortcuts
 # Toggle BSP/Float
