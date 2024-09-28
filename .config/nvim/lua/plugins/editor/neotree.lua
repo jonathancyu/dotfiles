@@ -35,6 +35,13 @@ return {
 	},
 	keys = {
 		{
+			'<leader>\\',
+			function()
+				vim.cmd('Neotree close')
+			end,
+			desc = 'Reveal neoTree',
+		},
+		{
 			'\\',
 			function()
 				vim.cmd('Neotree reveal')
