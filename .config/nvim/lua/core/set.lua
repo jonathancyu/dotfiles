@@ -1,4 +1,6 @@
 local opt = vim.opt
+-- python provider fix
+vim.g.python3_host_prog = '$HOME/.config/nvim/neovimenv/bin/python3'
 
 -- fix colors
 opt.termguicolors = true
