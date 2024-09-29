@@ -25,7 +25,7 @@ return {
 		{
 			'<leader>xt',
 			'<cmd>Trouble todo<cr>',
-			desc = '[R]eferences',
+			desc = '[T]ODO',
 		},
 		{
 			'<leader>xr',
