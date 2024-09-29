@@ -2,9 +2,11 @@ return { -- Useful plugin to show you pending keybinds.
 	'folke/which-key.nvim',
 	event = 'VimEnter', -- Sets the loading event to 'VimEnter'
 	config = function() -- This is the function that runs, AFTER loading
-		vim.o.timeout = true
-		vim.o.timeoutlen = 300
-		require('which-key').setup()
+		require('which-key').setup({
+			delay = function (ctx)
+				return ctx.plugin and 0 or 500
+			end
+		})
 
 		require('which-key').add({
 			{ '<leader>c', desc = '[C]ode', icon = { icon = ' ', color = 'orange' } },
