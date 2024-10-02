@@ -14,6 +14,7 @@ return { -- Useful plugin to show you pending keybinds.
 			{ '<leader>g', desc = '[G]it' },
 			{ '<leader>h', desc = 'Git [H]unk', icon = { name = 'git' } },
 			{ '<leader>h', desc = 'Git [H]unk', mode = 'v' },
+			{ '<leader>o', desc = '[O]verseer', icon = { icon = ' ', color = 'green' } },
 			{ '<leader>l', desc = '[L]LM', icon = { icon = ' ', color = 'green' } },
 			{ '<leader>s', desc = '[S]earch', icon = { icon = '', color = 'blue' } },
 			{ '<leader>t', desc = '[T]est', icon = {} },

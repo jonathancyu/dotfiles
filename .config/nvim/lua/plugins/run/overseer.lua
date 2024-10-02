@@ -3,25 +3,42 @@ return {
 	dependencies = {
 		'mfussenegger/nvim-dap',
 	},
+	cmd = 'Overseer',
 	opts = {
 		templates = {
 			'builtin',
 			'user.run_script',
 		},
+		task_list = {
+			bindings = {
+				[']'] = 'IncreaseDetail',
+				['['] = 'DecreaseDetail',
+				['L'] = 'IncreaseAllDetail',
+				['H'] = 'DecreaseAllDetail',
+				['<C-u>'] = 'ScrollOutputUp',
+				['<C-d>'] = 'ScrollOutputDown',
+				['<C-h>'] = false,
+				['<C-l>'] = false,
+				['<C-j>'] = false,
+				['<C-k>'] = false,
+			},
+		},
 	},
 	keys = {
 		{
-			'<leader>rl',
+			'<leader>ol',
 			'<cmd>OverseerRun<cr>',
 			desc = '[L]ist run configs',
 		},
 		{
-			'<leader>ro',
-			'<cmd>OverseerOpen<cr>',
-			desc = '[O]pen runs',
+			'<leader>ot',
+			function()
+				vim.cmd('OverseerToggle')
+			end,
+			desc = '[T]oggle',
 		},
 		{
-			'<leader>rp',
+			'<leader>op',
 			function()
 				local overseer = require('overseer')
 				local tasks = overseer.list_tasks({ recent_first = true })

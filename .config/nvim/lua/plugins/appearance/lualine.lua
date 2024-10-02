@@ -6,7 +6,7 @@ return {
 	},
 	opts = {
 		options = {
-			ignore_focus = { 'neo-tree', 'fugitive' },
+			ignore_focus = { 'neo-tree', 'fugitive', 'OverseerList' },
 		},
 		sections = {
 			lualine_b = { 'branch', 'diff', 'diagnostics' },
@@ -18,7 +18,7 @@ return {
 					active_indicators = { '[1]', '[2]', '[3]', '[4]' },
 				},
 				{
-					'copilot',
+					'overseer',
 				},
 			},
 		},
