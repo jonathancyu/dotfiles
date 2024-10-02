@@ -143,12 +143,6 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 # pip scripts
 export PATH="$HOME/.local/bin:$PATH"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-alias pip=pip3
-
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
 
@@ -183,10 +177,6 @@ alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
 # Make npm and node avaiable before nvm is loaded
 export DEFAULT_NODE="v20.12.1"
 export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
-
-# kubernetes
-source <(kubectl completion zsh)
-export KUBECONFIG=$HOME/.kube/config
 
 # sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
