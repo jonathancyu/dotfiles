@@ -13,11 +13,15 @@ return {
 			'<leader>cf',
 			mode = { 'n' },
 			function()
+				local message = ''
 				if vim.g.disable_autoformat == true then
 					vim.g.disable_autoformat = false
+					message = 'Disabled auto-formatting'
 				else
 					vim.g.disable_autoformat = true
+					message = 'Enabled auto-formatting'
 				end
+				vim.notify(message, vim.log.levels.INFO, { title = 'Conform' })
 				require('conform').format({ async = true, lsp_format = 'fallback' })
 			end,
 			desc = 'Disable auto[f]ormat',
