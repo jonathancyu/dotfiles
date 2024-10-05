@@ -16,10 +16,10 @@ return {
 				local message = ''
 				if vim.g.disable_autoformat == true then
 					vim.g.disable_autoformat = false
-					message = 'Disabled auto-formatting'
+					message = 'Enabled auto-formatting'
 				else
 					vim.g.disable_autoformat = true
-					message = 'Enabled auto-formatting'
+					message = 'Disabled auto-formatting'
 				end
 				vim.notify(message, vim.log.levels.INFO, { title = 'Conform' })
 				require('conform').format({ async = true, lsp_format = 'fallback' })

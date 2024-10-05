@@ -128,7 +128,8 @@ alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
 
 # colima
-export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+# export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+unset DOCKET_HOST
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
