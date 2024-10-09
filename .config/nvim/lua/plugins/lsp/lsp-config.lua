@@ -30,11 +30,15 @@ local config = function()
 			map('<leader>sW', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace symbols')
 
 			map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-			map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
-			vim.keymap.set('v', '<leader>a', vim.lsp.buf.code_action, {
-				buffer = event.buf,
-				desc = 'LSP: [A]ction',
-			})
+			-- map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
+			-- Map code action to fastaction
+			map('<leader>a', function()
+				require('fastaction').code_action()
+			end, '[A]ction')
+			vim.keymap.set('v', '<leader>a', function()
+				require('fastaction').range_code_action()
+			end, { buffer = event.buf, desc = '[A]ction' })
+
 			map('K', vim.lsp.buf.hover, 'Hover Documentation')
 			map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
@@ -93,8 +97,8 @@ local config = function()
 				java = {
 					inlayHints = {
 						parameterNames = {
-							enambled = "all"
-						}
+							enambled = 'all',
+						},
 					},
 					configuration = {
 						runtimes = {
@@ -168,6 +172,7 @@ return { -- LSP Configuration & Plugins
 
 		-- Must be setup before lspconfig
 		{ 'SmiteshP/nvim-navbuddy' },
+		{ 'Chaitanyabsprip/fastaction.nvim' },
 	},
 	config = config,
 }
