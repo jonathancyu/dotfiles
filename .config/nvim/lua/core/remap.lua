@@ -50,6 +50,9 @@ vim.keymap.set('n', '<C-S-l>', '<cmd>vertical resize +5<cr>')
 vim.keymap.set('n', '<C-S-j>', '<cmd>horizontal resize -5<cr>')
 vim.keymap.set('n', '<C-S-k>', '<cmd>horizontal resize +5<cr>')
 
+-- Autocmd to resize when size changes
+vim.api.nvim_command('autocmd VimResized * wincmd =')
+
 -- Easy home/end
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
