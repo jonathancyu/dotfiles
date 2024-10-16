@@ -52,5 +52,12 @@ return {
 			'<cmd>Gitsigns prev_hunk<CR>',
 			desc = 'Next diff hunk',
 		},
+		{
+			'<leader>gb',
+			function()
+				vim.cmd("Gitsigns blame")
+			end,
+			desc = '[B]lame',
+		},
 	},
 }
