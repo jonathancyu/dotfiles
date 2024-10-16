@@ -152,6 +152,7 @@ alias lg=lazygit
 
 # atuin
 # zsh-vi-mode overrides atuin bindings, so we need to do this
+source $HOME/.atuin/bin/env
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
 # Neovim
@@ -190,3 +191,27 @@ sdk() {
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/jyu/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/jyu/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/jyu/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/jyu/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+. "$HOME/.atuin/bin/env"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/mnt/c/Users/Jonathan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/mnt/c/Users/Jonathan/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/mnt/c/Users/Jonathan/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/mnt/c/Users/Jonathan/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

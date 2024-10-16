@@ -12,8 +12,7 @@ else
 
 
     find_directories_depth_2=(
-        ~/workspace
-        ~/workspace/SyssecLab
+        ~/workspace/
     )
     for dir in $(find "${find_directories_depth_2[@]}" -mindepth 2 -maxdepth 2 -type d); do
         directories+=("$dir")
