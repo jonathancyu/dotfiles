@@ -122,6 +122,7 @@ if command -v security > /dev/null 2>&1; then
 fi
 
 # Aliases
+alias nv='source venv/bin/activate'
 alias main='git checkout main; git pull; git fetch -p'
 alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
