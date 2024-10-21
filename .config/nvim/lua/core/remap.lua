@@ -65,3 +65,7 @@ vim.keymap.set('x', '<leader>p', [["_dP]])
 
 --  More reasonable toggle fold
 vim.keymap.set('n', 'zt', 'za', { desc = '[T]oggle fold under cursor' })
+
+-- Don't deselect when adjusting indenting
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
