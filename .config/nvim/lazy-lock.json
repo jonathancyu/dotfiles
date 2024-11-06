@@ -5,7 +5,7 @@
   "ascii.nvim": { "branch": "master", "commit": "c1a315e811fa7c133f8f4827e63015a480d8a81b" },
   "auto-save.nvim": { "branch": "main", "commit": "5fe9ab0c42f0457f2a973e814a6352b8eeb04730" },
   "avante.nvim": { "branch": "main", "commit": "3dac407a11767a2063beee0e5ccebffda1f90bd4" },
-  "blame.nvim": { "branch": "main", "commit": "59cf695685c1d8d603d99b246cc8d42421937c09" },
+  "bigfile.nvim": { "branch": "main", "commit": "33eb067e3d7029ac77e081cfe7c45361887a311a" },
   "checkbox-cycle.nvim": { "branch": "main", "commit": "2c6e1a4af455eac57da39ca9d0ab8efd524575a0" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "d250c63aa13ead745e3a40f61fdd3470efde3923" },
