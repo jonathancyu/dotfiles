@@ -76,6 +76,10 @@ nnoremap <N> Nzzzv
 vnoremap J :m '>+1<CR>gv=gv'
 vnoremap K :m '<-2<CR>gv=gv'
 
+" Better indent
+vnoremap < <gv
+vnoremap > >gv
+
 " Paste without overriding register
 xnoremap <leader>p \"_dP<CR>
 
@@ -100,6 +104,11 @@ nmap <C-c> <C-w>c
 nmap <leader>sf <Action>(GotoFile)
 nmap <leader>sg <Action>(FindInPath)
 nmap <leader>ss <Action>(SearchEverywhere)
+
+" Trouble
+nmap <leader>xt <Action>(ActivateTODOToolWindow)
+nmap <leader>xr <Action>(InspectCode) "refresh
+nmap <leader>xd <Action>(ActivateProblemsViewToolWindow)
 
 " menu
 "nmap <leader>mm <Action>(MainMenu)
@@ -148,6 +157,9 @@ nmap <leader>f <Action>(ReformatCode)
 "nmap <leader>so <Action>(SelectAllOccurrences)
 nmap <leader>gc <Action>(Generate)
 nmap <leader>ot <Action>(GoToTest)
+
+" NavBuddy
+nmap <leader>n <Action>(ShowNavBar)
 
 " run
 nmap <leader>rc <Action>(ContextRun)
