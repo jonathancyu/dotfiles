@@ -69,3 +69,11 @@ vim.keymap.set('n', 'zt', 'za', { desc = '[T]oggle fold under cursor' })
 -- Don't deselect when adjusting indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+
+-- IDEs
+vim.keymap.set('n', 'cij', function ()
+	vim.cmd('!idea .')
+end, { desc = 'Open in [I]ntelliJ' })
+vim.keymap.set('n', 'cip', function ()
+	vim.cmd('!pycharm .')
+end, { desc = 'Open in [P]yCharm' })

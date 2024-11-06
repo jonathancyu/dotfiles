@@ -3,13 +3,14 @@ return { -- Useful plugin to show you pending keybinds.
 	event = 'VimEnter', -- Sets the loading event to 'VimEnter'
 	config = function() -- This is the function that runs, AFTER loading
 		require('which-key').setup({
-			delay = function (ctx)
+			delay = function(ctx)
 				return ctx.plugin and 0 or 500
-			end
+			end,
 		})
 
 		require('which-key').add({
 			{ '<leader>c', desc = '[C]ode', icon = { icon = ' ', color = 'orange' } },
+			{ '<leader>ci', desc = '[I]DE', icon = { icon = ' ', color = 'orange' } },
 			{ '<leader>d', desc = '[D]ebug', icon = { icon = '󰃤 ', color = 'red' } },
 			{ '<leader>g', desc = '[G]it' },
 			{ '<leader>h', desc = 'Git [H]unk', icon = { name = 'git' } },
