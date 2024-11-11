@@ -31,7 +31,7 @@ return {
 			-- Git
 			map('n', '<leader>gS', gitsigns.stage_buffer, { desc = '[S]tage buffer' })
 			map('n', '<leader>gR', gitsigns.reset_buffer, { desc = '[R]eset buffer' })
-			map('n', '<leader>gd', gitsigns.toggle_deleted, { desc = 'Toggle [D]eleted' })
+			map('n', '<leader>gt', gitsigns.toggle_deleted, { desc = 'Toggle [D]eleted' })
 			map('n', '<leader>gd', gitsigns.diffthis, { desc = '[D]iff unstaged changes' })
 			map('n', '<leader>gD', function()
 				gitsigns.diffthis('~')
