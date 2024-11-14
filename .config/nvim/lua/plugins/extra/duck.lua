@@ -5,23 +5,23 @@ return {
 		{
 			'<C-q>',
 			function()
-				require('duck').hatch('🐄')
+				require('duck').hatch('🦍')
 			end,
-			desc = 'Spawn Moo',
+			desc = 'Duck',
 		},
 		{
 			'<leader>dk',
 			function()
 				require('duck').cook()
 			end,
-			desc = 'Kill moo',
+			desc = 'Kill duck',
 		},
 		{
 			'<leader>da',
 			function()
 				require('duck').cook_all()
 			end,
-			desc = 'Kill all moos',
+			desc = 'Kill all ducks',
 		},
 	},
 }
