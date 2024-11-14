@@ -53,4 +53,13 @@ return {
 		-- DAP virtual text
 		require('nvim-dap-virtual-text').setup({})
 	end,
+	keys = {
+		{
+			'<leader>dt',
+			function()
+				require('dapui').toggle()
+			end,
+			desc = '[D]ap [T]oggle UI',
+		},
+	},
 }
