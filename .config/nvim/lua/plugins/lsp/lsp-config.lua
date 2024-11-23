@@ -32,12 +32,7 @@ local config = function()
 			map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 			-- map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
 			-- Map code action to fastaction
-			map('<leader>a', function()
-				require('fastaction').code_action()
-			end, '[A]ction')
-			vim.keymap.set('v', '<leader>a', function()
-				require('fastaction').range_code_action()
-			end, { buffer = event.buf, desc = '[A]ction' })
+			map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
 
 			map('K', vim.lsp.buf.hover, 'Hover Documentation')
 			map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -91,6 +86,17 @@ local config = function()
 		-- gopls = {},
 		bashls = {},
 		pyright = {},
+		ruff = {
+			trace = 'messages',
+			init_options = {
+				settings = {
+					logLevel = 'debug',
+				},
+			},
+		},
+		['eslint-lsp'] = {},
+		['typescript-language-server'] = {},
+
 		-- rust_analyzer = {}, Don't need b/c we have rustacean.nvim
 		jdtls = {
 			settings = {
@@ -129,7 +135,6 @@ local config = function()
 	vim.list_extend(ensure_installed, { -- Add formatters
 		'stylua',
 		'black',
-		-- 'ruff',
 	})
 	require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -172,7 +177,7 @@ return { -- LSP Configuration & Plugins
 
 		-- Must be setup before lspconfig
 		{ 'SmiteshP/nvim-navbuddy' },
-		{ 'Chaitanyabsprip/fastaction.nvim' },
+		{ 'jonathancyu/fastaction.nvim' },
 	},
 	config = config,
 }

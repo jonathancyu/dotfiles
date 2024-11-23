@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO:: Pick an outer directory and create a project in it. Git init in the folder
 
 if [[ $# -eq 1 ]]; then
     selected=$1

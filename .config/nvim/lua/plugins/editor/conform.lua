@@ -34,6 +34,8 @@ return {
 				lua = { 'stylua' },
 				rust = { 'rustfmt' },
 				python = { 'black' },
+				typescriptreact = { 'prettier' },
+				json = { 'jq' },
 			},
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable

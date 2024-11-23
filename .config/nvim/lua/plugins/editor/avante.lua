@@ -4,6 +4,7 @@ local function can_init_llm()
 		'workspace/projects',
 		'boss/boss-support',
 		'differential-privacy/prov-dp',
+		'resume',
 	}
 	local cwd = vim.fn.getcwd()
 	for _, name in ipairs(whitelist) do
@@ -75,6 +76,15 @@ return {
 				file_types = { 'Avante' },
 			},
 			ft = { 'Avante' },
+		},
+	},
+	keys = {
+		{
+			'<leader>l',
+			function()
+				vim.cmd('Neotree close')
+			end,
+			desc = 'Reveal neoTree',
 		},
 	},
 }

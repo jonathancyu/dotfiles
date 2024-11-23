@@ -1,5 +1,5 @@
 return {
-	'Chaitanyabsprip/fastaction.nvim',
+	'jonathancyu/fastaction.nvim',
 	---@type FastActionConfig
-	opts = { },
+	opts = {},
 }

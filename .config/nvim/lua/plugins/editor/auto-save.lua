@@ -6,9 +6,6 @@ return {
 	enabled = true,
 	event = { 'InsertLeave', 'TextChanged' }, -- optional for lazy loading on trigger events
 	opts = {
-		execution_message = {
-			enabled = false,
-		},
 		dir = vim.fn.expand(vim.fn.stdpath('state') .. '/sessions/'), -- directory where session files are saved
 		options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- sessionoptions used for saving
 		debounce = 100,
@@ -26,7 +23,5 @@ return {
 			return false
 		end,
 	},
-	keys = {
-
-	}
+	keys = {},
 }

@@ -79,8 +79,8 @@ vim.keymap.set('n', '<leader>cip', function()
 end, { desc = 'Open in [P]yCharm' })
 
 -- Config keymaps
-vim.keymap.set('n', '<leader>ls', '<cmd>source %<cr>')
-vim.keymap.set('n', '<leader>lr', function()
+vim.keymap.set('n', '<leader>lS', '<cmd>source %<cr>')
+vim.keymap.set('n', '<leader>lR', function()
 	local plugin = vim.fn.expand('%:t'):gsub('%.lua$', '.nvim')
 	print(plugin)
 	if require('lazy.core.config').plugins[plugin] ~= nil then

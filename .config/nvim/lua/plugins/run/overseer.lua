@@ -26,19 +26,34 @@ return {
 	},
 	keys = {
 		{
-			'<leader>ol',
-			'<cmd>OverseerRun<cr>',
-			desc = '[L]ist run configs',
+			'<leader>rN',
+			'<cmd>OverseerBuild<cr>',
+			desc = '[N]ew run config',
 		},
 		{
-			'<leader>ot',
+			'<leader>rM',
+			'<cmd>OverseerRun<cr>',
+			desc = '[R]un [M]enu',
+		},
+		{
+			'<leader>rm',
+			'<cmd>OverseerLoadBundle<cr>',
+			desc = '[R]un saved bundle',
+		},
+		{
+			'<leader>ro',
+			'<cmd>OverseerTaskAction<cr>',
+			desc = '[O]pen run',
+		},
+		{
+			'<leader>rs',
 			function()
 				vim.cmd('OverseerToggle')
 			end,
-			desc = '[T]oggle',
+			desc = '[R]un [s]ummary',
 		},
 		{
-			'<leader>op',
+			'<leader>rl',
 			function()
 				local overseer = require('overseer')
 				local tasks = overseer.list_tasks({ recent_first = true })
@@ -48,7 +63,7 @@ return {
 					overseer.run_action(tasks[1], 'restart')
 				end
 			end,
-			desc = 'Run [p]revious',
+			desc = '[R]un [p]revious',
 		},
 	},
 }

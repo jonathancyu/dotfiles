@@ -23,6 +23,13 @@ return {
 			desc = '[R]un nearest test',
 		},
 		{
+			'<leader>to',
+			function()
+				require('neotest').output.open()
+			end,
+			desc = '[T]est [Output]',
+		},
+		{
 			'<leader>td',
 			function()
 				require('neotest').run.run({ strategy = 'dap' })
@@ -34,7 +41,7 @@ return {
 			function()
 				require('neotest').run.run(vim.fn.expand('%'))
 			end,
-			desc = 'Test [F]ile',
+			desc = '[T]est [F]ile',
 		},
 		{
 			'<leader>tS',
