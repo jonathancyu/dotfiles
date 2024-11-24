@@ -7,9 +7,10 @@ current_theme_path=$(toml $alacritty_config general.import.0)
 echo "Current theme path: $current_theme_path"
 
 # Lookup current theme from path
-theme_file="$HOME/.config/alacritty/theme_list.jsonc"
-current_theme=$(jq -r "to_entries[] | select(.value.alacritty == $current_theme_path) | .key" $theme_file)
-echo "Current theme: $current_theme"
+theme_file="$HOME/.config/themes.jsonc"
+current_theme=$(jq -r "to_entries[] | select(.value.alacritty == $current_theme_path)" $theme_file)
+current_theme_key=$(echo $current_theme | jq -r ".key")
+echo "Current theme: $current_theme_key"
 
 # Find current index
 # Read themes into array by splitting on newlines
@@ -17,7 +18,7 @@ num_themes=$(jq "length" $theme_file)
 current_index=-1
 i=0
 for theme in $(jq -r "keys[]" $theme_file); do
-    if [[ "$theme" == "$current_theme" ]]; then
+    if [[ "$theme" == "$current_theme_key" ]]; then
         current_index=i
         break
     fi
@@ -30,9 +31,19 @@ fi
 next_index=$(( (current_index + 1) % num_themes))
 next_theme=$(jq "to_entries[$next_index]" $theme_file)
 echo "Next theme: $next_theme"
+
+:
 # Update alacritty colorscheme
 alacritty_theme_path=$(echo "$next_theme" | jq '.value.alacritty')
 sed -i'' -e "s|$current_theme_path|$alacritty_theme_path|" ~/.config/alacritty/alacritty.toml
+
+# Update tmux colorscheme
+current_tmux_theme_name=$(echo "$current_theme" | jq '.value.tmux')
+tmux_theme_name=$(echo "$next_theme" | jq '.value.tmux')
+sed -i'' -e "s|$current_tmux_theme_name|$tmux_theme_name|" ~/dotfiles/.tmux.conf # Can't sed the symlink, so edit dotfile repo.
+tmux source-file ~/.tmux.conf
+
+
 
 
 
