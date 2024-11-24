@@ -127,6 +127,7 @@ alias main='git checkout main; git pull; git fetch -p'
 alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
 alias ts="tmux-sessionizer"
+alias ta="tmux attach"
 
 # colima
 # export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
