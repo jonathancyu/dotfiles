@@ -1,6 +1,6 @@
 local function can_init_llm()
 	local whitelist = {
-		'dotfiles/.config',
+		'dotfiles',
 		'workspace/projects',
 		'boss/boss-support',
 		'differential-privacy/prov-dp',
