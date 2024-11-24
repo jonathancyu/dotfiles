@@ -1,5 +1,22 @@
-local colorscheme = 'kanagawa'
+local colorscheme = 'catppuccin'
 return {
+	{
+		'catppuccin/nvim',
+		name = 'catppuccin',
+		priority = 1000,
+		config = function()
+			if colorscheme ~= 'catppuccin' then
+				return
+			end
+			require('catppuccin').setup({
+				background = {
+					light = 'latte',
+					dark = 'frappe',
+				},
+			})
+			vim.cmd('colorscheme catppuccin-frappe')
+		end,
+	},
 	{
 		'scottmckendry/cyberdream.nvim',
 		lazy = false,
@@ -45,7 +62,7 @@ return {
 	},
 	{
 		'jonathancyu/kanagawa.nvim',
-		priority = 100,
+		priority = 1000,
 		config = function()
 			if colorscheme ~= 'kanagawa' then
 				return
