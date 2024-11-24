@@ -13,6 +13,7 @@ hyper - p : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'i
 # Toggle menu bar opacity
 hyper - m : yabai -m config menubar_opacity $(( 1 - $(yabai -m config menubar_opacity) ))
 
+ctrl + alt + cmd - f   : yabai-hide-unfocused.sh
 # There's gotta be a better way to do this...
 # hjkl
 hyper - h               : yabai-layers.sh "left"  "hyper"
