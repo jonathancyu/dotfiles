@@ -64,7 +64,6 @@ multiplier = 0
 
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/kanagawa_wave.toml"
-    # "~/.config/alacritty/cyberdream.toml"
+    "~/.config/alacritty/themes/themes/catppuccin_frappe.toml"
 ]
 

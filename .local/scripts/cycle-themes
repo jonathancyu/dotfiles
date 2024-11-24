@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Alacritty theme is our source of truth. Get current theme
+# FIXME: Assumes we only have one import.
+alacritty_config="$HOME/.config/alacritty/alacritty.toml"
+current_theme_path=$(toml $alacritty_config general.import.0)
+echo "Current theme path: $current_theme_path"
+
+# Lookup current theme from path
+theme_file="$HOME/.config/alacritty/theme_list.jsonc"
+current_theme=$(jq -r "to_entries[] | select(.value.alacritty == $current_theme_path) | .key" $theme_file)
+echo "Current theme: $current_theme"
+
+# Find current index
+# Read themes into array by splitting on newlines
+num_themes=$(jq "length" $theme_file)
+current_index=-1
+i=0
+for theme in $(jq -r "keys[]" $theme_file); do
+    if [[ "$theme" == "$current_theme" ]]; then
+        current_index=i
+        break
+    fi
+    i=$i+1
+done
+if [[ "$current_index" == -1 ]]; then
+    exit 1
+fi
+
+next_index=$(( (current_index + 1) % num_themes))
+next_theme=$(jq "to_entries[$next_index]" $theme_file)
+echo "Next theme: $next_theme"
+# Update alacritty colorscheme
+alacritty_theme_path=$(echo "$next_theme" | jq '.value.alacritty')
+sed -i'' -e "s|$current_theme_path|$alacritty_theme_path|" ~/.config/alacritty/alacritty.toml
+
+
+
+
