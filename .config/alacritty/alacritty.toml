@@ -5,7 +5,7 @@ TERM = "xterm-256color"
 [font]
 size = 13
 normal = { family = "JetBrainsMono Nerd Font", style = "Regular"}
-bold = { style = "Bold"}
+bold = { style = "SemiBold"}
 bold_italic = { style = "Bold Italic"}
 italic = { style = "Italic"}
 builtin_box_drawing = true
