@@ -9,9 +9,6 @@ vim.keymap.set('n', 'k', function()
 	return vim.v.count == 0 and 'gk' or 'k'
 end, { noremap = true, expr = true })
 
--- Toggle relative line numbers
-vim.keymap.set('n', '<leader>cn', '<cmd>set rnu!<cr>', { desc = 'Toggle relative line [n]umbers' })
-
 -- Quickfix/error stuff
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open [E]rror' })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Add to [Q]uickfixes' })
@@ -38,9 +35,6 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('n', '<C-c>', '<C-w>c')
 vim.keymap.set('i', '<C-c>', '<Esc><C-w>c')
 
--- Split tab
-vim.keymap.set('n', '<leader>wt', '<cmd>tab split<CR>', { desc = 'Send [W]indow to new [T]ab' })
-
 -- Map arrow keys to navigate cmp so I can fn + jk
 vim.keymap.set('i', '<Up>', '<C-p>')
 vim.keymap.set('i', '<Down>', '<C-n>')
@@ -61,7 +55,7 @@ vim.keymap.set({ 'n', 'v' }, 'L', '$')
 vim.keymap.set('n', 'Q', '<nop>')
 
 -- Paste without overwriting register
-vim.keymap.set('x', '<leader>p', [["_dP]])
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = '[P]aste' })
 
 --  More reasonable toggle fold
 vim.keymap.set('n', 'zt', 'za', { desc = '[T]oggle fold under cursor' })
@@ -69,23 +63,3 @@ vim.keymap.set('n', 'zt', 'za', { desc = '[T]oggle fold under cursor' })
 -- Don't deselect when adjusting indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
-
--- IDEs
-vim.keymap.set('n', '<leader>cij', function()
-	vim.cmd('!idea .')
-end, { desc = 'Open in [I]ntelliJ' })
-vim.keymap.set('n', '<leader>cip', function()
-	vim.cmd('!pycharm .')
-end, { desc = 'Open in [P]yCharm' })
-
--- Config keymaps
-vim.keymap.set('n', '<leader>lS', '<cmd>source %<cr>')
-vim.keymap.set('n', '<leader>lR', function()
-	local plugin = vim.fn.expand('%:t'):gsub('%.lua$', '.nvim')
-	print(plugin)
-	if require('lazy.core.config').plugins[plugin] ~= nil then
-		vim.cmd('Lazy reload ' .. plugin)
-	else
-		vim.notify('Plugin ' .. plugin .. ' does not exist.', vim.log.levels.WARN)
-	end
-end, { desc = '[L]azy.vim [r]eload current file' })

@@ -43,5 +43,12 @@ return {
 			desc = '[Q]uickfix',
 		},
 	},
-	opts = {},
+	opts = {
+		focus = true,
+		modes = {
+			lsp = {
+				win = { position = 'right', size = 0.3 },
+			},
+		},
+	},
 }

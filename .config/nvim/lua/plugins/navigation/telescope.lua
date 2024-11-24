@@ -29,7 +29,7 @@ return {
 				end,
 			},
 			{ 'nvim-telescope/telescope-ui-select.nvim' },
-			{ 'xiyaowong/telescope-emoji.nvim'},
+			{ 'xiyaowong/telescope-emoji.nvim' },
 			{ 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 			{ 'folke/trouble.nvim' },
 		},
@@ -70,8 +70,9 @@ return {
 			pcall(require('telescope').load_extension, 'emoji')
 
 			local dropdown = require('telescope.themes').get_dropdown({})
+			local wk = require('which-key')
 			-- Files
-			vim.keymap.set('n', '<leader>sf', function ()
+			vim.keymap.set('n', '<leader>sf', function()
 				cycle_find_files()
 			end, { desc = '[S]earch [F]iles' })
 			-- vim.keymap.set('n', '<leader>sr', builtin.git_files, { desc = '[S]earch in [R]epository' })
@@ -91,9 +92,9 @@ return {
 			vim.keymap.set('n', '<leader>so', builtin.buffers, { desc = '[S]earch [O]pen buffers' })
 
 			-- Other
-			vim.keymap.set('n', '<leader>se', function ()
-				vim.cmd("Telescope emoji")
-			end, {desc = "[S]earch [E]mojis"})
+			vim.keymap.set('n', '<leader>se', function()
+				vim.cmd('Telescope emoji')
+			end, { desc = '[S]earch [E]mojis' })
 			vim.keymap.set('n', '<leader>sb', function()
 				builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
 					winblend = 10,
