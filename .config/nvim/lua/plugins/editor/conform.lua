@@ -37,6 +37,11 @@ return {
 				typescriptreact = { 'prettier' },
 				json = { 'jq' },
 			},
+			formatters = {
+				rustfmt = {
+					args = { '--edition', '2021' },
+				},
+			},
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
