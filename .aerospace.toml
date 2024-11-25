@@ -88,7 +88,7 @@ outer.right =      8
 ctrl-t = 'exec-and-forget open -a "/Applications/Alacritty.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Firefox.app/"'
-ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"
+ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"'
 ctrl-shift-s = 'exec-and-forget open -a "/Applications/Slack.app/"'
 ctrl-shift-t = 'exec-and-forget open -a "/Applications/Microsoft Teams.app/"'
 # You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
@@ -98,6 +98,8 @@ ctrl-shift-t = 'exec-and-forget open -a "/Applications/Microsoft Teams.app/"'
 #     activate
 # end tell'
 # '''
+
+ctrl-alt-cmd-shift-p = 'layout tiling floating'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
