@@ -8,6 +8,5 @@ require('lazy').setup({
 		{ import = 'plugins.navigation' },
 		{ import = 'plugins.run' },
 	},
-	colorscheme = { 'kanagawa' },
 	change_detection = { notify = false },
 })

@@ -1,6 +1,6 @@
 
 [env]
-TERM = "xterm-256color"
+TERM = "alacritty"
 
 [font]
 size = 13
@@ -64,6 +64,6 @@ multiplier = 0
 
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/catppuccin_frappe.toml"
+    "~/.config/alacritty/themes/themes/catppuccin_macchiato.toml"
 ]
 

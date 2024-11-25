@@ -1,4 +1,5 @@
 local colorscheme = 'catppuccin'
+-- TODO: cleaner way to do this?
 return {
 	{
 		'catppuccin/nvim',
@@ -13,8 +14,18 @@ return {
 					light = 'latte',
 					dark = 'frappe',
 				},
+				integrations = {
+					native_lsp = {
+						underlines = {
+							errors = { 'undercurl' },
+							hints = { 'undercurl' },
+							warnings = { 'undercurl' },
+							information = { 'undercurl' },
+						},
+					},
+				},
 			})
-			vim.cmd('colorscheme catppuccin-frappe')
+			vim.cmd('colorscheme catppuccin-macchiato')
 		end,
 	},
 	{

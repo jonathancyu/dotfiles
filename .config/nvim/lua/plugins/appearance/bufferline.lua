@@ -13,20 +13,29 @@ return {
 		-- { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
 		-- { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
 	},
-	opts = {
-		options = {
-			mode = 'tabs',
-			separator_style = 'thick',
-			diagnostics = 'nvim_lsp',
-			always_show_bufferline = false,
-			offsets = {
-				{
-					filetype = 'neo-tree',
-					text = 'Neo-tree',
-					highlight = 'Directory',
-					text_align = 'left',
+	config = function()
+		local bufferline = require('bufferline')
+		bufferline.setup({
+			options = {
+				mode = 'tabs',
+				separator_style = 'thick',
+				diagnostics = 'nvim_lsp',
+				always_show_bufferline = true,
+				indicator = { 'underline' },
+				offsets = {
+					{
+						filetype = 'neo-tree',
+						text = 'Neo-tree',
+						highlight = 'Directory',
+						text_align = 'left',
+					},
+				},
+				hover = {
+					enabled = true,
+					delay = 200,
+					reveal = { 'close' },
 				},
 			},
-		},
-	},
+		})
+	end,
 }
