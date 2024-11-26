@@ -85,7 +85,7 @@ outer.right =      8
 # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-ctrl-t = 'exec-and-forget open -a "/Applications/Alacritty.app/"'
+ctrl-t = 'exec-and-forget open -a "/Applications/kitty.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Firefox.app/"'
 ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"'
@@ -131,29 +131,7 @@ ctrl-alt-cmd-6 = 'workspace 6'
 ctrl-alt-cmd-7 = 'workspace 7'
 ctrl-alt-cmd-8 = 'workspace 8'
 ctrl-alt-cmd-9 = 'workspace 9'
-# alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
-# alt-b = 'workspace B'
-# alt-c = 'workspace C'
-# alt-d = 'workspace D'
-# alt-e = 'workspace E'
-# alt-f = 'workspace F'
-# alt-g = 'workspace G'
-# alt-i = 'workspace I'
-# alt-m = 'workspace M'
-# alt-n = 'workspace N'
-# alt-o = 'workspace O'
-# alt-p = 'workspace P'
-# alt-q = 'workspace Q'
-# alt-r = 'workspace R'
-# alt-s = 'workspace S'
-# alt-t = 'workspace T'
-# alt-u = 'workspace U'
-# alt-v = 'workspace V'
-# alt-w = 'workspace W'
-# alt-x = 'workspace X'
-# alt-y = 'workspace Y'
-# alt-z = 'workspace Z'
-#
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 ctrl-alt-cmd-shift-1 = 'move-node-to-workspace 1'
 ctrl-alt-cmd-shift-2 = 'move-node-to-workspace 2'
