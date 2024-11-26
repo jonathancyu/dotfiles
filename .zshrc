@@ -181,6 +181,11 @@ alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
 export DEFAULT_NODE="v20.12.1"
 export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
 
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 # sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
 #Lazy load sdkman
