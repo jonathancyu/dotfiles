@@ -12,7 +12,7 @@ return {
 			require('catppuccin').setup({
 				background = {
 					light = 'latte',
-					dark = 'frappe',
+					dark = 'macchiato',
 				},
 				integrations = {
 					native_lsp = {

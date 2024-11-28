@@ -21,7 +21,9 @@ return {
 				separator_style = 'thick',
 				diagnostics = 'nvim_lsp',
 				always_show_bufferline = true,
-				indicator = { 'underline' },
+				indicator = {
+					style = 'underline',
+				},
 				offsets = {
 					{
 						filetype = 'neo-tree',
@@ -30,6 +32,8 @@ return {
 						text_align = 'left',
 					},
 				},
+				show_close_icon = false,
+				show_buffer_close_icons = false,
 				hover = {
 					enabled = true,
 					delay = 200,
