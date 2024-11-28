@@ -102,8 +102,10 @@ ctrl-shift-t = 'exec-and-forget open -a "/Applications/Microsoft Teams.app/"'
 ctrl-alt-cmd-shift-p = 'layout tiling floating'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
+ctrl-alt-cmd-slash = 'layout tiles horizontal vertical'
+ctrl-alt-cmd-comma = 'layout accordion horizontal vertical'
+
+ctrl-alt-cmd-m = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 ctrl-alt-cmd-h = 'focus left'
@@ -133,15 +135,15 @@ ctrl-alt-cmd-8 = 'workspace 8'
 ctrl-alt-cmd-9 = 'workspace 9'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-ctrl-alt-cmd-shift-1 = 'move-node-to-workspace 1'
-ctrl-alt-cmd-shift-2 = 'move-node-to-workspace 2'
-ctrl-alt-cmd-shift-3 = 'move-node-to-workspace 3'
-ctrl-alt-cmd-shift-4 = 'move-node-to-workspace 4'
-ctrl-alt-cmd-shift-5 = 'move-node-to-workspace 5'
-ctrl-alt-cmd-shift-6 = 'move-node-to-workspace 6'
-ctrl-alt-cmd-shift-7 = 'move-node-to-workspace 7'
-ctrl-alt-cmd-shift-8 = 'move-node-to-workspace 8'
-ctrl-alt-cmd-shift-9 = 'move-node-to-workspace 9'
+ctrl-alt-cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+ctrl-alt-cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+ctrl-alt-cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+ctrl-alt-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+ctrl-alt-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+ctrl-alt-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+ctrl-alt-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+ctrl-alt-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+ctrl-alt-cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -165,10 +167,10 @@ backspace = ['close-all-windows-but-current', 'mode main']
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
 
-ctrl-alt-cmd-shift-h = ['join-with left', 'mode main']
-ctrl-alt-cmd-shift-j = ['join-with down', 'mode main']
-ctrl-alt-cmd-shift-k = ['join-with up', 'mode main']
-ctrl-alt-cmd-shift-l = ['join-with right', 'mode main']
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
 
 [mode.resize.binding]
 h = 'resize width -50'
