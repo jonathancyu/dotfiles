@@ -1,6 +1,7 @@
 return {
 	'echasnovski/mini.nvim',
 	config = function()
+		require('mini.files').setup()
 		-- require('mini.ai').setup { n_lines = 500 }
 		require('mini.surround').setup()
 		-- Indentscope
@@ -25,4 +26,13 @@ return {
 			end,
 		})
 	end,
+	keys = {
+		{
+			'-',
+			function()
+				require('mini.files').open(vim.api.nvim_buf_get_name(0))
+			end,
+			desc = 'Open parent directory',
+		},
+	},
 }
