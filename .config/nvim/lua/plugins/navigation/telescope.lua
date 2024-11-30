@@ -30,6 +30,7 @@ return {
 			},
 			{ 'nvim-telescope/telescope-ui-select.nvim' },
 			{ 'xiyaowong/telescope-emoji.nvim' },
+			{ 'MagicDuck/grug-far.nvim' },
 			{ 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 			{ 'folke/trouble.nvim' },
 		},
@@ -87,7 +88,10 @@ return {
 
 			-- Text
 			vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-			vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+			vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [g]rep' })
+			vim.keymap.set('n', '<leader>sG', function()
+				require('grug-far').open()
+			end, { desc = '[S]earch by [G]rug' })
 			vim.keymap.set('n', '<leader>sc', builtin.resume, { desc = '[S]earch [C]ontinue' })
 			vim.keymap.set('n', '<leader>so', builtin.buffers, { desc = '[S]earch [O]pen buffers' })
 
