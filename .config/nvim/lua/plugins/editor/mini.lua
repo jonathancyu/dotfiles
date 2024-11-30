@@ -12,5 +12,16 @@ return {
 			},
 			mappings = {},
 		})
+		vim.api.nvim_create_autocmd({ 'FileType' }, {
+			desc = 'Disable indentscope for filetypes',
+			callback = function()
+				local blacklist = {
+					'alpha',
+				}
+				if vim.tbl_contains(blacklist, vim.bo.filetype) then
+					vim.b.miniindentscope_disable = true
+				end
+			end,
+		})
 	end,
 }
