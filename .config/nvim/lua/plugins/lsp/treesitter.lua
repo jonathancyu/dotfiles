@@ -62,7 +62,8 @@ return {
 		lazy = false,
 		opts = { useDefaultKeymaps = true },
 	},
-	{ 'nvim-treesitter/nvim-treesitter-context', opts = {
-		max_lines = 1,
-	} },
+	{
+		'nvim-treesitter/nvim-treesitter-context',
+		opts = { max_lines = 1 },
+	},
 }
