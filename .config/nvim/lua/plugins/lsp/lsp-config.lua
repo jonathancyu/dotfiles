@@ -72,7 +72,7 @@ local config = function()
 				java = {
 					inlayHints = {
 						parameterNames = {
-							enambled = 'all',
+							enabled = 'all',
 						},
 					},
 					configuration = {
