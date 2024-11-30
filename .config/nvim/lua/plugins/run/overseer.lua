@@ -63,7 +63,7 @@ return {
 					overseer.run_action(tasks[1], 'restart')
 				end
 			end,
-			desc = '[R]un [p]revious',
+			desc = '[R]un [l]ast',
 		},
 	},
 }
