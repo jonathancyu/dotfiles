@@ -28,6 +28,7 @@ return {
 			callback = function()
 				local blacklist = {
 					'alpha',
+					'help',
 				}
 				if vim.tbl_contains(blacklist, vim.bo.filetype) then
 					vim.b.miniindentscope_disable = true
