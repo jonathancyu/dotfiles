@@ -68,6 +68,7 @@ return { -- Useful plugin to show you pending keybinds.
 					require('trouble').close()
 					require('avante').close_sidebar()
 					require('dapui').close()
+					require('iron.core').hide_repl()
 					vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z]])
 				end,
 				desc = '[H]ide windows',
