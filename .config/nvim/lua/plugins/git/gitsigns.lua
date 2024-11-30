@@ -43,19 +43,19 @@ return {
 	},
 	keys = {
 		{
-			']c',
+			']h',
 			'<cmd>Gitsigns next_hunk<CR>',
 			desc = 'Next diff hunk',
 		},
 		{
-			'[c',
+			'[h',
 			'<cmd>Gitsigns prev_hunk<CR>',
 			desc = 'Next diff hunk',
 		},
 		{
 			'<leader>gb',
 			function()
-				vim.cmd("Gitsigns blame")
+				vim.cmd('Gitsigns blame')
 			end,
 			desc = '[B]lame',
 		},

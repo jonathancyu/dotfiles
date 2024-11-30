@@ -1,7 +1,16 @@
 return {
 	'echasnovski/mini.nvim',
 	config = function()
-		require('mini.files').setup()
+		-- Bracketed
+		require('mini.bracketed').setup()
+		-- Files
+		require('mini.files').setup({
+			windows = {
+				max_number = 2,
+				preview = true,
+				width_preview = 40,
+			},
+		})
 		-- require('mini.ai').setup { n_lines = 500 }
 		require('mini.surround').setup()
 		-- Indentscope
