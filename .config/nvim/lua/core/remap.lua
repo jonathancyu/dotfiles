@@ -16,10 +16,6 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Add to [Q]u
 -- Escape clears search highlight
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Move selection up/down
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-
 -- Add line below to current line without moving cursor
 vim.keymap.set('n', 'J', 'mzJ`z')
 

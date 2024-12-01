@@ -1,9 +1,10 @@
 return {
 	'echasnovski/mini.nvim',
 	config = function()
-		-- Bracketed
+		-- Bracketed: Add square bracket support
 		require('mini.bracketed').setup()
-		-- Files
+
+		-- Files: Manipulate files
 		require('mini.files').setup({
 			windows = {
 				max_number = 2,
@@ -11,9 +12,21 @@ return {
 				width_preview = 40,
 			},
 		})
-		-- require('mini.ai').setup { n_lines = 500 }
+
+		-- Surround: saiw)
 		require('mini.surround').setup()
-		-- Indentscope
+
+		-- Move: move text blocks around
+		require('mini.move').setup({
+			mappings = {
+				left = 'H',
+				right = 'L',
+				down = 'J',
+				up = 'K',
+			},
+		})
+
+		-- Indentscope: Scope line marker
 		local indentscope = require('mini.indentscope')
 		indentscope.setup({
 			symbol = '┃',
