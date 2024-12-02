@@ -44,10 +44,10 @@ return {
 				defaults = {
 					mappings = {
 						i = {
-							['<C-t>'] = open_with_trouble,
+							['<C-x>'] = open_with_trouble,
 							['<C-Space>'] = cycle_find_files.next,
 						},
-						n = { ['<C-t>'] = open_with_trouble },
+						n = { ['<C-x>'] = open_with_trouble },
 					},
 				},
 				pickers = {
