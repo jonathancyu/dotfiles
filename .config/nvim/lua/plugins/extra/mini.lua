@@ -2,7 +2,13 @@ return {
 	'echasnovski/mini.nvim',
 	config = function()
 		-- Bracketed: Add square bracket support
-		require('mini.bracketed').setup()
+		require('mini.bracketed').setup({
+			diagnostic = {
+				options = {
+					float = false, -- Disable opening float
+				},
+			},
+		})
 
 		-- Files: Manipulate files
 		require('mini.files').setup({
