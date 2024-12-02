@@ -6,10 +6,24 @@ return {
 		-- your configuration comes here
 		-- or leave it empty to use the default settings
 		-- refer to the configuration section below
-		bigfile = { enabled = true },
 		notifier = { enabled = true },
+		bigfile = { enabled = true },
 		quickfile = { enabled = true },
-		statuscolumn = { enabled = true },
+		statuscolumn = {
+			enabled = true,
+			left = {
+				'sign', -- neotest signs, dapui breakpoints
+				'fold',
+				'mark', -- vim marks
+			},
+			right = {
+				'git',
+			},
+			folds = {
+				open = false, -- Don't show symbol for folds that aren't closed
+				git_hl = true, -- TODO: what does this do?
+			},
+		},
 		words = { enabled = true, debounce = 100, notify_jump = true },
 	},
 	keys = {
