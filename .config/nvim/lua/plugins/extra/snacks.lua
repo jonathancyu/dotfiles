@@ -18,7 +18,7 @@ return {
 			function()
 				require('snacks.words').jump(-1)
 			end,
-			mode = {"n"},
+			mode = { 'n' },
 			desc = 'Previous reference',
 		},
 		{
