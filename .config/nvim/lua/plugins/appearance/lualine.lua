@@ -18,6 +18,13 @@ return {
 					active_indicators = { '[1]', '[2]', '[3]', '[4]' },
 				},
 				{
+					function()
+						local reg = vim.fn.reg_recording()
+						if reg == '' then
+							return ''
+						end
+						return 'recording @' .. reg
+					end,
 					'overseer',
 				},
 			},
