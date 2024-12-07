@@ -38,6 +38,9 @@ return {
 				json = { 'jq' },
 			},
 			formatters = {
+				black = {
+					prepend_args = { '--fast' },
+				},
 				rustfmt = {
 					args = { '--edition', '2021' },
 				},
