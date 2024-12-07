@@ -1,11 +1,20 @@
 return {
 	{
 		'L3MON4D3/LuaSnip',
-		dependencies = { 'rafamadriz/friendly-snippets' },
+		dependencies = {
+			'rafamadriz/friendly-snippets',
+		},
 		-- Mappings defined in cmp
-		config = function()
+		opts = {},
+		config = function(opts)
+			if opts then
+				require('luasnip').config.setup(opts)
+			end
+
+			require('luasnip.loaders.from_vscode').lazy_load()
+
 			local ls = require('luasnip')
-			-- TODO: add java class snippet
+
 			vim.keymap.set({ 'i' }, '<C-K>', function()
 				ls.expand()
 			end, { silent = true })
@@ -20,14 +29,6 @@ return {
 					ls.change_choice(1)
 				end
 			end, { silent = true })
-		end,
-	},
-	{
-		'rafamadriz/friendly-snippets',
-		config = function()
-			require('luasnip.loaders.from_vscode').lazy_load()
-			local ls = require('luasnip')
-			ls.filetype_extend('java', { 'java-tests', 'java', 'javadoc' })
 		end,
 	},
 }

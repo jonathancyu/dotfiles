@@ -9,6 +9,7 @@ return {
 		'hrsh7th/cmp-cmdline',
 		'Dosx001/cmp-commit',
 		'L3MON4D3/LuaSnip',
+		'saadparwaiz1/cmp_luasnip',
 		'onsails/lspkind.nvim',
 	},
 	config = function()
@@ -32,9 +33,9 @@ return {
 				}),
 			},
 			sources = cmp.config.sources({
-				{ name = 'nvim_lsp' },
 				{ name = 'luasnip' },
-				{ name = 'path' },
+				{ name = 'nvim_lsp' },
+				{ name = 'path', max_item_count = 5 },
 			}, {
 				{ name = 'buffer' },
 			}),
