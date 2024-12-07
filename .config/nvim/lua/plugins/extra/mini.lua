@@ -12,11 +12,20 @@ return {
 
 		-- Files: Manipulate files
 		require('mini.files').setup({
+			mappins = {
+				synchronize = '<CR>',
+			},
 			windows = {
 				max_number = 2,
 				preview = true,
 				width_preview = 40,
 			},
+		})
+		vim.api.nvim_create_autocmd('User', {
+			pattern = 'MiniFilesActionRename',
+			callback = function(event)
+				Snacks.rename.on_rename_file(event.data.from, event.data.to)
+			end,
 		})
 
 		-- Surround: saiw)
@@ -29,6 +38,10 @@ return {
 				right = 'L',
 				down = 'J',
 				up = 'K',
+				line_left = nil,
+				line_right = nil,
+				line_down = nil,
+				line_up = nil,
 			},
 		})
 
@@ -57,7 +70,7 @@ return {
 	end,
 	keys = {
 		{
-			'-',
+			'H',
 			function()
 				require('mini.files').open(vim.api.nvim_buf_get_name(0))
 			end,

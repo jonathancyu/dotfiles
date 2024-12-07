@@ -9,6 +9,7 @@ return {
 		notifier = { enabled = true },
 		bigfile = { enabled = true },
 		quickfile = { enabled = true },
+		rename = { enabled = true },
 		statuscolumn = {
 			enabled = true,
 			left = {
@@ -30,7 +31,7 @@ return {
 		{
 			'[r',
 			function()
-				require('snacks.words').jump(-1)
+				Snacks.words.jump(-1)
 			end,
 			mode = { 'n' },
 			desc = 'Previous reference',
@@ -38,7 +39,7 @@ return {
 		{
 			']r',
 			function()
-				require('snacks.words').jump(1)
+				Snacks.words.jump(1)
 			end,
 			desc = 'Next reference',
 		},
