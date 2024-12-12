@@ -1,3 +1,13 @@
+local function is_iron_open()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		-- Check if buffer is loaded and valid
+		if vim.api.nvim_buf_is_loaded(buf) then
+			local bufname = vim.api.nvim_buf_get_name(buf)
+			return true
+		end
+	end
+	return false
+end
 return { -- Useful plugin to show you pending keybinds.
 	'folke/which-key.nvim',
 	event = 'VeryLazy',
@@ -68,7 +78,10 @@ return { -- Useful plugin to show you pending keybinds.
 					require('trouble').close()
 					require('avante').close_sidebar()
 					require('dapui').close()
-					require('iron.core').hide_repl()
+					if is_iron_open() then
+						require('iron.core').hide_repl()
+					end
+
 					vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z]])
 				end,
 				desc = '[H]ide windows',
