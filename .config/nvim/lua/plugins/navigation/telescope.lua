@@ -73,6 +73,9 @@ return {
 			local dropdown = require('telescope.themes').get_dropdown({})
 			local wk = require('which-key')
 			-- Files
+			vim.keymap.set('n', '<leader>sF', function()
+				require('telescope.find_in_project').setup()
+			end, { desc = '[S]earch [F]iles' })
 			vim.keymap.set('n', '<leader>sf', function()
 				cycle_find_files()
 			end, { desc = '[S]earch [F]iles' })

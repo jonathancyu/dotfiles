@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+DIR=$1
+
+# If in a git repo, cd to project root
+
+if [[ -n $DIR ]]; then
+    cd $DIR
+fi
+cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+
+# Get git files
+FILES=$(git ls-files)
+# Add project files
+for file in $(find $DIR \
+    -type f \
+    -not -path '*/\.*' \
+    -not -path '*/.git/*' \
+    -not -path '.*' \
+); do
+    echo $(printf "%s\n" $file)
+done
