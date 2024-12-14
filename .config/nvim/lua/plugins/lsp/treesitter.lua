@@ -47,10 +47,15 @@ return {
 					select = {
 						enable = true,
 						keymaps = {
+							['aa'] = '@parameter.outer',
+							['ia'] = '@parameter.inner',
 							['af'] = '@function.outer',
 							['if'] = '@function.inner',
-							['ac'] = '@comment.outer', -- TODO: fix
-							['ic'] = '@comment.inner',
+							['aC'] = '@comment.outer', -- TODO: fix
+							['iC'] = '@comment.inner',
+							['as'] = '@statement.outer',
+							['ic'] = '@call.inner',
+							['ac'] = '@call.outer',
 						},
 					},
 				},
@@ -60,10 +65,10 @@ return {
 	{
 		'chrisgrieser/nvim-various-textobjs',
 		lazy = false,
-		opts = { useDefaultKeymaps = true },
+		opts = { keymaps = { useDefaults = true } },
 	},
 	{
 		'nvim-treesitter/nvim-treesitter-context',
-		opts = { max_lines = 1 },
+		opts = { max_lines = 3 },
 	},
 }

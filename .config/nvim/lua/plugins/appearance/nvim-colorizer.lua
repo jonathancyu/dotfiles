@@ -2,7 +2,7 @@ return {
 	'NvChad/nvim-colorizer.lua',
 	opts = {
 		filetypes = {
-			'lua',
+			-- 'lua',
 			'html',
 			'typescriptreact',
 			cmp_docs = { always_update = true },

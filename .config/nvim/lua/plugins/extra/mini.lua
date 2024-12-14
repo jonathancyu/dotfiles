@@ -18,7 +18,7 @@ return {
 			windows = {
 				max_number = 2,
 				preview = true,
-				width_preview = 40,
+				width_preview = 100,
 			},
 		})
 		vim.api.nvim_create_autocmd('User', {
@@ -34,10 +34,10 @@ return {
 		-- Move: move text blocks around
 		require('mini.move').setup({
 			mappings = {
-				left = 'H',
-				right = 'L',
-				down = 'J',
-				up = 'K',
+				left = nil,
+				right = nil,
+				down = nil,
+				up = nil,
 				line_left = nil,
 				line_right = nil,
 				line_down = nil,
@@ -68,13 +68,13 @@ return {
 			end,
 		})
 	end,
+	-- stylua: ignore
 	keys = {
-		{
-			'H',
-			function()
-				require('mini.files').open(vim.api.nvim_buf_get_name(0))
-			end,
-			desc = 'Open parent directory',
-		},
+		{ 'H', function() require('mini.files').open(vim.api.nvim_buf_get_name(0)) end, desc = 'Open parent directory' },
+		-- Mode: x
+		{ 'H', function() require('mini.move').move_selection('left') end, desc = 'Move line left', mode = 'x'},
+		{ 'J', function() require('mini.move').move_selection('down') end, desc = 'Move line down', mode = 'x'},
+		{ 'K', function() require('mini.move').move_selection('up') end, desc = 'Move line up', mode = 'x'},
+		{ 'L', function() require('mini.move').move_selection('right') end, desc = 'Move line right', mode = 'x'},
 	},
 }

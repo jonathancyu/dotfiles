@@ -2,10 +2,10 @@
 DIR=$1
 
 # If in a git repo, cd to project root
-
 if [[ -n $DIR ]]; then
     cd $DIR
 fi
+# TODO: check if in repo
 cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
 # Get git files

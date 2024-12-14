@@ -47,8 +47,10 @@ vim.api.nvim_command('autocmd VimResized * wincmd =')
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
 
--- Unbind Q
+-- Unbind Q, move macro to <leader>q
 vim.keymap.set('n', 'Q', '<nop>')
+vim.keymap.set('n', '<leader>q', 'q', { desc = 'Record Macro' })
+vim.keymap.set('n', 'q', '<nop>')
 
 -- Paste without overwriting register
 vim.keymap.set('x', '<leader>p', [["_dP]], { desc = '[P]aste' })
