@@ -32,8 +32,10 @@ local config = function()
 
 			map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 			-- Map code action to fastaction
-			-- map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
 			map('<leader>a', vim.lsp.buf.code_action, '[A]ction')
+			map('<leader>a', function()
+				require('fastaction').code_action()
+			end, '[A]ction')
 
 			map('K', vim.lsp.buf.hover, 'Hover Documentation')
 			map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
