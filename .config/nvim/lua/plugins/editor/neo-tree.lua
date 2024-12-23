@@ -17,7 +17,8 @@ return {
 		})
 	end,
 	opts = {
-		auto_clean_after_session_restore = true, -- Don't brick tree when restoring session
+		-- Don't brick tree when restoring session
+		auto_restore_session_experimental = true,
 		name = {
 			trailing_slash = true,
 			use_git_status_colors = true,
