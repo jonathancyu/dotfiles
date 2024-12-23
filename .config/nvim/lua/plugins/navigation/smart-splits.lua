@@ -1,8 +1,7 @@
 local resize_amount = 10
 return {
 	'mrjones2014/smart-splits.nvim',
-	lazy = false,
-	opts = {},
+	event = 'VeryLazy',
 	-- stylua: ignore
 	keys = {
 		{ '<A-h>', function() require('smart-splits').resize_left(resize_amount) end, { 'n' } },
@@ -14,4 +13,7 @@ return {
 		{ '<C-k>', function() require('smart-splits').move_cursor_up() end, { 'n' } },
 		{ '<C-l>', function() require('smart-splits').move_cursor_right() end, { 'n' } },
 	},
+	setup = function()
+		require('smart-splits').setup()
+	end,
 }

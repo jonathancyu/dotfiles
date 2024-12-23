@@ -38,10 +38,10 @@ return {
 				right = nil,
 				down = nil,
 				up = nil,
-				line_left = nil,
-				line_right = nil,
-				line_down = nil,
-				line_up = nil,
+				line_left = '<M-Left>',
+				line_right = '<M-Right>',
+				line_down = '<M-Down>',
+				line_up = '<M-Up>',
 			},
 		})
 
