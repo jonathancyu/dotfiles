@@ -61,3 +61,6 @@ vim.keymap.set('n', 'zt', 'za', { desc = '[T]oggle fold under cursor' })
 -- Don't deselect when adjusting indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+
+-- Write before entering cmd
+vim.keymap.set('n', 'ZZ', '<cmd>wqa!<cr>')
