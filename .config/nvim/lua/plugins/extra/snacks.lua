@@ -10,6 +10,7 @@ return {
 		bigfile = { enabled = true },
 		quickfile = { enabled = true },
 		rename = { enabled = true },
+		indent = { enabled = true, chunk = { only_scope = true, only_current = true } },
 		scratch = {
 			enabled = true,
 			win = {
