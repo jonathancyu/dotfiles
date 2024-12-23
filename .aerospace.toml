@@ -6,11 +6,6 @@
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
 after-login-command = []
 
-# You can use it to add commands that run after AeroSpace startup.
-# 'after-startup-command' is run after 'after-login-command'
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
-
 # Start AeroSpace at login
 start-at-login = true
 
@@ -43,6 +38,16 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
+# Run Sketchybar together with AeroSpace
+# sketchbar has a built-in detection of already running process,
+# so it won't be run twice on AeroSpace restart
+after-startup-command = ['exec-and-forget sketchybar']
+
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
@@ -62,6 +67,15 @@ outer.left =       8
 outer.bottom =     8
 outer.top =        5
 outer.right =      8
+
+# https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[workspace-to-monitor-force-assignment]
+C = ['main', 'secondary']
+1 = 'secondary'
+2 = 'secondary'
+3 = 'secondary'
+4 = 'secondary'
+
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -129,10 +143,7 @@ ctrl-alt-cmd-2 = 'workspace 2'
 ctrl-alt-cmd-3 = 'workspace 3'
 ctrl-alt-cmd-4 = 'workspace 4'
 ctrl-alt-cmd-5 = 'workspace 5'
-ctrl-alt-cmd-6 = 'workspace 6'
-ctrl-alt-cmd-7 = 'workspace 7'
-ctrl-alt-cmd-8 = 'workspace 8'
-ctrl-alt-cmd-9 = 'workspace 9'
+ctrl-alt-cmd-c = 'workspace C'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 ctrl-alt-cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
@@ -140,10 +151,13 @@ ctrl-alt-cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
 ctrl-alt-cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
 ctrl-alt-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
 ctrl-alt-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-ctrl-alt-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-ctrl-alt-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-ctrl-alt-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-ctrl-alt-cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+ctrl-alt-cmd-shift-c = ['move-node-to-workspace C', 'workspace C']
+# ctrl-alt-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+# ctrl-alt-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+# ctrl-alt-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+# ctrl-alt-cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-monitor
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -154,7 +168,11 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 ctrl-alt-cmd-space = 'mode service'
 ctrl-alt-cmd-r = 'mode resize'
 
-ctrl-alt-cmd-shift-equal = ['flatten-workspace-tree', 'mode main'] # reset layout
+ctrl-alt-cmd-shift-equal = ['flatten-workspace-tree'] # reset layout
+ctrl-alt-cmd-shift-down =[ 'move-node-to-monitor down', 'focus-monitor down']
+ctrl-alt-cmd-shift-left =[ 'move-node-to-monitor left', 'focus-monitor left']
+ctrl-alt-cmd-shift-up =[ 'move-node-to-monitor up', 'focus-monitor up']
+ctrl-alt-cmd-shift-right =[ 'move-node-to-monitor right', 'focus-monitor right']
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -179,3 +197,17 @@ k = 'resize height -50'
 l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
+
+# Don't tile these apps
+[[on-window-detected]]
+if.app-name-regex-substring = '(cisco|font)'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-name-regex-substring = '(teams|slack|outlook)'
+run = ['move-node-to-workspace C']
+
+# [[on-window-detected]]
+# if.app-name-regex-substring = '()'
+# run = ['move-node-to-workspace 5']
+
