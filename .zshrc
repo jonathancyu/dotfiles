@@ -143,9 +143,6 @@ esac
 # brew
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
-# pip scripts
-export PATH="$HOME/.local/bin:$PATH"
-
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
 
