@@ -42,7 +42,19 @@ return {
 				git_hl = true, -- TODO: what does this do?
 			},
 		},
+		styles = {
+			zen = {
+				backdrop = {
+					transparent = true,
+					blend = 40,
+				},
+				keys = {
+					q = "close"
+				}
+			},
+		},
 		words = { enabled = true, debounce = 100, notify_jump = true },
+		zen = { enabled = true },
 	},
 	-- stylua: ignore
 	keys = {
@@ -53,5 +65,13 @@ return {
 		{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
 		{ '[r', function() Snacks.words.jump(-1) end, mode = { 'n' }, desc = 'Previous reference' },
 		{ ']r', function() Snacks.words.jump(1) end, desc = 'Next reference' },
+		{ '<leader>z', function()
+			Snacks.zen.zen({
+				width = 150,
+				show = {
+					statusline = true
+				}
+			})
+		end, desc = 'Sorta [z]en mode' },
 	},
 }
