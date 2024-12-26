@@ -33,13 +33,20 @@ return { -- Useful plugin to show you pending keybinds.
 				{
 					'<leader>Lr',
 					function()
-						local plugin = vim.fn.expand('%:t'):gsub('%.lua$', '.nvim')
-						print(plugin)
-						if require('lazy.core.config').plugins[plugin] ~= nil then
-							vim.cmd('Lazy reload ' .. plugin)
-						else
-							vim.notify('Plugin ' .. plugin .. ' does not exist.', vim.log.levels.WARN)
+						local filename = vim.fn.expand('%:t')
+						local names = {
+							filename:gsub('%.lua$', '.nvim'),
+							'nvim-' .. filename:gsub('%.lua$', ''),
+						}
+						local attempts = ''
+						for _, plugin in ipairs(names) do
+							if require('lazy.core.config').plugins[plugin] ~= nil then
+								vim.cmd('Lazy reload ' .. plugin)
+								return
+							end
+							attempts = attempts .. ', ' .. plugin
 						end
+						vim.notify('Plugins ' .. attempts:sub(3) .. ' not found.', vim.log.levels.WARN)
 					end,
 					desc = '[L]azy.vim [r]eload current file',
 				},
@@ -63,7 +70,7 @@ return { -- Useful plugin to show you pending keybinds.
 			{
 				'<leader>wh',
 				function()
-					require("utility.windows").hide_windows()
+					require('utility.windows').hide_windows()
 					vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z]])
 				end,
 				desc = '[H]ide windows',
