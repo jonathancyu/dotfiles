@@ -5,6 +5,8 @@
 # https://github.com/FelixKratz/dotfiles
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
+FONT="Hack Nerd Font"
 
 ##### Bar Appearance #####
 # Configuring the general appearance of the bar.
@@ -13,7 +15,13 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+bar=(
+    --bar
+    position=top
+    height=30
+    color=0x00000000
+)
+sketchybar "${bar[@]}"
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -23,8 +31,8 @@ sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
 default=(
   padding_left=5
   padding_right=5
-  icon.font="Hack Nerd Font:Bold:17.0"
-  label.font="Hack Nerd Font:Bold:14.0"
+  icon.font="$FONT:Regular:14.0"
+  label.font="$FONT:Regular:14.0"
   icon.color=0xffffffff
   label.color=0xffffffff
   icon.padding_left=4
@@ -33,65 +41,10 @@ default=(
   label.padding_right=4
 )
 sketchybar --default "${default[@]}"
-# Aerospace
-sketchybar --add event aerospace_workspace_change
 
-# Workspace Icons Map
-declare -A WORKSPACE_ICONS=(
-    # [1]="󰎤"  # Work 1
-    # [2]="󰈹"  # Work 2
-    # [3]="󰨞"  # Work 3
-    ["C"]="󰭹"  # Chat
-    ["P"]=""  # Personal
-    # [5]="󱇧"  # Media
-    # [6]="󰏆"  # Files
-    # [7]="󰊗"  # Settings
-    # [8]="󰖲"  # Games
-    # [9]="󰕧"  # Misc
-)
+# Left
+source $ITEM_DIR/aerospace.sh
 
-for sid in $(aerospace list-workspaces --all); do
-    icon="${WORKSPACE_ICONS[$sid]:-$sid}"  # Fallback to sid if no icon defined
-    sketchybar --add item space.$sid left \
-        --subscribe space.$sid aerospace_workspace_change \
-        --set space.$sid \
-        background.color=0x44ffffff \
-        background.corner_radius=5 \
-        background.height=20 \
-        background.drawing=off \
-        label.position=center\
-        label.padding_left=0\
-        icon.padding_right=0\
-        label="$icon" \
-        click_script="aerospace workspace $sid" \
-        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
-done
-
-##### Adding Left Items #####
-# We add some regular items to the left side of the bar, where
-# only the properties deviating from the current defaults need to be set
-
-# sketchybar --add item chevron left \
-#            --set chevron icon= label.drawing=off \
-#            --add item front_app left \
-#            --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-#            --subscribe front_app front_app_switched
-#
-##### Adding Right Items #####
-# In the same way as the left items we can add items to the right side.
-# Additional position (e.g. center) are available, see:
-# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
-
-# Some items refresh on a fixed cycle, e.g. the clock runs its script once
-# every 10s. Other items respond to events they subscribe to, e.g. the
-# volume.sh script is only executed once an actual change in system audio
-# volume is registered. More info about the event system can be found here:
-# https://felixkratz.github.io/SketchyBar/config/events
-#
-#            --add item volume right \
-#            --set volume script="$PLUGIN_DIR/volume.sh" \
-#            --subscribe volume volume_change \
-# TODO: font change doesn't work 😓
 battery=(
     --add
         item
@@ -106,18 +59,13 @@ battery=(
         system_woke
         power_source_change
 )
-clock=(
-    --add
-        item
-        clock
-        right
-    --set
-        clock
-        update_freq=10
-        icon="󰃰"
-        script=$PLUGIN_DIR/clock.sh
-)
-sketchybar "${clock[@]}" "${battery[@]}"
+# Right items
+source $ITEM_DIR/clock.sh
+source $ITEM_DIR/battery.sh
+source $ITEM_DIR/network.sh
+
+# Auto reload
+sketchybar --hotload true
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
