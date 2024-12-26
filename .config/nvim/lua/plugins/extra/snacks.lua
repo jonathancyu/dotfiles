@@ -56,6 +56,7 @@ return {
 		words = { enabled = true, debounce = 100, notify_jump = true },
 		zen = { enabled = true, toggles = { dim = false } },
 	},
+
 	-- stylua: ignore
 	keys = {
 		{ '<leader>ns', function() Snacks.notifier.show_history() end, desc = '[N]otification [S]ummary' },
@@ -72,6 +73,6 @@ return {
 					statusline = true
 				}
 			})
-		end, desc = 'Sorta [z]en mode' },
+		end, desc = 'Less [z]en mode' },
 	},
 }

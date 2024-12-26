@@ -10,6 +10,7 @@ opt.foldcolumn = '0'
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
+
 -- Tab configuration
 opt.tabstop = 4
 opt.softtabstop = 4
