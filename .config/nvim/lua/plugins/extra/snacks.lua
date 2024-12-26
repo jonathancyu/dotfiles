@@ -49,12 +49,12 @@ return {
 					blend = 40,
 				},
 				keys = {
-					q = "close"
-				}
+					q = 'close',
+				},
 			},
 		},
 		words = { enabled = true, debounce = 100, notify_jump = true },
-		zen = { enabled = true },
+		zen = { enabled = true, toggles = { dim = false } },
 	},
 	-- stylua: ignore
 	keys = {
