@@ -148,7 +148,7 @@ return { -- LSP Configuration & Plugins
 
 		-- Must be setup before lspconfig
 		{ 'SmiteshP/nvim-navbuddy' },
-		{ 'jonathancyu/fastaction.nvim' },
+		{ 'Chaitanyabsprip/fastaction.nvim' },
 	},
 	config = config,
 }
