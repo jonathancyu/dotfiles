@@ -7,6 +7,9 @@ return {
 			handle = {
 				color = colors.surface1,
 			},
+			handlers = {
+				cursor = false,
+			},
 			excluded_filetypes = {
 				'alpha',
 				'dropbar_menu',
