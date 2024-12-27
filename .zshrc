@@ -156,7 +156,9 @@ zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 # Neovim
 alias vim=nvim
 alias vi=nvim
+alias v=nvim
 alias vimdiff='nvim -d'
+alias vd=vimdiff
 
 # TODO: can this be done in nvim?
 # Java environment variables
