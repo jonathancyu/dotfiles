@@ -33,10 +33,11 @@ return { -- Useful plugin to show you pending keybinds.
 				{
 					'<leader>Lr',
 					function()
-						local filename = vim.fn.expand('%:t')
+						local basename = vim.fn.expand('%:t'):gsub('%.lua$', '')
 						local names = {
-							filename:gsub('%.lua$', '.nvim'),
-							'nvim-' .. filename:gsub('%.lua$', ''),
+							basename,
+							basename .. '.nvim',
+							'nvim-' .. basename,
 						}
 						local attempts = ''
 						for _, plugin in ipairs(names) do
@@ -67,6 +68,7 @@ return { -- Useful plugin to show you pending keybinds.
 			mode = 'n',
 			{ '<leader>w', group = '[W]indow', icon = { icon = ' ', color = 'blue' } },
 			{ '<leader>wt', '<cmd>tab split<CR>', desc = 'Send [W]indow to new [T]ab' },
+			{ '<leader>wT', '<cmd>tabnew<CR>', desc = 'Send [W]indow to new [T]ab' },
 			{
 				'<leader>wh',
 				function()
