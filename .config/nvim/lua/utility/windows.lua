@@ -5,7 +5,9 @@ local function is_iron_open()
 		-- Check if buffer is loaded and valid
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local bufname = vim.api.nvim_buf_get_name(buf)
-			return true
+			if bufname:match('^term://.*python3$') then
+				return true
+			end
 		end
 	end
 	return false
