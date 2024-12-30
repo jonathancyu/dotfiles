@@ -47,6 +47,7 @@ after-startup-command = ['exec-and-forget sketchybar']
 exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
+on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_fullscreen_change']
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -119,7 +120,10 @@ ctrl-shift-t = 'exec-and-forget open -a "/Applications/Microsoft Teams.app/"'
 ctrl-alt-cmd-slash = 'layout tiles horizontal vertical'
 ctrl-alt-cmd-comma = 'layout accordion horizontal vertical'
 
-ctrl-alt-cmd-m = 'fullscreen'
+ctrl-alt-cmd-m = [
+    'fullscreen',
+    'exec-and-forget sketchybar --trigger aerospace_fullscreen_change'
+]
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 ctrl-alt-cmd-h = 'focus left'

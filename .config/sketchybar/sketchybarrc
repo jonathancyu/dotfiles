@@ -45,20 +45,6 @@ sketchybar --default "${default[@]}"
 # Left
 source $ITEM_DIR/aerospace.sh
 
-battery=(
-    --add
-        item
-        battery
-        right
-    --set
-        battery
-        update_freq=120
-        script="$PLUGIN_DIR/battery.sh"
-        font.style="Regular"
-    --subscribe battery
-        system_woke
-        power_source_change
-)
 # Right items
 source $ITEM_DIR/clock.sh
 source $ITEM_DIR/battery.sh
