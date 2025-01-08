@@ -10,7 +10,7 @@ return {
 		bigfile = { enabled = true },
 		quickfile = { enabled = true },
 		rename = { enabled = true },
-		indent = { enabled = true, chunk = { only_scope = true, only_current = true } },
+		indent = { enabled = false, chunk = { only_scope = true, only_current = true } },
 		scratch = {
 			enabled = true,
 			win = {
@@ -64,8 +64,8 @@ return {
 		{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
 		{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
 		{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
-		{ '[r', function() Snacks.words.jump(-1) end, mode = { 'n' }, desc = 'Previous reference' },
-		{ ']r', function() Snacks.words.jump(1) end, desc = 'Next reference' },
+		{ '[k', function() Snacks.words.jump(-1) end, mode = { 'n' }, desc = 'Previous reference' },
+		{ ']k', function() Snacks.words.jump(1) end, desc = 'Next reference' },
 		{ '<leader>z', function()
 			Snacks.zen.zen({
 				width = 150,
