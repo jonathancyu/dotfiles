@@ -67,8 +67,8 @@ return {
 		lazy = false,
 		opts = { keymaps = { useDefaults = true } },
 	},
-	{
-		'nvim-treesitter/nvim-treesitter-context',
-		opts = { max_lines = 3 },
-	},
+	-- {
+	-- 	'nvim-treesitter/nvim-treesitter-context',
+	-- 	opts = { max_lines = 3 },
+	-- },
 }
