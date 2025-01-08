@@ -66,7 +66,11 @@ inner.horizontal = 8
 inner.vertical =   8
 outer.left =       8
 outer.bottom =     8
-outer.top =        5
+outer.top =        [
+    {monitor."LG ULTRAGEAR+" = 25},
+    {monitor."C34H89x" = 30},
+    5
+]
 outer.right =      8
 
 # https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
@@ -149,6 +153,7 @@ ctrl-alt-cmd-4 = 'workspace 4'
 ctrl-alt-cmd-5 = 'workspace 5'
 ctrl-alt-cmd-c = 'workspace C'
 ctrl-alt-cmd-p = 'workspace P'
+ctrl-alt-cmd-s = 'workspace S'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 ctrl-alt-cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
@@ -158,6 +163,7 @@ ctrl-alt-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
 ctrl-alt-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 ctrl-alt-cmd-shift-c = ['move-node-to-workspace C', 'workspace C']
 ctrl-alt-cmd-shift-p = ['move-node-to-workspace P', 'workspace P']
+ctrl-alt-cmd-shift-s = ['move-node-to-workspace S', 'workspace S']
 # ctrl-alt-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
 # ctrl-alt-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
 # ctrl-alt-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
@@ -206,6 +212,7 @@ esc = 'mode main'
 
 # Don't tile these apps
 [[on-window-detected]]
+if.window-title-regex-substring = 'Picture-in-Picture'
 if.app-name-regex-substring = '(cisco|font)'
 run = ['layout floating']
 
@@ -213,6 +220,11 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-name-regex-substring = '(teams|slack|outlook)'
 run = ['move-node-to-workspace C']
+
+# Music
+[[on-window-detected]]
+if.app-name-regex-substring = '(Spotify)'
+run = ['move-node-to-workspace S']
 
 # [[on-window-detected]]
 # if.app-name-regex-substring = '()'
