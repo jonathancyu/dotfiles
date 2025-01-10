@@ -53,7 +53,24 @@ local config = function()
 	capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 	local servers = {
-		-- clangd = {},
+		['cmake-language-server'] = {},
+		clangd = {
+			cmd = {
+				'clangd',
+				'--enable-config',
+				'--background-index',
+				'--clang-tidy',
+				'--header-insertion=iwyu',
+				'--completion-style=detailed',
+				'--function-arg-placeholders',
+				'--fallback-style=llvm',
+			},
+			init_options = {
+				usePlaceholders = true,
+				completeUnimported = true,
+				clangdFileStatus = true,
+			},
+		},
 		-- gopls = {},
 		bashls = {},
 		pyright = {},
@@ -130,6 +147,16 @@ local config = function()
 			end,
 		},
 	})
+	-- Swift Sourcekit isn't provided in mason
+	-- require('lspconfig').sourcekit.setup({
+	-- 	capabilities = {
+	-- 		workspace = {
+	-- 			didChangeWatchedFiles = {
+	-- 				dynamicRegistration = true,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- })
 end
 return { -- LSP Configuration & Plugins
 	'neovim/nvim-lspconfig',
@@ -150,5 +177,6 @@ return { -- LSP Configuration & Plugins
 		{ 'SmiteshP/nvim-navbuddy' },
 		{ 'Chaitanyabsprip/fastaction.nvim' },
 	},
+
 	config = config,
 }

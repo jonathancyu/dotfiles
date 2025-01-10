@@ -36,6 +36,7 @@ return {
 				python = { 'black' },
 				typescriptreact = { 'prettier' },
 				json = { 'jq' },
+				xml = { 'xmllint' },
 			},
 			formatters = {
 				black = {

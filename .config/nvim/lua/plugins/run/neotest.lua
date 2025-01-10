@@ -9,6 +9,7 @@ return {
 		-- Kanagawa should be loaded as well
 		'jonathancyu/kanagawa.nvim',
 		-- Adapters
+		'alfaix/neotest-gtest',
 		'nvim-neotest/neotest-python',
 		'rcasia/neotest-java',
 		'mrcjkb/rustaceanvim',
@@ -91,6 +92,7 @@ return {
 				require('neotest-java')({
 					ignore_wrapper = false,
 				}),
+				require('neotest-gtest').setup({}),
 			},
 		})
 		-- Fix colors

@@ -12,10 +12,47 @@ return {
 		'jay-babu/mason-nvim-dap.nvim',
 		-- Add your own debuggers here
 		'mfussenegger/nvim-dap-python',
+		'stevearc/overseer.nvim',
 	},
 	config = function()
 		local dap = require('dap')
+		dap.adapters = {
+			['codelldb'] = {
+				type = 'server',
+				host = 'localhost',
+				port = '${port}',
+				executable = {
+					command = 'codelldb',
+					args = {
+						'--port',
+						'${port}',
+					},
+				},
+			},
+		}
 
+		for _, lang in ipairs({ 'c', 'cpp' }) do
+			dap.configurations[lang] = {
+				{
+					type = 'codelldb',
+					request = 'launch',
+					name = 'Launch file',
+					program = function()
+						return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+					end,
+					cwd = '${workspaceFolder}',
+				},
+				{
+					type = 'codelldb',
+					request = 'attach',
+					name = 'Attach to process',
+					pid = require('dap.utils').pick_process,
+					cwd = '${workspaceFolder}',
+				},
+			}
+		end
+
+		-- TODO: get ensure_installed from adapters table
 		require('mason-nvim-dap').setup({
 			-- Makes a best effort to setup the various debuggers with
 			-- reasonable debug configurations
@@ -28,7 +65,7 @@ return {
 			-- You'll need to check that you have the required things installed
 			-- online, please don't ask me how to install them :)
 			ensure_installed = {
-				-- Update this to ensure that you have the debuggers for the langs you want
+				'codelldb',
 			},
 		})
 
@@ -52,6 +89,14 @@ return {
 
 		-- DAP virtual text
 		require('nvim-dap-virtual-text').setup({})
+		vim.fn.sign_define('DapBreakpoint', { text = '● ', texthl = 'DiagnosticSignError', linehl = '', numhl = '' })
+		vim.fn.sign_define(
+			'DapBreakpointCondition',
+			{ text = '● ', texthl = 'DiagnosticSignWarn', linehl = '', numhl = '' }
+		)
+
+		-- Add overseer support
+		require('overseer').enable_dap()
 	end,
 	keys = {
 		{
