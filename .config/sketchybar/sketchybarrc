@@ -15,10 +15,14 @@ FONT="Hack Nerd Font"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
+# bar=(
+#     --bar
+#     position=top
+#     height=35
+#     color=0x00000000
+# )
 bar=(
     --bar
-    position=top
-    height=35
     color=0x00000000
 )
 sketchybar "${bar[@]}"
@@ -42,34 +46,6 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-#
-# ##### Bar Appearance #####
-# # Configuring the general appearance of the bar.
-# # These are only some of the options available. For all options see:
-# # https://felixkratz.github.io/SketchyBar/config/bar
-# # If you are looking for other colors, see the color picker:
-# # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
-#
-# declare -A MONITOR_HEIGHT=(
-# ["LG ULTRAGEAR+"]=25
-# ["Built-in Retina Display"]=35
-# )
-# default_height=35
-# # BUG: only shows on exterior monitor
-# aerospace list-monitors --json \
-#   | jq -r '.[] | "\(.["monitor-id"]) \(.["monitor-name"])"' \
-#   | while read -r id name; do
-#   bar=(
-#     --bar
-#     position=top
-#     color=0x00000000
-#     display=$id
-#   )
-#   # height=${MONITOR_HEIGHT[$name]:-$default_height}
-#   # bar+=("height=$height")
-#   sketchybar "${bar[@]}"
-# done
-#
 # Left
 source $ITEM_DIR/aerospace.sh
 
