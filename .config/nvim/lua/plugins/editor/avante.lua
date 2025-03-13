@@ -5,6 +5,7 @@ local function can_init_llm()
 		'boss/boss-support',
 		'differential-privacy/prov-dp',
 		'resume',
+		'green-team',
 	}
 	local cwd = vim.fn.getcwd()
 	for _, name in ipairs(whitelist) do

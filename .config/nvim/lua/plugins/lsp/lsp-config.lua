@@ -73,7 +73,7 @@ local config = function()
 		},
 		-- gopls = {},
 		bashls = {},
-		pyright = {},
+		basedpyright = {},
 		ruff = {
 			trace = 'messages',
 			init_options = {

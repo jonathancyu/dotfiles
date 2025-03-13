@@ -87,4 +87,15 @@ return {
 			kanagawa.load('wave')
 		end,
 	},
+	{
+		'folke/tokyonight.nvim',
+		lazy = false,
+		priority = 1000,
+		config = function()
+			if colorscheme ~= 'tokyonight' then
+				return
+			end
+			vim.cmd('colorscheme tokyonight')
+		end,
+	},
 }

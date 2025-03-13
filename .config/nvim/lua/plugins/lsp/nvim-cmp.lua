@@ -11,6 +11,7 @@ return {
 		'L3MON4D3/LuaSnip',
 		'saadparwaiz1/cmp_luasnip',
 		'onsails/lspkind.nvim',
+		{ dir = '~/workspace/projects/cmp-bonsai/', dev = true },
 	},
 	config = function()
 		local lspkind = require('lspkind')
@@ -33,9 +34,10 @@ return {
 				}),
 			},
 			sources = cmp.config.sources({
+				-- { name = 'bonsai' },
 				{ name = 'luasnip' },
 				{ name = 'nvim_lsp' },
-				{ name = 'path', max_item_count = 5 },
+				{ name = 'path' },
 			}, {
 				{ name = 'buffer' },
 			}),

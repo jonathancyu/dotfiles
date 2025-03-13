@@ -33,6 +33,7 @@ return {
 			{ 'MagicDuck/grug-far.nvim' },
 			{ 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 			{ 'folke/trouble.nvim' },
+			{ 'benfowler/telescope-luasnip.nvim' },
 		},
 		config = function()
 			local builtin = require('telescope.builtin')
@@ -69,6 +70,7 @@ return {
 			pcall(require('telescope').load_extension, 'fzf')
 			pcall(require('telescope').load_extension, 'ui-select')
 			pcall(require('telescope').load_extension, 'emoji')
+			pcall(require('telescope').load_extension, 'luasnip')
 
 			local dropdown = require('telescope.themes').get_dropdown({})
 			local wk = require('which-key')

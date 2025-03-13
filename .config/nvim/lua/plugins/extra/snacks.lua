@@ -11,6 +11,7 @@ return {
 		quickfile = { enabled = true },
 		rename = { enabled = true },
 		indent = { enabled = false, chunk = { only_scope = true, only_current = true } },
+		image = { enabled = false },
 		scratch = {
 			enabled = true,
 			win = {
@@ -44,6 +45,7 @@ return {
 		},
 		styles = {
 			zen = {
+				width = 150,
 				backdrop = {
 					transparent = true,
 					blend = 40,

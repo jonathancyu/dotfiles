@@ -6,6 +6,9 @@ return {
 			'nvim-treesitter/nvim-treesitter',
 			'nvim-tree/nvim-web-devicons',
 		},
+		opts = {
+			latex = { enable = false },
+		},
 	},
 	{
 		-- 'epilande/checkbox-cycle.nvim',

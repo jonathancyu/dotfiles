@@ -64,3 +64,8 @@ vim.keymap.set('v', '>', '>gv')
 
 -- Write before entering cmd
 vim.keymap.set('n', 'ZZ', '<cmd>wqa!<cr>')
+
+-- Mouse forward/back
+-- TODO: doesn't work
+vim.keymap.set('n', '<X1Mouse>', '<C-i>')
+vim.keymap.set('n', '<X2Mouse>', '<C-o>')
