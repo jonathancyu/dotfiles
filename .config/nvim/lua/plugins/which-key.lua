@@ -1,6 +1,13 @@
 return { -- Useful plugin to show you pending keybinds.
   "folke/which-key.nvim",
   event = "VeryLazy",
+  keys = {
+    { "<leader>qq", false },
+    { "<leader>qs", false },
+    { "<leader>qS", false },
+    { "<leader>ql", false },
+    { "<leader>qd", false },
+  },
   config = function() -- This is the function that runs, AFTER loading
     local wk = require("which-key")
     wk.add({
