@@ -128,6 +128,7 @@ alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
 alias ts="tmux-sessionizer"
 alias ta="tmux attach"
+alias tcs="tmux-clean-sessions.sh"
 
 # colima
 # export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
@@ -142,6 +143,11 @@ esac
 
 # brew
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
+
+# xpress
+export XPAUTH_PATH=/opt/xpressmp/bin/xpauth.xpr
+
+export SUMO_HOME=/opt/homebrew/Cellar/sumo/1.20.0.reinstall/bin/
 
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
@@ -159,6 +165,7 @@ alias vi=nvim
 alias v=nvim
 alias vimdiff='nvim -d'
 alias vd=vimdiff
+alias vt='nvim -c "set noswapfile | set buftype=nofile | set nomodified"'
 
 # TODO: can this be done in nvim?
 # Java environment variables
@@ -188,11 +195,12 @@ eval "$(pyenv init -)"
 # sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
 #Lazy load sdkman
-sdk() {
-  unset -f sdk
-  [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-  sdk "$@"
-}
+source "$SDKMAN_DIR/bin/sdkman-init.sh"
+# sdk() {
+#   unset -f sdk
+#   [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+#   sdk "$@"
+# }
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
