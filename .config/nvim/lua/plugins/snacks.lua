@@ -3,13 +3,8 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
     scroll = { enabled = false },
     notifier = { enabled = true },
-    bigfile = { enabled = true },
-    quickfile = { enabled = true },
     rename = { enabled = true },
     indent = { enabled = false, chunk = { only_scope = true, only_current = true } },
     image = { enabled = false },
@@ -64,18 +59,8 @@ return {
 	keys = {
 		{ '<leader>ns', function() Snacks.notifier.show_history() end, desc = '[N]otification [S]ummary' },
 		{ '<leader>nc', function() Snacks.notifier.hide() end, desc = '[C]lear Notifications' },
-		{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
-		{ '<leader>.', function() Snacks.scratch() end, desc = 'Toggle Scratch Buffer' },
 		{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
 		{ '[k', function() Snacks.words.jump(-1) end, mode = { 'n' }, desc = 'Previous reference' },
 		{ ']k', function() Snacks.words.jump(1) end, desc = 'Next reference' },
-		{ '<leader>z', function()
-			Snacks.zen.zen({
-				width = 150,
-				show = {
-					statusline = true
-				}
-			})
-		end, desc = 'Less [z]en mode' },
 	},
 }

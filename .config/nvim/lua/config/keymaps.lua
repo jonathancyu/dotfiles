@@ -44,10 +44,6 @@ vim.keymap.set("n", "<C-S-k>", "<cmd>horizontal resize +5<cr>")
 -- Autocmd to resize when size changes
 vim.api.nvim_command("autocmd VimResized * wincmd =")
 
--- Easy home/end
-vim.keymap.set({ "n", "v" }, "H", "^")
-vim.keymap.set({ "n", "v" }, "L", "$")
-
 -- Unbind Q, move macro to <leader>q
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>q", "q", { desc = "Record Macro" })

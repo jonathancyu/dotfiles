@@ -8,6 +8,11 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = { "*" },
-  command = "silent! wall",
+  callback = function()
+    local filetype = vim.bo.filetype
+    if filetype ~= "harpoon" and filetype ~= "OverseerForm" then
+      vim.cmd("wall")
+    end
+  end,
   nested = true,
 })
