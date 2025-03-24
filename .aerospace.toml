@@ -106,6 +106,7 @@ P = 'secondary'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 ctrl-t = 'exec-and-forget open -a "/Applications/kitty.app/"'
+ctrl-shift-c = 'exec-and-forget open -a "/Applications/Cursor.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Firefox.app/"'
 ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"'
