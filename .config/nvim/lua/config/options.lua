@@ -4,6 +4,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local opt = vim.opt
+
+-- Auto reload files when changed
+vim.o.autoread = true
+
 -- python provider fix
 vim.g.python3_host_prog = "$HOME/.config/nvim/neovimenv/bin/python3"
 

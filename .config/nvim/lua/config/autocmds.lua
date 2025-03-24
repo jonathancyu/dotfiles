@@ -16,3 +16,14 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   end,
   nested = true,
 })
+
+-- Auto reload files when changed
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})
+-- Notify when file was changed
+vim.api.nvim_create_autocmd(
+  { "FileChangedShellPost" },
+  { command = 'echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None', pattern = { "*" } }
+)
