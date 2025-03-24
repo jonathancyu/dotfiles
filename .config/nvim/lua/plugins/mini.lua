@@ -2,7 +2,7 @@ return {
   {
     "echasnovski/mini.files",
     opts = {
-      mappins = {
+      mappings = {
         synchronize = "<CR>",
       },
       windows = {
@@ -12,8 +12,6 @@ return {
       },
     },
     keys = {
-      { "<leader>fm", false },
-      { "<leader>fM", false },
       {
         "<S-h>",
         function()
@@ -21,21 +19,23 @@ return {
         end,
         desc = "Open mini.files (Directory of Current File)",
       },
+      { "<leader>fm", false },
+      { "<leader>fM", false },
     },
-    config = function(opts)
-      vim.keymap.del("n", "H") -- Disable lazyvim H
-      require("mini.files").setup(opts)
-      local set_mark = function(id, path, desc)
-        MiniFiles.set_bookmark(id, path, { desc = desc })
-      end
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesExplorerOpen",
-        callback = function()
-          set_mark("c", vim.fn.stdpath("config"), "Config") -- path
-          set_mark("w", vim.fn.getcwd, "Working directory") -- callable
-          set_mark("~", "~", "Home directory")
-        end,
-      })
-    end,
+    -- config = function(_, opts)
+    --   require("mini.files").setup(opts)
+    --   local MiniFiles = require("mini.files")
+    --   local set_mark = function(id, path, desc)
+    --     MiniFiles.set_bookmark(id, path, { desc = desc })
+    --   end
+    --   vim.api.nvim_create_autocmd("User", {
+    --     pattern = "MiniFilesExplorerOpen",
+    --     callback = function()
+    --       set_mark("c", vim.fn.stdpath("config"), "Config") -- path
+    --       set_mark("w", vim.fn.getcwd, "Working directory") -- callable
+    --       set_mark("~", "~", "Home directory")
+    --     end,
+    --   })
+    -- end,
   },
 }

@@ -55,3 +55,8 @@ vim.keymap.set("n", "ZZ", "<cmd>wqa!<cr>")
 
 -- Mouse forward/back
 -- TODO: doesn't work
+
+-- Disable lazyvim keymaps
+vim.keymap.del("n", "<leader>ft")
+vim.keymap.del("n", "<leader>fT")
+vim.keymap.del("n", "<leader>fn")

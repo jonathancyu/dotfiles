@@ -32,6 +32,12 @@ return {
     },
   },
   keys = {
+    { "<leader>e", false },
+    { "<leader>E", false },
+    { "<leader>fe", false },
+    { "<leader>fE", false },
+    { "<leader>ge", false },
+    { "<leader>be", false },
     {
       "<leader>\\",
       function()
