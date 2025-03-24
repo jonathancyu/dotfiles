@@ -2,12 +2,32 @@ return { -- Useful plugin to show you pending keybinds.
   "folke/which-key.nvim",
   event = "VeryLazy",
   keys = {
+    -- Disable lazyvim keymaps
+    -- q
     { "<leader>qq", false },
     { "<leader>qs", false },
     { "<leader>qS", false },
     { "<leader>ql", false },
     { "<leader>qd", false },
+    -- f
+    { "<leader>fb", false },
+    { "<leader>fB", false },
+    { "<leader>fc", false },
+    { "<leader>fC", false },
+    { "<leader>fe", false },
+    { "<leader>fE", false },
+    { "<leader>ff", false },
+    { "<leader>fF", false },
+    { "<leader>fg", false },
+    { "<leader>fn", false },
+    { "<leader>fr", false },
+    { "<leader>fR", false },
+    { "<leader>fp", false },
+    { "<leader>fP", false },
+    { "<leader>ft", false },
+    { "<leader>fT", false },
   },
+    -- stylua: ignore
   config = function() -- This is the function that runs, AFTER loading
     local wk = require("which-key")
     wk.add({
@@ -17,21 +37,21 @@ return { -- Useful plugin to show you pending keybinds.
         { "<leader>c", group = "[C]ode", icon = { icon = " ", color = "orange" } },
         { "<leader>ci", desc = "[I]DE", icon = { icon = " ", color = "orange" } },
         { "<leader>cn", "<cmd>set rnu!<cr>", desc = "Toggle relative line [n]umbers" },
-        {
-          "<leader>cij",
-          function()
-            vim.cmd("!idea .")
-          end,
-          { desc = "Open in [I]ntelliJ" },
-        },
-        {
-          "<leader>cip",
-          function()
-            vim.cmd("!pycharm .")
-          end,
-          { desc = "Open in [P]yCharm" },
-        },
+        { "<leader>cij", function() vim.cmd("!idea .") end, { desc = "Open in [I]ntelliJ" } },
+        { "<leader>cip", function() vim.cmd("!pycharm .") end, { desc = "Open in [P]yCharm" } },
       },
+      -- [F]ind
+      {
+        -- { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+        -- { "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
+        -- { "<leader>fc", LazyVim.pick.config_files(), desc = "Find Config File" },
+        { "<leader>sf", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+        { "<leader>sF", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+        { "<leader>sg", function() Snacks.picker.git_files() end, desc = "Find Files (git-files)" },
+        { "<leader>fp", LazyVim.pick("oldfiles"), desc = "Previous" },
+        { "<leader>fP", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Previous (cwd)" },
+      },
+      -- { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
       -- [L]azy / [L]ua
       {
         mode = "n",
@@ -59,15 +79,15 @@ return { -- Useful plugin to show you pending keybinds.
           desc = "[L]azy.vim [r]eload current file",
         },
       },
-      { "<leader>d", desc = "[D]ebug", icon = { icon = "󰃤 ", color = "red" } },
-      { "<leader>g", desc = "[G]it" },
-      { "<leader>h", desc = "Git [H]unk", icon = { name = "git" } },
-      { "<leader>h", desc = "Git [H]unk", mode = "v" },
-      { "<leader>l", desc = "[L]LM", icon = { icon = " ", color = "green" } },
-      { "<leader>s", desc = "[S]earch", icon = { icon = "", color = "blue" } },
-      { "<leader>t", desc = "[T]est", icon = {} },
-      { "<leader>r", desc = "[R]un", icon = { icon = " ", color = "green" } },
-      { "<leader>x", desc = "Trouble", icon = { icon = "󱖫 ", color = "green" } },
+      -- { "<leader>d", desc = "[D]ebug", icon = { icon = "󰃤 ", color = "red" } },
+      -- { "<leader>g", desc = "[G]it" },
+      -- { "<leader>h", desc = "Git [H]unk", icon = { name = "git" } },
+      -- { "<leader>h", desc = "Git [H]unk", mode = "v" },
+      -- { "<leader>l", desc = "[L]LM", icon = { icon = " ", color = "green" } },
+      -- { "<leader>s", desc = "[S]earch", icon = { icon = "", color = "blue" } },
+      -- { "<leader>t", desc = "[T]est", icon = {} },
+      -- { "<leader>r", desc = "[R]un", icon = { icon = " ", color = "green" } },
+      -- { "<leader>x", desc = "Trouble", icon = { icon = "󱖫 ", color = "green" } },
     })
 
     -- [W]indow

@@ -1,15 +1,6 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
--- Better jk
-vim.keymap.set("n", "j", function()
-  return vim.v.count == 0 and "gj" or "j"
-end, { noremap = true, expr = true })
-
-vim.keymap.set("n", "k", function()
-  return vim.v.count == 0 and "gk" or "k"
-end, { noremap = true, expr = true })
-
 -- Quickfix/error stuff
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Open [E]rror" })
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Add to [Q]uickfixes" })

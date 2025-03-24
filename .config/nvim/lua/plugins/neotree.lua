@@ -1,3 +1,5 @@
+-- TODO: single click navigation
+-- https://github.com/nvim-tree/nvim-tree.lua/issues/731
 return {
   "nvim-neo-tree/neo-tree.nvim",
   opts = {

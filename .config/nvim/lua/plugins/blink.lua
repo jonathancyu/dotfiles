@@ -1,8 +1,5 @@
 return {
   "saghen/blink.cmp",
-  dependencies = {
-    "hrsh7th/cmp-cmdline",
-  },
   opts = {
     keymap = {
       ["<Tab>"] = { "select_and_accept" },

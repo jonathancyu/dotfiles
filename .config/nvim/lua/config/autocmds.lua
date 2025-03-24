@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   callback = function()
     local filetype = vim.bo.filetype
     if filetype ~= "harpoon" and filetype ~= "OverseerForm" then
-      vim.cmd("wall")
+      vim.cmd("silent! wall")
     end
   end,
   nested = true,
