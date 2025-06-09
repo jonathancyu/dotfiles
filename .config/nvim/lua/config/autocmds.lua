@@ -6,17 +6,6 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-  pattern = { "*" },
-  callback = function()
-    local filetype = vim.bo.filetype
-    if filetype ~= "harpoon" and filetype ~= "OverseerForm" then
-      vim.cmd("silent! wall")
-    end
-  end,
-  nested = true,
-})
-
 -- Auto reload files when changed
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
   command = "if mode() != 'c' | checktime | endif",

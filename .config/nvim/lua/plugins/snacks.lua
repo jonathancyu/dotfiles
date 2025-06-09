@@ -7,6 +7,7 @@ return {
     notifier = { enabled = true },
     rename = { enabled = true },
     indent = { enabled = false, chunk = { only_scope = true, only_current = true } },
+    -- bigfile = { enabled = false },
     image = { enabled = false },
     scratch = {
       enabled = true,
@@ -85,5 +86,6 @@ return {
     { "<leader>sg", function() Snacks.picker.git_files() end, desc = "Find Files (git-files)" },
     { "<leader>sp", LazyVim.pick("oldfiles"), desc = "Previous" },
     { "<leader>sP", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Previous (cwd)" },
+    { "<leader>st", false },
   },
 }

@@ -1,19 +1,12 @@
 local function can_init_llm()
-  local whitelist = {
-    "dotfiles",
-    "workspace/projects",
-    "boss/boss-support",
-    "differential-privacy/prov-dp",
-    "resume",
-    "green-team",
-  }
+  local blacklist = { "operations-research/CWR" }
   local cwd = vim.fn.getcwd()
-  for _, name in ipairs(whitelist) do
+  for _, name in ipairs(blacklist) do
     if string.find(cwd, name, 1, true) then
-      return true
+      return false
     end
   end
-  return false
+  return true
 end
 
 return {
@@ -25,7 +18,9 @@ return {
     local prefix = "<leader>l"
     local opts = {
       provider = "claude",
-
+      claude = {
+        disable_tools = true, -- disable tools!
+      },
       -- add any opts here
       mappings = {
         ask = prefix .. "a",

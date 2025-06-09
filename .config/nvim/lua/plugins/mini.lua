@@ -38,4 +38,15 @@ return {
     --   })
     -- end,
   },
+  {
+    "echasnovski/mini.move",
+    -- stylua: ignore
+    keys = {
+      -- Mode: x
+      { "H", function() require("mini.move").move_selection("left") end, desc = "Move line left", mode = "x" },
+      { "J", function() require("mini.move").move_selection("down") end, desc = "Move line down", mode = "x" },
+      { "K", function() require("mini.move").move_selection("up") end, desc = "Move line up", mode = "x" },
+      { "L", function() require("mini.move").move_selection("right") end, desc = "Move line right", mode = "x" },
+    },
+  },
 }

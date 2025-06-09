@@ -99,7 +99,8 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-
+# Fix for bad ssh :(
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -119,10 +120,11 @@ if command -v security > /dev/null 2>&1; then
     export ARTIFACTORY_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'ARTIFACTORY_AUTH_TOKEN' -w)
     export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
     export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
+    export OPENAI_API_KEY=$(cat ~/.openai_api_key)
 fi
 
 # Aliases
-alias nv='source venv/bin/activate'
+alias nv='source .venv/bin/activate'
 alias main='git checkout main; git pull; git fetch -p'
 alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
@@ -133,13 +135,6 @@ alias tcs="tmux-clean-sessions.sh"
 # colima
 # export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 unset DOCKET_HOST
-
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
 
 # brew
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
@@ -159,6 +154,9 @@ alias lg=lazygit
 # zsh-vi-mode overrides atuin bindings, so we need to do this
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
+# Pnpm
+alias pi=pnpm i
+alias pd=pnpm run dev
 # Neovim
 alias vim=nvim
 alias vi=nvim
@@ -166,6 +164,7 @@ alias v=nvim
 alias vimdiff='nvim -d'
 alias vd=vimdiff
 alias vt='nvim -c "set noswapfile | set buftype=nofile | set nomodified"'
+alias vj='nvim -c "set noswapfile | set buftype=nofile | set filetype=json | set nomodified"'
 
 # TODO: can this be done in nvim?
 # Java environment variables

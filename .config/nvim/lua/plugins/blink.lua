@@ -27,5 +27,10 @@ return {
         return {}
       end,
     },
+    completion = {
+      ghost_text = {
+        enabled = false,
+      },
+    },
   },
 }
