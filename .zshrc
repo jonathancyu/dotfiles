@@ -13,7 +13,7 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 
 # Pure (must go after oh-my-zsh)
-fpath+=($HOME/.zsh/pure)
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 prompt pure
 zstyle :prompt:pure:git:stash show yes
@@ -116,8 +116,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Secrets
 if command -v security > /dev/null 2>&1; then
-    export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
-    export OPENAI_API_KEY=$(cat ~/.openai_api_key)
+    # export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
+    # export OPENAI_API_KEY=$(cat ~/.openai_api_key)
 fi
 
 # Aliases
