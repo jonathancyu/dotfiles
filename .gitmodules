@@ -1,0 +1,6 @@
+[submodule ".config/kitty/catppuccin-kitty"]
+	path = .config/kitty/catppuccin-kitty
+	url = https://github.com/catppuccin/kitty
+[submodule ".oh-my-zsh/custom/zsh-autosuggestions"]
+	path = .oh-my-zsh/custom/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

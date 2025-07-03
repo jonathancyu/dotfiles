@@ -116,9 +116,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Secrets
 if command -v security > /dev/null 2>&1; then
-    export GITHUB_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'GITHUB_AUTH_TOKEN' -w)
-    export ARTIFACTORY_AUTH_TOKEN=$(security find-generic-password -a "$USER" -s 'ARTIFACTORY_AUTH_TOKEN' -w)
-    export PIP_ARTIFACTORY_CREDS=$(security find-generic-password -a "$USER" -s 'PIP_ARTIFACTORY_CREDS' -w)
     export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
     export OPENAI_API_KEY=$(cat ~/.openai_api_key)
 fi
@@ -139,11 +136,6 @@ unset DOCKET_HOST
 # brew
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
-# xpress
-export XPAUTH_PATH=/opt/xpressmp/bin/xpauth.xpr
-
-export SUMO_HOME=/opt/homebrew/Cellar/sumo/1.20.0.reinstall/bin/
-
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)" 
 
@@ -152,6 +144,7 @@ alias lg=lazygit
 
 # atuin
 # zsh-vi-mode overrides atuin bindings, so we need to do this
+source $HOME/.atuin/bin/env
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
 # Pnpm
@@ -165,11 +158,6 @@ alias vimdiff='nvim -d'
 alias vd=vimdiff
 alias vt='nvim -c "set noswapfile | set buftype=nofile | set nomodified"'
 alias vj='nvim -c "set noswapfile | set buftype=nofile | set filetype=json | set nomodified"'
-
-# TODO: can this be done in nvim?
-# Java environment variables
-export JDTLS_JVM_ARGS="-javaagent:$HOME/.local/share/nvim/mason/packages/lombok-nightly/lombok.jar"
-export MAVEN_OPTS="--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
 
 # Add scripts to path
 export PATH="$PATH:$HOME/.local/scripts"
@@ -191,15 +179,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# sdkman
-export SDKMAN_DIR="$HOME/.sdkman"
-#Lazy load sdkman
-source "$SDKMAN_DIR/bin/sdkman-init.sh"
-# sdk() {
-#   unset -f sdk
-#   [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-#   sdk "$@"
-# }
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi

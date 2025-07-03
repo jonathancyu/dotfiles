@@ -8,6 +8,7 @@ else
     directories=(
         ~/workspace/
         ~/dotfiles/
+        ~/obsidian/
         ~/workspace/reference/
         ~/workspace/open-source/
     )
@@ -18,7 +19,6 @@ else
 
     find_directories_depth_2=(
         ~/workspace
-        ~/workspace/SyssecLab
         ~/dotfiles/.local
     )
     for dir in $(find "${find_directories_depth_2[@]}" -mindepth 2 -maxdepth 2 -type d); do
