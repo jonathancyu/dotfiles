@@ -1,10 +1,10 @@
 {
-    "catppuccin_frappe": {
-        "alacritty":"~/.config/alacritty/themes/themes/catppuccin_frappe.toml",
-        "tmux": "frappe"
-    },
-    "catppuccin_latte": {
-        "alacritty":"~/.config/alacritty/themes/themes/catppuccin_latte.toml",
-        "tmux": "latte"
-    }
+  "catppuccin_frappe": {
+    "alacritty": "~/.config/alacritty/themes/themes/catppuccin_frappe.toml",
+    "tmux": "frappe",
+  },
+  "catppuccin_latte": {
+    "alacritty": "~/.config/alacritty/themes/themes/catppuccin_latte.toml",
+    "tmux": "latte",
+  },
 }
