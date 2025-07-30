@@ -109,18 +109,20 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
 # Secrets
 if command -v security > /dev/null 2>&1; then
-    # export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
+    export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
     # export OPENAI_API_KEY=$(cat ~/.openai_api_key)
 fi
 
 # Aliases
+alias c='cursor .'
+alias pi='pnpm install'
+alias pd='pnpm run dev'
+alias pdf='pnpm run dev:fresh'
+alias pm='poetry run python -m'
 alias nv='source .venv/bin/activate'
 alias main='git checkout main; git pull; git fetch -p'
 alias mvnpush='mvn clean install && git push'
@@ -137,7 +139,7 @@ unset DOCKET_HOST
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
 # Zoxide
-eval "$(zoxide init --cmd cd zsh)" 
+eval "$(zoxide init --cmd z zsh)" 
 
 # Lazygit
 alias lg=lazygit
@@ -150,6 +152,7 @@ zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 # Pnpm
 alias pi=pnpm i
 alias pd=pnpm run dev
+
 # Neovim
 alias vim=nvim
 alias vi=nvim
@@ -182,3 +185,21 @@ eval "$(pyenv init -)"
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
+
+# Github
+export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+
+# AWS
+export AWS_PROFILE=default
+alias asl='aws sso login'
+alias asle='aws sso login && eval "$(aws configure export-credentials --profile default --format env)"'
+
+# Source custom functions
+for function_file in ~/.zsh/functions/*.zsh; do
+  source $function_file
+done
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -18,8 +18,10 @@ return {
     local prefix = "<leader>l"
     local opts = {
       provider = "claude",
-      claude = {
-        disable_tools = true, -- disable tools!
+      providers = {
+        claude = {
+          disable_tools = true, -- disable tools!
+        },
       },
       -- add any opts here
       mappings = {

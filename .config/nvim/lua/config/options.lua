@@ -77,3 +77,10 @@ opt.colorcolumn = "120"
 
 -- Other
 opt.updatetime = 250
+
+-- vscode
+if vim.g.vscode then
+  vim.o.cmdheight = 4
+  vim.o.hlsearch = false
+  vim.o.incsearch = false
+end
