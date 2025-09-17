@@ -66,12 +66,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 8
-inner.vertical = 8
-outer.left = 8
-outer.bottom = 8
-outer.top = [{ monitor."LG ULTRAGEAR+" = 8 }, { monitor."C34H89x" = 8 }, 5]
-outer.right = 8
+inner.horizontal = 1
+inner.vertical = 1
+outer.left = 1
+outer.bottom = 1
+outer.top = [{ monitor."LG ULTRAGEAR+" = 8 }, { monitor."C34H89x" = 8 }, 1]
+outer.right = 1
 
 # https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [workspace-to-monitor-force-assignment]
@@ -108,6 +108,7 @@ P = 'secondary'
 ctrl-t = 'exec-and-forget open -a "/Applications/kitty.app/"'
 ctrl-shift-c = 'exec-and-forget open -a "/Applications/Cursor.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
+ctrl-m = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
 ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"'
 ctrl-shift-s = 'exec-and-forget open -a "/Applications/Slack.app/"'
@@ -170,6 +171,7 @@ ctrl-alt-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
 ctrl-alt-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 ctrl-alt-cmd-shift-c = ['move-node-to-workspace C', 'workspace C']
 ctrl-alt-cmd-shift-p = ['move-node-to-workspace P', 'workspace P']
+ctrl-alt-cmd-shift-o = ['move-node-to-workspace O', 'workspace O']
 ctrl-alt-cmd-shift-s = ['move-node-to-workspace S', 'workspace S']
 # ctrl-alt-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
 # ctrl-alt-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']

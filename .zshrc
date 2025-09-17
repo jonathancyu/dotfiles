@@ -114,7 +114,8 @@ source $ZSH/oh-my-zsh.sh
 # Secrets
 if command -v security > /dev/null 2>&1; then
     export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
-    # export OPENAI_API_KEY=$(cat ~/.openai_api_key)
+    export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
+    export OPENAI_API_KEY=$(cat ~/.openai_api_key)
 fi
 
 # Aliases
@@ -150,8 +151,10 @@ source $HOME/.atuin/bin/env
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
 # Pnpm
-alias pi=pnpm i
-alias pd=pnpm run dev
+alias p='pnpm'
+alias pi='pnpm i'
+alias pd='pnpm run dev'
+alias pt='pnpm run test'
 
 # Neovim
 alias vim=nvim
@@ -190,9 +193,10 @@ fi
 export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
 
 # AWS
-export AWS_PROFILE=default
+export AWS_PROFILE=dompe-dev
 alias asl='aws sso login'
-alias asle='aws sso login && eval "$(aws configure export-credentials --profile default --format env)"'
+alias asle='aws sso login && eval "$(aws configure export-credentials --profile dompe-dev --format env)"'
+alias ap='asle && pd'
 
 # Source custom functions
 for function_file in ~/.zsh/functions/*.zsh; do
