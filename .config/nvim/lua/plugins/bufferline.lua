@@ -26,7 +26,4 @@ return {
       },
     },
   },
-  keys = {
-    { "<S-h>", false },
-  },
 }

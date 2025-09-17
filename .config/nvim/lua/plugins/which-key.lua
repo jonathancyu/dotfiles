@@ -9,6 +9,14 @@ return { -- Useful plugin to show you pending keybinds.
     { "<leader>qS", false },
     { "<leader>ql", false },
     { "<leader>qd", false },
+
+    { "<leader>l", false },
+    { "<leader>qS>", false },
+    { "<leader>ql>", false },
+    { "<leader>qs>", false },
+    { "<leader>qq>", false },
+    { "<leader>qd>", false },
+    { "<leader>L", false}
   },
     -- stylua: ignore
   config = function() -- This is the function that runs, AFTER loading

@@ -32,6 +32,7 @@ return {
     },
   },
   keys = {
+    { "<leader>l", false },
     { "<leader>e", false },
     { "<leader>E", false },
     { "<leader>fe", false },

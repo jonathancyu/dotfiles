@@ -1,6 +1,6 @@
 return {
   {
-    "echasnovski/mini.files",
+    "nvim-mini/mini.files",
     opts = {
       mappings = {
         synchronize = "<CR>",
@@ -11,17 +11,17 @@ return {
         width_preview = 100,
       },
     },
-    keys = {
-      {
-        "<S-h>",
-        function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-        end,
-        desc = "Open mini.files (Directory of Current File)",
-      },
-      { "<leader>fm", false },
-      { "<leader>fM", false },
-    },
+    -- keys = {
+    --   {
+    --     "<S-h>",
+    --     function()
+    --       require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+    --     end,
+    --     desc = "Open mini.files (Directory of Current File)",
+    --   },
+    --   { "<leader>fm", false },
+    --   { "<leader>fM", false },
+    -- },
     -- config = function(_, opts)
     --   require("mini.files").setup(opts)
     --   local MiniFiles = require("mini.files")
@@ -39,7 +39,7 @@ return {
     -- end,
   },
   {
-    "echasnovski/mini.move",
+    "nvim-mini/mini.move",
     -- stylua: ignore
     keys = {
       -- Mode: x

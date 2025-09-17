@@ -81,11 +81,22 @@ return {
     { "<leader>fP", false },
     { "<leader>ft", false },
     { "<leader>fT", false },
-    { "<leader>sf", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+    {
+      "<leader>sf",
+      function()
+        if Snacks.git.get_root() ~= nil then
+          Snacks.picker.git_files()
+        else
+          LazyVim.pick("files")
+        end
+      end,
+      desc = "Find Files (git-files)",
+    },
     { "<leader>sF", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
     { "<leader>sg", function() Snacks.picker.git_files() end, desc = "Find Files (git-files)" },
     { "<leader>sp", LazyVim.pick("oldfiles"), desc = "Previous" },
     { "<leader>sP", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Previous (cwd)" },
     { "<leader>st", false },
+    { "<leader>n", false },
   },
 }
