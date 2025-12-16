@@ -18,6 +18,9 @@ zinit wait lucid light-mode for \
   blockf atpull'zinit creinstall -q .' \
     zsh-users/zsh-completions
 
+# Load zsh-titles immediately (needed for tmux window names)
+zinit light jreese/zsh-titles
+
 # Load other plugins with turbo mode
 zinit wait lucid light-mode for \
   atload"_zsh_autosuggest_start" \
