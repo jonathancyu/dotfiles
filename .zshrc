@@ -76,6 +76,7 @@ fi
 
 # Aliases
 alias c='cursor .'
+alias l='ls -al --color'
 # pnpm
 alias pi='pnpm install'
 alias pd='pnpm run dev'
@@ -155,7 +156,7 @@ alias vd=vimdiff
 alias vt='nvim -c "set noswapfile | set buftype=nofile | set nomodified"'
 alias vj='nvim -c "set noswapfile | set buftype=nofile | set filetype=json | set nomodified"'
 d() {
-  nvim +"DiffviewOpen $1"
+  nvim +"CodeDiff $1"
 }
 # Add scripts to path
 export PATH="$PATH:$HOME/.local/scripts"
@@ -205,7 +206,7 @@ for function_file in ~/.zsh/functions/*.zsh; do
   source $function_file
 done
 
-ce() {
+change_environment() {
     if [ -z "$1" ]; then
         echo "Usage: ce <environment>"
         echo "       ce <prefix> <environment>"
@@ -224,6 +225,7 @@ ce() {
     asl
     echo "AWS_PROFILE=$AWS_PROFILE"
 }
+alias cn=change_environment
 
 # SDKMAN (lazy loaded)
 export SDKMAN_DIR="$HOME/.sdkman"
