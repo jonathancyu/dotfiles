@@ -6,7 +6,8 @@ local function can_init_llm()
       return false
     end
   end
-  return true
+  return false
+  -- return true
 end
 
 return {

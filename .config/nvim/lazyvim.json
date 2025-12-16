@@ -1,5 +1,6 @@
 {
   "extras": [
+    "lazyvim.plugins.extras.ai.sidekick",
     "lazyvim.plugins.extras.coding.luasnip",
     "lazyvim.plugins.extras.coding.mini-surround",
     "lazyvim.plugins.extras.dap.core",
@@ -30,6 +31,7 @@
     "lazyvim.plugins.extras.lsp.neoconf",
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.ui.indent-blankline",
+    "lazyvim.plugins.extras.ui.treesitter-context",
     "lazyvim.plugins.extras.util.dot",
     "lazyvim.plugins.extras.util.mini-hipatterns",
     "lazyvim.plugins.extras.util.octo"

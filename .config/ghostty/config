@@ -1,0 +1,5 @@
+font-family = "Berkeley Mono"
+
+window-decoration = "none"
+macos-titlebar-style = hidden
+

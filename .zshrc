@@ -1,7 +1,5 @@
 # Profile zsh startup
-if [ -n "${ZSH_DEBUGRC+1}" ]; then
-    zmodload zsh/zprof
-fi
+zmodload zsh/zprof
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -120,17 +118,47 @@ fi
 
 # Aliases
 alias c='cursor .'
+# pnpm
 alias pi='pnpm install'
 alias pd='pnpm run dev'
 alias pdf='pnpm run dev:fresh'
+# poetry
 alias pm='poetry run python -m'
-alias nv='source .venv/bin/activate'
-alias main='git checkout main; git pull; git fetch -p'
-alias mvnpush='mvn clean install && git push'
-alias ngpush='npm run lint && npm run test_ci && git push'
+alias ptu='poetry run pytest -n auto tests/unit/'
+alias pti='poetry run pytest tests/integration/'
+
+# python
+autoflake_staged() {
+  local git_root files
+  git_root=$(git rev-parse --show-toplevel)
+
+  # Collect staged Python files (absolute paths, one per line)
+  files=$(git diff --cached --name-only --diff-filter=ACM -- '*.py' | sed "s|^|$git_root/|")
+
+  if [[ -z "$files" ]]; then
+    echo "No staged Python files."
+    return 0
+  fi
+
+  echo "Running autoflake on staged Python files..."
+  # Use xargs -0 to handle spaces safely
+  echo "$files" | tr '\n' '\0' | xargs -0 poetry run autoflake --remove-all-unused-imports --in-place
+
+  echo "✅ Autoflake complete."
+}
+alias ui=autoflake_staged
+
+# tmux
 alias ts="tmux-sessionizer"
 alias ta="tmux attach"
 alias tcs="tmux-clean-sessions.sh"
+
+# miscellaneous
+alias nv='source .venv/bin/activate'
+alias pnv='$(poetry env activate)'
+alias main='git checkout main; git pull; git fetch -p'
+alias mvnpush='mvn clean install && git push'
+alias ngpush='npm run lint && npm run test_ci && git push'
 
 # colima
 # export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
@@ -140,7 +168,7 @@ unset DOCKET_HOST
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
 # Zoxide
-eval "$(zoxide init --cmd z zsh)" 
+eval "$(zoxide init --cmd z zsh)"
 
 # Lazygit
 alias lg=lazygit
@@ -164,7 +192,9 @@ alias vimdiff='nvim -d'
 alias vd=vimdiff
 alias vt='nvim -c "set noswapfile | set buftype=nofile | set nomodified"'
 alias vj='nvim -c "set noswapfile | set buftype=nofile | set filetype=json | set nomodified"'
-
+d() {
+  nvim +"DiffviewOpen $1"
+}
 # Add scripts to path
 export PATH="$PATH:$HOME/.local/scripts"
 export PATH="$PATH:$HOME/.local/bin"
@@ -184,26 +214,60 @@ export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-
-if [ -n "${ZSH_DEBUGRC+1}" ]; then
-    zprof
-fi
+# Local dev
+export LOCAL_DATABASE=true
+alias b='cd backend'
 
 # Github
 export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
 
 # AWS
-export AWS_PROFILE=dompe-dev
-alias asl='aws sso login'
-alias asle='aws sso login && eval "$(aws configure export-credentials --profile dompe-dev --format env)"'
-alias ap='asle && pd'
+export AWS_PROFILE='shared-services-dev'
+alias asl='aws sso login --profile $AWS_PROFILE'
+alias ae='unset AWS_ACCESS_KEY_ID AWS_CREDENTIAL_EXPIRATION AWS_SECRET_ACCESS_KEY && eval "$(aws configure export-credentials --format env)"'
+alias ap='ae && pd'
+
+# GCP
+alias gl='gcloud auth application-default login'
+
+# make
+alias ma='VERBOSE=true make api'
+alias mt='VERBOSE=true make task-server'
 
 # Source custom functions
 for function_file in ~/.zsh/functions/*.zsh; do
   source $function_file
 done
 
+ce() {
+    if [ -z "$1" ]; then
+        echo "Usage: ce <environment>"
+        echo "       ce <prefix> <environment>"
+        echo "Example: ce dev           → shared-services-dev"
+        echo "Example: ce mycompany prod → mycompany-prod"
+        return 1
+    fi
+
+    if [ -z "$2" ]; then
+        export ENVIRONMENT=$1
+        export AWS_PROFILE=shared-services-$1
+    else
+        export ENVIRONMENT=$2
+        export AWS_PROFILE=$1-$2
+    fi
+    asl
+    echo "AWS_PROFILE=$AWS_PROFILE"
+}
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/jonathan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jonathan/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/jonathan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jonathan/google-cloud-sdk/completion.zsh.inc'; fi
+
+zprof
+

@@ -82,7 +82,7 @@ return {
     { "<leader>ft", false },
     { "<leader>fT", false },
     {
-      "<leader>sf",
+      "<M-p>",
       function()
         if Snacks.git.get_root() ~= nil then
           Snacks.picker.git_files()
