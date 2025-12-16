@@ -1,88 +1,38 @@
 # Profile zsh startup
 zmodload zsh/zprof
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+### Zinit Setup ###
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
+    print -P "%F{33}Installing zinit...%f"
+    command mkdir -p "$(dirname $ZINIT_HOME)"
+    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME=""
+# Load OMZ git library (for git aliases)
+zinit snippet OMZL::git.zsh
 
-# Pure (must go after oh-my-zsh)
-fpath+=("$(brew --prefix)/share/zsh/site-functions")
-autoload -U promptinit; promptinit
-prompt pure
+# Load OMZ git plugin
+zinit snippet OMZP::git
+
+# Load plugins with turbo mode (deferred loading for speed)
+zinit wait lucid light-mode for \
+  atinit"zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+  atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  blockf atpull'zinit creinstall -q .' \
+    zsh-users/zsh-completions
+
+# zsh-vi-mode (loaded immediately, not with turbo)
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+# Pure prompt
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 zstyle :prompt:pure:git:stash show yes
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    zsh-autosuggestions
-    zsh-vi-mode
-)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -111,7 +61,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Secrets
 if command -v security > /dev/null 2>&1; then
-    export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
     export ANTHROPIC_API_KEY=$(security find-generic-password -a "$USER" -s 'ANTHROPIC_API_KEY' -w)
     export OPENAI_API_KEY=$(cat ~/.openai_api_key)
 fi
@@ -156,7 +105,7 @@ alias tcs="tmux-clean-sessions.sh"
 # miscellaneous
 alias nv='source .venv/bin/activate'
 alias pnv='$(poetry env activate)'
-alias main='git checkout main; git pull; git fetch -p'
+alias main='git checkout main; git pull; git fetch -p'
 alias mvnpush='mvn clean install && git push'
 alias ngpush='npm run lint && npm run test_ci && git push'
 
@@ -167,8 +116,12 @@ unset DOCKET_HOST
 # brew
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
-# Zoxide
-eval "$(zoxide init --cmd z zsh)"
+# Zoxide (lazy loaded)
+_zoxide_init() {
+  unfunction z 2>/dev/null
+  eval "$(zoxide init --cmd z zsh)"
+}
+z() { _zoxide_init; z "$@" }
 
 # Lazygit
 alias lg=lazygit
@@ -210,10 +163,14 @@ alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
 export DEFAULT_NODE="v20.12.1"
 export PATH="$PATH:$NVM_DIR/versions/node/$DEFAULT_NODE/bin"
 
-# Pyenv
+# Pyenv (lazy loaded)
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+_pyenv_init() {
+  unfunction pyenv 2>/dev/null
+  eval "$(command pyenv init -)"
+}
+pyenv() { _pyenv_init; pyenv "$@" }
 # Local dev
 export LOCAL_DATABASE=true
 alias b='cd backend'
@@ -259,9 +216,19 @@ ce() {
     echo "AWS_PROFILE=$AWS_PROFILE"
 }
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# SDKMAN (lazy loaded)
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+_sdkman_init() {
+  [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+  # Remove the aliases after first use
+  for cmd in sdk java gradle maven kotlin scala sbt; do
+    unalias $cmd 2>/dev/null
+  done
+}
+# Create aliases for lazy loading
+for cmd in sdk java gradle maven kotlin scala sbt; do
+  alias $cmd="_sdkman_init; $cmd"
+done
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jonathan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jonathan/google-cloud-sdk/path.zsh.inc'; fi
@@ -270,4 +237,3 @@ if [ -f '/Users/jonathan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jonath
 if [ -f '/Users/jonathan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jonathan/google-cloud-sdk/completion.zsh.inc'; fi
 
 zprof
-
