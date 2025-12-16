@@ -40,9 +40,9 @@ return {
     { "<leader>ge", false },
     { "<leader>be", false },
     {
-      "<leader>\\",
+      "<M-b>",
       function()
-        vim.cmd("Neotree close")
+        vim.cmd("Neotree toggle")
       end,
       desc = "Reveal neoTree",
     },

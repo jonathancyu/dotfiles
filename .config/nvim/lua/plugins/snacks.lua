@@ -1,3 +1,22 @@
+local function cursor_m_l()
+  local cli = require("sidekick.cli")
+  local State = require("sidekick.cli.state")
+  local attached = State.get({ attached = true })
+  if #attached > 0 then
+    local terminal = attached[1].terminal
+    if terminal ~= nil and terminal:is_focused() then
+      terminal:hide()
+      return
+    end
+  else
+    cli.select({
+      filter = { name = "claude", cwd = true },
+      auto = true,
+    })
+  end
+  cli.send({ msg = "{this}" })
+end
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -56,13 +75,13 @@ return {
     zen = { enabled = true, toggles = { dim = false } },
   },
 
-	-- stylua: ignore
-	keys = {
-		{ '<leader>ns', function() Snacks.notifier.show_history() end, desc = '[N]otification [S]ummary' },
-		{ '<leader>nc', function() Snacks.notifier.hide() end, desc = '[C]lear Notifications' },
-		{ '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
-		{ '[k', function() Snacks.words.jump(-1) end, mode = { 'n' }, desc = 'Previous reference' },
-		{ ']k', function() Snacks.words.jump(1) end, desc = 'Next reference' },
+  -- stylua: ignore
+  keys = {
+    { '<leader>ns', function() Snacks.notifier.show_history() end, desc = '[N]otification [S]ummary' },
+    { '<leader>nc', function() Snacks.notifier.hide() end, desc = '[C]lear Notifications' },
+    { '<leader>S', function() Snacks.scratch.select() end, desc = 'Select Scratch Buffer' },
+    { '[k', function() Snacks.words.jump(-1) end, mode = { 'n' }, desc = 'Previous reference' },
+    { ']k', function() Snacks.words.jump(1) end, desc = 'Next reference' },
     -- Picker
     -- Diable <leaaer>f*
     { "<leader>fb", false },
@@ -98,5 +117,8 @@ return {
     { "<leader>sP", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Previous (cwd)" },
     { "<leader>st", false },
     { "<leader>n", false },
-  },
+    -- Sidekick
+    { "<M-l>", function() cursor_m_l() end, mode = {"n", "t", "v"} },
+  }
+,
 }

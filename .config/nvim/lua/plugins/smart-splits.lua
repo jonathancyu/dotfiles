@@ -9,7 +9,7 @@ return {
 		{ '<A-k>', function()
 			require('smart-splits').resize_up(resize_amount)
 		end, { 'n' } },
-		{ '<A-l>', function() require('smart-splits').resize_right(resize_amount) end, { 'n' } },
+		-- { '<A-l>', function() require('smart-splits').resize_right(resize_amount) end, { 'n' } },
 		{ '<C-h>', function() require('smart-splits').move_cursor_left() end, { 'n' } },
 		{ '<C-j>', function() require('smart-splits').move_cursor_down() end, { 'n' } },
 		{ '<C-k>', function() require('smart-splits').move_cursor_up() end, { 'n' } },
