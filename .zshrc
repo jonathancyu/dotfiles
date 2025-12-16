@@ -1,5 +1,8 @@
-# Profile zsh startup
-zmodload zsh/zprof
+# Profile zsh startup (only if ZSH_DEBUG=1)
+# export ZSH_DEBUG=1
+if [[ "$ZSH_DEBUG" == "1" ]]; then
+  zmodload zsh/zprof
+fi
 
 ### Zinit Setup ###
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -10,29 +13,35 @@ if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Load OMZ git library (for git aliases)
-zinit snippet OMZL::git.zsh
-
-# Load OMZ git plugin
-zinit snippet OMZP::git
-
-# Load plugins with turbo mode (deferred loading for speed)
+# Load completions plugin first (with compinit caching)
 zinit wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
-  atload"_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
   blockf atpull'zinit creinstall -q .' \
     zsh-users/zsh-completions
 
-# zsh-vi-mode (loaded immediately, not with turbo)
-zinit ice depth=1
+# Load other plugins with turbo mode
+zinit wait lucid light-mode for \
+  atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+    zdharma-continuum/fast-syntax-highlighting
+
+# Fast compinit with caching (only check once per day)
+autoload -Uz compinit
+setopt EXTENDEDGLOB
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit -d ~/.zcompdump
+done
+compinit -C -d ~/.zcompdump
+unsetopt EXTENDEDGLOB
+
+# zsh-vi-mode (loaded with turbo for speed)
+zinit ice depth=1 wait'0a' lucid
 zinit light jeffreytse/zsh-vi-mode
 
-# Pure prompt
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
-zstyle :prompt:pure:git:stash show yes
+# Prompt
+# zinit ice pick"async.zsh" src"pure.zsh"
+# zinit light sindresorhus/pure
+# zstyle :prompt:pure:git:stash show yes
+eval "$(starship init zsh)"
 
 # User configuration
 
@@ -129,7 +138,7 @@ alias lg=lazygit
 # atuin
 # zsh-vi-mode overrides atuin bindings, so we need to do this
 source $HOME/.atuin/bin/env
-zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
+zvm_after_init_commands+=('eval "$(atuin init zsh --disable-up-arrow)"')
 
 # Pnpm
 alias p='pnpm'
@@ -236,4 +245,7 @@ if [ -f '/Users/jonathan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jonath
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jonathan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jonathan/google-cloud-sdk/completion.zsh.inc'; fi
 
-zprof
+# Show profiling results if ZSH_DEBUG=1
+if [[ "$ZSH_DEBUG" == "1" ]]; then
+  zprof
+fi
