@@ -6,24 +6,29 @@ return {
       ---@type FastActionConfig
       opts = {},
     },
-    opts = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- Disable prev/next reference
-      keys[#keys + 1] = { "<a-n>", false }
-      keys[#keys + 1] = { "<a-p>", false }
-      -- Replace lazyvim code action
-      keys[#keys + 1] = { "<leader>ca", false }
-      keys[#keys + 1] = {
-        "<M-.>",
-        function()
-          require("fastaction").code_action()
-        end,
-        desc = "Code Action",
-        mode = { "n", "v" },
-        has = "codeAction",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      opts.servers = {
+        ["*"] = {
+          -- Disable prev/next reference
+          { "<a-n>", false },
+          { "<a-p>", false },
+          { "<leader>ca", false },
+          -- Replace lazyvim code action
+          {
+            "<M-.>",
+            function()
+              require("fastaction").code_action()
+            end,
+            desc = "Code Action",
+            mode = { "n", "v" },
+            has = "codeAction",
+          },
+          { "<leader>cr", false },
+          { "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+        },
       }
-      keys[#keys + 1] = { "<leader>cr", false }
-      keys[#keys + 1] = { "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
+      opts.servers.wgsl_analyzer = {}
     end,
   },
 }
