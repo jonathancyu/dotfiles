@@ -31,15 +31,16 @@ local function cursor_m_l(mode)
 
       -- Create descriptive session name: tool_dirname_hash
       local cwd = vim.fn.getcwd()
+      --[[
       local basename = vim.fn.fnamemodify(cwd, ":t")
       -- Sanitize for tmux (replace spaces and problematic chars with underscores)
       basename = basename:gsub("[^%w%-]", "_")
       -- Create short hash for uniqueness
       local hash = vim.fn.sha256(cwd):sub(1, 8)
       local session_id = string.format("%s_%s_%s", DEFAULT_TOOL, basename, hash)
-
+      --]]
       local session = Session.new({
-        id = session_id,
+        -- id = session_id,
         tool = DEFAULT_TOOL,
         cwd = cwd,
         backend = "tmux",

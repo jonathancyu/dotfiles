@@ -78,8 +78,13 @@ if command -v security > /dev/null 2>&1; then
 fi
 
 # Aliases
-alias c='cursor .'
 alias l='ls -al --color'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+alias c='cursor .'
 # pnpm
 alias pi='pnpm install'
 alias pd='pnpm run dev'
