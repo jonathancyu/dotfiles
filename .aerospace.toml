@@ -107,6 +107,7 @@ P = 'secondary'
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 ctrl-t = 'exec-and-forget open -a "/Applications/kitty.app/"'
 ctrl-shift-c = 'exec-and-forget open -a "/Applications/Cursor.app/"'
+# ctrl-shift-c = 'exec-and-forget open -a "/Applications/Zed.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
 ctrl-m = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
@@ -230,6 +231,16 @@ run = ['layout floating']
 [[on-window-detected]]
 if.window-title-regex-substring = 'Search'
 run = ['layout floating']
+
+# playwright
+[[on-window-detected]]
+if.window-title-regex-substring = 'Google Chrome for Testing'
+run = ['layout floating']
+# Headfull playwright
+[[on-window-detected]]
+if.window-title-regex-substring = 'Playwright'
+run = ['layout floating']
+
 
 # Don't tile these apps
 [[on-window-detected]]

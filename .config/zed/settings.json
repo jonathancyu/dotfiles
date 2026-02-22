@@ -1,3 +1,20 @@
 {
-    "vim_mode": true
+  "icon_theme": "Catppuccin Macchiato",
+  "theme": "Catppuccin Macchiato",
+  "vim_mode": true,
+  "scrollbar": {
+    "diagnostics": "all",
+  },
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false,
+    "code_actions": false,
+  },
+  "buffer_font_family": "Berkeley Mono",
+  "project_panel": {
+    "indent_size": 10,
+  },
+  "autosave": "on_focus_change",
+  "max_tabs": 1,
+  "relative_line_numbers": "enabled",
 }

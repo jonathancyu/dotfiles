@@ -134,6 +134,9 @@ unset DOCKET_HOST
 # brew
 export PATH="/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/unzip/bin:$PATH"
 
+# bun
+export PATH="/Users/jonathan/.bun/bin:$PATH"
+
 # Zoxide (lazy loaded)
 _zoxide_init() {
   unfunction z 2>/dev/null
@@ -192,9 +195,13 @@ pyenv() { _pyenv_init; pyenv "$@" }
 # Local dev
 export LOCAL_DATABASE=true
 alias b='cd backend'
+alias f='cd frontend'
+alias dcu='docker compose up -d'
+alias dcd='docker compose down'
 
 # Github
 export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+alias pr='gh pr checkout'
 
 # AWS
 export AWS_PROFILE='shared-services-dev'
@@ -204,6 +211,9 @@ alias ap='ae && pd'
 
 # GCP
 alias gl='gcloud auth application-default login'
+
+
+alias ag='asl & gl & wait'
 
 # make
 alias ma='VERBOSE=true make api'
@@ -259,3 +269,11 @@ if [ -f '/Users/jonathan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/
 if [[ "$ZSH_DEBUG" == "1" ]]; then
   zprof
 fi
+
+# pnpm
+export PNPM_HOME="/Users/jonathan/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

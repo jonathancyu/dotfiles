@@ -1,0 +1,34 @@
+[
+  {
+    "context": "VimControl && vim_mode != insert",
+    "bindings": {
+      "\\": "pane::RevealInProjectPanel",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-c": "pane::CloseActiveItem",
+      "ctrl-u": "vim::ScrollUp",
+      "ctrl-d": "vim::ScrollDown",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "right": "editor::GoToHunk",
+      "left": "editor::GoToPreviousHunk",
+      "cmd-l": "agent::AddSelectionToThread",
+      "alt-y": "agent::Keep",
+      "alt-n": "agent::Reject",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-i": "assistant::InlineAssist",
+      "cmd-n": "workspace::ToggleRightDock",
+      "cmd-r": "task::Rerun",
+      "shift-cmd-r": "task::Spawn",
+    },
+  },
+]
