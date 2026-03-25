@@ -85,6 +85,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 alias c='cursor .'
+alias ic='c' # i keep trying to enter insert mode
 # pnpm
 alias pi='pnpm install'
 alias pd='pnpm run dev'
@@ -169,6 +170,7 @@ alias vj='nvim -c "set noswapfile | set buftype=nofile | set filetype=json | set
 d() {
   nvim +"CodeDiff $1"
 }
+export EDITOR=nvim
 # Add scripts to path
 export PATH="$PATH:$HOME/.local/scripts"
 export PATH="$PATH:$HOME/.local/bin"
@@ -277,3 +279,13 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+# Yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}

@@ -31,4 +31,11 @@
       "shift-cmd-r": "task::Spawn",
     },
   },
+  {
+    "bindings": {
+      "alt-k": "editor::GoToPreviousHunk",
+      "alt-j": "editor::GoToHunk",
+    },
+  },
+  {},
 ]

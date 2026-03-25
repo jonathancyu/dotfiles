@@ -75,12 +75,13 @@ outer.right = 1
 
 # https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [workspace-to-monitor-force-assignment]
-C = ['main', 'secondary']
-P = 'secondary'
-1 = 'secondary'
-2 = 'secondary'
-3 = 'secondary'
+C = ['secondary', 'main']
+P = 'main'
+1 = 'main'
+2 = 'main'
+3 = 'main'
 4 = 'secondary'
+5 = 'secondary'
 
 
 # 'main' binding mode declaration

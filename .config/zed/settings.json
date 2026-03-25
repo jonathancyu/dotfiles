@@ -1,4 +1,18 @@
 {
+  "buffer_font_size": 13.0,
+  "agent_servers": {
+    "cursor": {
+      "type": "registry"
+    },
+    "codex": {
+      "default_config_options": {
+        "model": "gpt-5.4",
+      },
+    },
+  },
+  "git_panel": {
+    "tree_view": true,
+  },
   "icon_theme": "Catppuccin Macchiato",
   "theme": "Catppuccin Macchiato",
   "vim_mode": true,
