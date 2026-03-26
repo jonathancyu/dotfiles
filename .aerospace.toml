@@ -114,7 +114,6 @@ ctrl-m = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
 ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"'
 ctrl-shift-s = 'exec-and-forget open -a "/Applications/Slack.app/"'
-ctrl-shift-t = 'exec-and-forget open -a "/Applications/Microsoft Teams.app/"'
 # You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
 # alt-enter = '''exec-and-forget osascript -e '
 # tell application "Terminal"
