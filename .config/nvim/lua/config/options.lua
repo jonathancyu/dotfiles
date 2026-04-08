@@ -5,6 +5,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local opt = vim.opt
 
+vim.opt.spell = false
+
 -- Auto reload files when changed
 vim.o.autoread = true
 

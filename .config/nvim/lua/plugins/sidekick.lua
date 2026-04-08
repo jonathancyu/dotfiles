@@ -1,5 +1,5 @@
 local DEFAULT_TOOL = "claude"
-local function cursor_m_l(mode)
+local function toggle_agent(mode)
   local cli = require("sidekick.cli")
   local State = require("sidekick.cli.state")
   local Session = require("sidekick.cli.session")
@@ -72,8 +72,8 @@ return {
   },
   -- stylua: ignore
   keys = {
-    { "<M-l>", function() cursor_m_l("n") end, mode = "n", desc = "Toggle Claude (send if showing)" },
-    { "<M-l>", function() cursor_m_l("v") end, mode = "v", desc = "Toggle Claude and send selection" },
-    { "<M-l>", function() cursor_m_l("t") end, mode = "t", desc = "Toggle Claude" },
+    { "<M-/>", function() toggle_agent("n") end, mode = "n", desc = "Toggle Agent (send if showing)" },
+    { "<M-/>", function() toggle_agent("v") end, mode = "v", desc = "Toggle Agent and send selection" },
+    { "<M-/>", function() toggle_agent("t") end, mode = "t", desc = "Toggle Agent" },
   },
 }

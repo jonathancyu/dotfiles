@@ -56,6 +56,42 @@ vim.keymap.set("n", "ZZ", "<cmd>wqa!<cr>")
 -- Mouse forward/back
 -- TODO: doesn't work
 
+-- Navigate to next/prev file with git diffs
+local function nav_diff_file(direction)
+  local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  if not root or root == "" then return end
+  local files = vim.fn.systemlist("git diff --name-only 2>/dev/null")
+  if #files == 0 then
+    vim.notify("No files with diffs", vim.log.levels.INFO)
+    return
+  end
+  local current = vim.fn.expand("%:p")
+  local idx = nil
+  for i, f in ipairs(files) do
+    if root .. "/" .. f == current then
+      idx = i
+      break
+    end
+  end
+  local next_idx
+  if direction == "next" then
+    next_idx = idx and (idx % #files) + 1 or 1
+  else
+    next_idx = idx and ((idx - 2 + #files) % #files) + 1 or #files
+  end
+  vim.cmd("edit " .. vim.fn.fnameescape(root .. "/" .. files[next_idx]))
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "GitSignsUpdate",
+    once = true,
+    callback = function()
+      require("gitsigns").nav_hunk("first")
+    end,
+  })
+end
+
+vim.keymap.set("n", "<M-l>", function() nav_diff_file("next") end, { desc = "Next File with Diff" })
+vim.keymap.set("n", "<M-h>", function() nav_diff_file("prev") end, { desc = "Prev File with Diff" })
+
 -- Disable lazyvim keymaps
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")

@@ -26,7 +26,12 @@ return {
               has = "codeAction",
             },
             { "<leader>cr", false },
-            { "<leader>rn", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+            {
+              "<leader>rn",
+              vim.lsp.buf.rename,
+              desc = "Rename",
+              has = "rename",
+            },
           },
         },
       }
