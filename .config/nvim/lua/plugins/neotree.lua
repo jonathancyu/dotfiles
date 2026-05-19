@@ -50,12 +50,5 @@ return {
       end,
       desc = "Reveal neoTree",
     },
-    {
-      "\\",
-      function()
-        vim.cmd("Neotree toggle source=git_status")
-      end,
-      desc = "Toggle NeoTree git status",
-    },
   },
 }
