@@ -63,6 +63,11 @@ return {
   "folke/sidekick.nvim",
   opts = {
     cli = {
+      tools = {
+        claude = {
+          cmd = { "claude", "--dangerously-skip-permissions" },
+        },
+      },
       mux = {
         enabled = true, -- Enable multiplexer backend for persistent sessions
         backend = "tmux", -- Use tmux (or "zellij")
