@@ -23,6 +23,10 @@ return {
       mappings = {
         ["Z"] = "expand_all_nodes",
         ["\\"] = "close_window",
+        ["<tab>"] = function(state)
+          local next = state.name == "git_status" and "filesystem" or "git_status"
+          vim.cmd("Neotree source=" .. next)
+        end,
       },
     },
     default_component_configs = {
@@ -49,9 +53,9 @@ return {
     {
       "\\",
       function()
-        vim.cmd("Neotree reveal")
+        vim.cmd("Neotree toggle source=git_status")
       end,
-      desc = "Reveal neoTree",
+      desc = "Toggle NeoTree git status",
     },
   },
 }
