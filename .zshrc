@@ -217,6 +217,9 @@ alias gl='gcloud auth application-default login'
 
 alias ag='asl & gl & wait'
 
+# claude
+alias cc='claude --dangerously-skip-permissions'
+
 # make
 alias ma='VERBOSE=true make api'
 alias mt='VERBOSE=true make task-server'
@@ -228,16 +231,21 @@ done
 
 change_environment() {
     if [ -z "$1" ]; then
-        echo "Usage: ce <environment>"
-        echo "       ce <prefix> <environment>"
-        echo "Example: ce dev           → shared-services-dev"
-        echo "Example: ce mycompany prod → mycompany-prod"
+        echo "Usage: cn <environment>"
+        echo "       cn <environment> dangerous"
+        echo "       cn <prefix> <environment>"
+        echo "Example: cn dev                  → shared-services-dev"
+        echo "Example: cn prod dangerous        → shared-services-prod-dangerous"
+        echo "Example: cn mycompany prod        → mycompany-prod"
         return 1
     fi
 
     if [ -z "$2" ]; then
         export ENVIRONMENT=$1
         export AWS_PROFILE=shared-services-$1
+    elif [[ "$2" == "dangerous" ]]; then
+        export ENVIRONMENT=$1
+        export AWS_PROFILE=shared-services-$1-$2
     else
         export ENVIRONMENT=$2
         export AWS_PROFILE=$1-$2

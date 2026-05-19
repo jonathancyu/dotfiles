@@ -1,4 +1,15 @@
 {
+  "outline_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "agent": {
+    "dock": "left",
+    "favorite_models": [],
+    "model_parameters": []
+  },
   "buffer_font_size": 13.0,
   "agent_servers": {
     "cursor": {
@@ -11,6 +22,7 @@
     },
   },
   "git_panel": {
+    "dock": "right",
     "tree_view": true,
   },
   "icon_theme": "Catppuccin Macchiato",
@@ -26,6 +38,7 @@
   },
   "buffer_font_family": "Berkeley Mono",
   "project_panel": {
+    "dock": "right",
     "indent_size": 10,
   },
   "autosave": "on_focus_change",
