@@ -250,10 +250,23 @@ change_environment() {
         export ENVIRONMENT=$2
         export AWS_PROFILE=$1-$2
     fi
-    asl
+    aws_sso_login_if_needed
     echo "AWS_PROFILE=$AWS_PROFILE"
 }
 alias cn=change_environment
+
+aws_sso_login_if_needed() {
+    env -u AWS_ACCESS_KEY_ID \
+        -u AWS_SECRET_ACCESS_KEY \
+        -u AWS_SESSION_TOKEN \
+        -u AWS_SECURITY_TOKEN \
+        -u AWS_CREDENTIAL_EXPIRATION \
+        aws sts get-caller-identity --profile "$AWS_PROFILE" >/dev/null 2>&1
+
+    if [ $? -ne 0 ]; then
+        aws sso login --profile "$AWS_PROFILE"
+    fi
+}
 
 # SDKMAN (lazy loaded)
 export SDKMAN_DIR="$HOME/.sdkman"
