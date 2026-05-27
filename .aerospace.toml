@@ -107,7 +107,8 @@ P = 'main'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 ctrl-t = 'exec-and-forget open -a "/Applications/kitty.app/"'
-ctrl-shift-c = 'exec-and-forget open -a "/Applications/Cursor.app/"'
+ctrl-shift-c = 'exec-and-forget open -a "/Applications/Codex.app/"'
+# ctrl-shift-c = 'exec-and-forget open -a "/Applications/Cursor.app/"'
 # ctrl-shift-c = 'exec-and-forget open -a "/Applications/Zed.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
 ctrl-m = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
