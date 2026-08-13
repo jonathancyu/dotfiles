@@ -1,0 +1,504 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+SCRIPT_NAME=${0##*/}
+STATE_DIR_REL=.local/state/bootstrap-dev-box
+REMOTE_SCRIPT_REL=.local/lib/bootstrap-dev-box/bootstrap-dev-box
+DEFAULT_DOTFILES_DIR=dotfiles
+
+log() {
+  printf '[%s] %s\n' "$SCRIPT_NAME" "$*" >&2
+}
+
+die() {
+  log "error: $*"
+  exit 1
+}
+
+usage() {
+  cat <<'EOF'
+Bootstrap a remote development box and securely copy local Codex/AWS state.
+
+Usage:
+  bootstrap-dev-box bootstrap SSH_HOST [options]
+  bootstrap-dev-box sync SSH_HOST
+  bootstrap-dev-box sync-codex SSH_HOST
+  bootstrap-dev-box sync-aws SSH_HOST
+  bootstrap-dev-box remote-install [options]
+
+Bootstrap options:
+  --dotfiles-repo URL    Dotfiles Git URL. Defaults to this checkout's origin.
+  --dotfiles-dir PATH    Remote path relative to $HOME (default: dotfiles).
+  --project-repo URL     Optional project Git URL to clone on the remote box.
+  --project-dir PATH     Existing/clone destination relative to $HOME (default: src/project).
+  --skip-dotfiles        Install tools without cloning/stowing dotfiles.
+  --skip-project-install Clone the project but do not install detected dependencies.
+  --skip-sync            Bootstrap without copying Codex and AWS state.
+
+Environment overrides:
+  CODEX_SOURCE_DIR       Local Codex directory (default: $HOME/.codex).
+  AWS_SOURCE_DIR         Local AWS directory (default: $HOME/.aws).
+  REMOTE_CODEX_DIR       Remote Codex path (default: .codex, relative to remote $HOME).
+  REMOTE_AWS_DIR         Remote AWS path (default: .aws, relative to remote $HOME).
+  NVM_VERSION            nvm release used by remote-install (default: v0.40.3).
+
+Security and sync behavior:
+  - All data moves directly over SSH; no secrets are put in Git or temp cloud storage.
+  - Codex worktrees are always excluded.
+  - SQLite databases are copied using consistent snapshots; WAL/SHM files are excluded.
+  - Existing destination files are backed up before replacement.
+  - Destination-only files are preserved (there is deliberately no --delete).
+
+Examples:
+  bootstrap-dev-box bootstrap my-box
+  bootstrap-dev-box bootstrap my-box --project-repo git@github.com:me/project.git
+  bootstrap-dev-box sync-codex my-box
+EOF
+}
+
+require_command() {
+  command -v "$1" >/dev/null 2>&1 || die "required command not found: $1"
+}
+
+shell_quote() {
+  printf '%q' "$1"
+}
+
+resolve_script_path() {
+  local source_path=${BASH_SOURCE[0]}
+  while [[ -L $source_path ]]; do
+    local source_dir
+    source_dir=$(cd -P "$(dirname "$source_path")" && pwd)
+    source_path=$(readlink "$source_path")
+    [[ $source_path = /* ]] || source_path=$source_dir/$source_path
+  done
+  cd -P "$(dirname "$source_path")" && printf '%s/%s\n' "$PWD" "$(basename "$source_path")"
+}
+
+infer_dotfiles_repo() {
+  local script_path repo_root
+  script_path=$(resolve_script_path)
+  repo_root=$(git -C "$(dirname "$script_path")" rev-parse --show-toplevel 2>/dev/null || true)
+  [[ -n $repo_root ]] || return 1
+  git -C "$repo_root" remote get-url origin 2>/dev/null
+}
+
+check_ssh() {
+  local host=$1
+  log "checking SSH connectivity to $host"
+  ssh -o BatchMode=yes -o ConnectTimeout=10 "$host" 'true' ||
+    die "cannot reach $host over SSH yet; retry when the box is ready"
+}
+
+upload_remote_script() {
+  local host=$1 script_path remote_script remote_parent_quoted remote_script_quoted
+  script_path=$(resolve_script_path)
+  remote_script=$REMOTE_SCRIPT_REL
+  remote_parent_quoted=$(shell_quote "$(dirname "$remote_script")")
+  remote_script_quoted=$(shell_quote "$remote_script")
+  # The local expansions are shell-quoted above; $HOME intentionally expands remotely.
+  # shellcheck disable=SC2029
+  ssh "$host" "umask 077; mkdir -p \"\$HOME\"/$remote_parent_quoted"
+  rsync -a --chmod=go-rwx "$script_path" "$host:$remote_script"
+  # shellcheck disable=SC2029
+  ssh "$host" "chmod 700 \"\$HOME\"/$remote_script_quoted"
+}
+
+remote_home() {
+  ssh "$1" 'printf %s "$HOME"'
+}
+
+make_sqlite_snapshots() {
+  local source_dir=$1 snapshot_dir=$2 db rel output
+  require_command sqlite3
+
+  while IFS= read -r -d '' db; do
+    rel=${db#"$source_dir"/}
+    output=$snapshot_dir/$rel
+    mkdir -p "$(dirname "$output")"
+    log "snapshotting Codex database: $rel"
+    sqlite3 "$db" ".timeout 10000" ".backup '$output'"
+    chmod --reference="$db" "$output" 2>/dev/null || chmod 600 "$output"
+  done < <(
+    find "$source_dir" \
+      -path "$source_dir/worktrees" -prune -o \
+      -type f \( -name '*.sqlite' -o -name '*.db' \) -print0
+  )
+}
+
+rsync_private_tree() {
+  local source_dir=$1 host=$2 remote_rel=$3 backup_rel=$4
+  shift 4
+  local remote_root remote_rel_quoted backup_rel_quoted
+  remote_root=$(remote_home "$host")
+  remote_rel_quoted=$(shell_quote "$remote_rel")
+  backup_rel_quoted=$(shell_quote "$backup_rel")
+
+  # The local expansions are shell-quoted above; $HOME intentionally expands remotely.
+  # shellcheck disable=SC2029
+  ssh "$host" "umask 077; mkdir -p \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted; chmod 700 \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted"
+  rsync -a --human-readable --stats \
+    --backup --backup-dir="$remote_root/$backup_rel" \
+    --chmod=go-rwx \
+    "$@" \
+    "$source_dir/" "$host:$remote_rel/"
+  # shellcheck disable=SC2029
+  ssh "$host" "chmod -R go-rwx \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted"
+}
+
+sync_codex() {
+  local host=$1
+  local source_dir=${CODEX_SOURCE_DIR:-$HOME/.codex}
+  local remote_dir=${REMOTE_CODEX_DIR:-.codex}
+  local timestamp backup_rel snapshot_dir
+  [[ -d $source_dir ]] || die "Codex source directory does not exist: $source_dir"
+  timestamp=$(date -u +%Y%m%dT%H%M%SZ)
+  backup_rel=$STATE_DIR_REL/backups/$timestamp/codex
+  snapshot_dir=$(mktemp -d "${TMPDIR:-/tmp}/codex-snapshot.XXXXXX")
+  trap 'rm -rf "$snapshot_dir"' RETURN
+
+  log "copying Codex state to $host (worktrees excluded)"
+  make_sqlite_snapshots "$source_dir" "$snapshot_dir"
+  rsync_private_tree "$source_dir" "$host" "$remote_dir" "$backup_rel" \
+    --exclude='/worktrees/***' \
+    --exclude='/ipc/***' \
+    --exclude='/thread-writer-locks/***' \
+    --exclude='/mcp-oauth-locks/***' \
+    --exclude='/node_repl/active_execs/***' \
+    --exclude='*.sock' \
+    --exclude='fsmonitor--daemon.ipc' \
+    --exclude='*.sqlite' \
+    --exclude='*.sqlite-wal' \
+    --exclude='*.sqlite-shm' \
+    --exclude='*.db'
+
+  if find "$snapshot_dir" -type f -print -quit | grep -q .; then
+    log "copying consistent Codex database snapshots"
+    rsync_private_tree "$snapshot_dir" "$host" "$remote_dir" "$backup_rel"
+  fi
+  rm -rf "$snapshot_dir"
+  trap - RETURN
+  log "Codex sync complete; remote-only files were preserved"
+}
+
+sync_aws() {
+  local host=$1
+  local source_dir=${AWS_SOURCE_DIR:-$HOME/.aws}
+  local remote_dir=${REMOTE_AWS_DIR:-.aws}
+  local timestamp backup_rel
+  [[ -d $source_dir ]] || {
+    log "AWS source directory not found; skipping: $source_dir"
+    return 0
+  }
+  timestamp=$(date -u +%Y%m%dT%H%M%SZ)
+  backup_rel=$STATE_DIR_REL/backups/$timestamp/aws
+  log "copying private AWS configuration and cached sessions to $host"
+  rsync_private_tree "$source_dir" "$host" "$remote_dir" "$backup_rel"
+  log "AWS sync complete"
+}
+
+sync_all() {
+  local host=$1
+  check_ssh "$host"
+  sync_codex "$host"
+  sync_aws "$host"
+}
+
+run_remote_install() {
+  local host=$1
+  shift
+  local command_line arg
+  command_line="\$HOME/$REMOTE_SCRIPT_REL remote-install"
+  for arg in "$@"; do
+    command_line+=" $(shell_quote "$arg")"
+  done
+  # command_line is composed only of a fixed command and shell-quoted arguments.
+  # shellcheck disable=SC2029
+  ssh "$host" "$command_line"
+}
+
+bootstrap() {
+  local host=${1:-}
+  [[ -n $host ]] || die 'bootstrap requires an SSH host'
+  shift
+
+  local dotfiles_repo='' dotfiles_dir=$DEFAULT_DOTFILES_DIR
+  local project_repo='' project_dir=src/project
+  local project_requested=0 skip_dotfiles=0 skip_project_install=0 skip_sync=0
+
+  while (($#)); do
+    case $1 in
+      --dotfiles-repo) dotfiles_repo=${2:?missing value}; shift 2 ;;
+      --dotfiles-dir) dotfiles_dir=${2:?missing value}; shift 2 ;;
+      --project-repo) project_repo=${2:?missing value}; project_requested=1; shift 2 ;;
+      --project-dir) project_dir=${2:?missing value}; project_requested=1; shift 2 ;;
+      --skip-dotfiles) skip_dotfiles=1; shift ;;
+      --skip-project-install) skip_project_install=1; shift ;;
+      --skip-sync) skip_sync=1; shift ;;
+      -h|--help) usage; return 0 ;;
+      *) die "unknown bootstrap option: $1" ;;
+    esac
+  done
+
+  require_command git
+  require_command rsync
+  require_command ssh
+  check_ssh "$host"
+
+  if ((skip_dotfiles == 0)) && [[ -z $dotfiles_repo ]]; then
+    dotfiles_repo=$(infer_dotfiles_repo || true)
+    [[ -n $dotfiles_repo ]] || die 'could not infer dotfiles origin; pass --dotfiles-repo'
+  fi
+
+  upload_remote_script "$host"
+  local remote_args=(--dotfiles-dir "$dotfiles_dir")
+  ((skip_dotfiles)) && remote_args+=(--skip-dotfiles)
+  [[ -n $dotfiles_repo ]] && remote_args+=(--dotfiles-repo "$dotfiles_repo")
+  if ((project_requested)); then
+    remote_args+=(--project-dir "$project_dir")
+    [[ -n $project_repo ]] && remote_args+=(--project-repo "$project_repo")
+  fi
+  ((skip_project_install)) && remote_args+=(--skip-project-install)
+  run_remote_install "$host" "${remote_args[@]}"
+
+  if ((skip_sync == 0)); then
+    sync_codex "$host"
+    sync_aws "$host"
+  fi
+  log "bootstrap complete for $host"
+}
+
+have_sudo() {
+  command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1
+}
+
+install_base_packages() {
+  if command -v apt-get >/dev/null 2>&1; then
+    local apt=(apt-get)
+    have_sudo && apt=(sudo apt-get)
+    if [[ ${apt[0]} != sudo && $EUID -ne 0 ]]; then
+      die 'apt-get is available but passwordless sudo is not; install base packages manually'
+    fi
+    log 'installing base development packages with apt'
+    "${apt[@]}" update
+    DEBIAN_FRONTEND=noninteractive "${apt[@]}" install -y \
+      build-essential ca-certificates curl fd-find fzf gh git jq make neovim \
+      pipx ripgrep rsync sqlite3 stow tmux tree unzip xz-utils zip zsh
+  elif command -v dnf >/dev/null 2>&1; then
+    local dnf=(dnf)
+    have_sudo && dnf=(sudo dnf)
+    if [[ ${dnf[0]} != sudo && $EUID -ne 0 ]]; then
+      die 'dnf is available but passwordless sudo is not; install base packages manually'
+    fi
+    log 'installing base development packages with dnf'
+    "${dnf[@]}" install -y \
+      '@Development Tools' ca-certificates curl fd-find fzf gh git jq make neovim \
+      pipx ripgrep rsync sqlite stow tmux tree unzip xz zip zsh
+  elif command -v brew >/dev/null 2>&1; then
+    log 'installing base development packages with Homebrew'
+    brew install curl fd fzf gh git jq neovim pipx ripgrep rsync sqlite stow tmux tree unzip xz zsh
+  else
+    die 'supported package manager not found (apt-get, dnf, or brew)'
+  fi
+}
+
+ensure_local_bin() {
+  mkdir -p "$HOME/.local/bin"
+  export PATH="$HOME/.local/bin:$PATH"
+  if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
+    ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
+  fi
+}
+
+install_node_and_codex() {
+  local nvm_version=${NVM_VERSION:-v0.40.3}
+  export NVM_DIR=${NVM_DIR:-$HOME/.nvm}
+  if [[ ! -s $NVM_DIR/nvm.sh ]]; then
+    log "installing nvm $nvm_version"
+    curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$nvm_version/install.sh" | PROFILE=/dev/null bash
+  fi
+  # shellcheck source=/dev/null
+  source "$NVM_DIR/nvm.sh"
+  nvm install --lts
+  nvm alias default 'lts/*'
+  nvm use default
+  log 'installing current Codex CLI and pnpm'
+  npm install --global @openai/codex pnpm
+
+  # Dotfiles should not need to know nvm's version-specific installation path.
+  local executable resolved
+  for executable in node npm npx codex pnpm pnpx; do
+    resolved=$(command -v "$executable" 2>/dev/null || true)
+    [[ -n $resolved ]] && ln -sf "$resolved" "$HOME/.local/bin/$executable"
+  done
+}
+
+install_shell_tools() {
+  if ! command -v mise >/dev/null 2>&1; then
+    log 'installing mise runtime manager'
+    curl -fsSL https://mise.run | sh
+  fi
+  if ! command -v starship >/dev/null 2>&1; then
+    log 'installing starship prompt'
+    curl -fsSL https://starship.rs/install.sh | sh -s -- --yes --bin-dir "$HOME/.local/bin"
+  fi
+  if [[ ! -x $HOME/.atuin/bin/atuin ]]; then
+    log 'installing atuin shell history'
+    curl -fsSL https://setup.atuin.sh | bash
+  fi
+  if ! command -v zoxide >/dev/null 2>&1; then
+    log 'installing zoxide directory navigation'
+    curl -fsSL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  fi
+  if ! command -v uv >/dev/null 2>&1; then
+    log 'installing uv Python tooling'
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  fi
+}
+
+install_aws_cli() {
+  local arch url temp_dir
+  arch=$(uname -m)
+  case $arch in
+    x86_64|amd64) arch=x86_64 ;;
+    aarch64|arm64) arch=aarch64 ;;
+    *) die "unsupported AWS CLI architecture: $arch" ;;
+  esac
+  url="https://awscli.amazonaws.com/awscli-exe-linux-${arch}.zip"
+  temp_dir=$(mktemp -d "${TMPDIR:-/tmp}/aws-cli.XXXXXX")
+  trap 'rm -rf "$temp_dir"' RETURN
+  log 'installing/updating AWS CLI v2 in ~/.local'
+  curl -fsSL "$url" -o "$temp_dir/awscliv2.zip"
+  unzip -q "$temp_dir/awscliv2.zip" -d "$temp_dir"
+  "$temp_dir/aws/install" --update --install-dir "$HOME/.local/aws-cli" --bin-dir "$HOME/.local/bin"
+  rm -rf "$temp_dir"
+  trap - RETURN
+}
+
+clone_or_update() {
+  local repo=$1 destination=$2 label=$3
+  if [[ -d $destination/.git ]]; then
+    if [[ -n $(git -C "$destination" status --porcelain) ]]; then
+      log "$label checkout has local changes; leaving it untouched: $destination"
+      return 0
+    fi
+    log "fast-forwarding $label checkout"
+    git -C "$destination" pull --ff-only
+  elif [[ -e $destination ]]; then
+    die "$label destination exists but is not a Git checkout: $destination"
+  else
+    log "cloning $label"
+    mkdir -p "$(dirname "$destination")"
+    git clone --recurse-submodules "$repo" "$destination"
+  fi
+  git -C "$destination" submodule update --init --recursive
+}
+
+install_dotfiles() {
+  local repo=$1 relative_dir=$2 destination
+  destination=$HOME/$relative_dir
+  clone_or_update "$repo" "$destination" dotfiles
+  log 'stowing dotfiles into the remote home directory'
+  stow --dir="$destination" --target="$HOME" --restow .
+}
+
+install_project_dependencies() {
+  local project_dir=$1
+  [[ -d $project_dir ]] || die "project directory not found: $project_dir"
+  log "installing detected project dependencies in $project_dir"
+  cd "$project_dir"
+
+  if [[ -f mise.toml || -f .mise.toml || -f .tool-versions ]]; then
+    if command -v mise >/dev/null 2>&1; then
+      mise trust --yes 2>/dev/null || true
+      mise install
+    else
+      log 'mise config detected, but mise is not installed; continuing with system runtimes'
+    fi
+  fi
+
+  if [[ -f pnpm-lock.yaml ]]; then
+    pnpm install --frozen-lockfile
+  elif [[ -f yarn.lock ]]; then
+    corepack enable
+    yarn install --immutable
+  elif [[ -f package-lock.json ]]; then
+    npm ci
+  elif [[ -f package.json ]]; then
+    npm install
+  fi
+
+  if [[ -f uv.lock ]]; then
+    command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+    export PATH="$HOME/.local/bin:$PATH"
+    uv sync
+  elif [[ -f poetry.lock ]]; then
+    command -v poetry >/dev/null 2>&1 || pipx install poetry
+    poetry install
+  elif [[ -f requirements.txt ]]; then
+    log 'requirements.txt detected; create/activate a virtualenv and install it explicitly if needed'
+  fi
+}
+
+remote_install() {
+  local dotfiles_repo='' dotfiles_dir=$DEFAULT_DOTFILES_DIR
+  local project_repo='' project_dir=src/project
+  local skip_dotfiles=0 skip_project_install=0
+
+  while (($#)); do
+    case $1 in
+      --dotfiles-repo) dotfiles_repo=${2:?missing value}; shift 2 ;;
+      --dotfiles-dir) dotfiles_dir=${2:?missing value}; shift 2 ;;
+      --project-repo) project_repo=${2:?missing value}; shift 2 ;;
+      --project-dir) project_dir=${2:?missing value}; shift 2 ;;
+      --skip-dotfiles) skip_dotfiles=1; shift ;;
+      --skip-project-install) skip_project_install=1; shift ;;
+      *) die "unknown remote-install option: $1" ;;
+    esac
+  done
+
+  umask 077
+  install_base_packages
+  ensure_local_bin
+  install_node_and_codex
+  install_shell_tools
+  install_aws_cli
+
+  if ((skip_dotfiles == 0)); then
+    [[ -n $dotfiles_repo ]] || die 'remote-install requires --dotfiles-repo unless --skip-dotfiles is used'
+    install_dotfiles "$dotfiles_repo" "$dotfiles_dir"
+  fi
+
+  if [[ -n $project_repo ]]; then
+    clone_or_update "$project_repo" "$HOME/$project_dir" project
+  fi
+  if [[ -d $HOME/$project_dir ]]; then
+    ((skip_project_install)) || install_project_dependencies "$HOME/$project_dir"
+  elif [[ -z $project_repo && $project_dir != src/project ]]; then
+    die "requested existing project directory was not found: $HOME/$project_dir"
+  fi
+
+  log 'remote tool versions:'
+  codex --version || true
+  aws --version || true
+  node --version || true
+  pnpm --version || true
+  git --version || true
+  log 'remote installation complete'
+}
+
+main() {
+  local command=${1:-}
+  case $command in
+    bootstrap) shift; bootstrap "$@" ;;
+    sync) shift; [[ $# -eq 1 ]] || die 'sync requires exactly one SSH host'; sync_all "$1" ;;
+    sync-codex) shift; [[ $# -eq 1 ]] || die 'sync-codex requires exactly one SSH host'; check_ssh "$1"; sync_codex "$1" ;;
+    sync-aws) shift; [[ $# -eq 1 ]] || die 'sync-aws requires exactly one SSH host'; check_ssh "$1"; sync_aws "$1" ;;
+    remote-install) shift; remote_install "$@" ;;
+    -h|--help|help|'') usage ;;
+    *) die "unknown command: $command (try --help)" ;;
+  esac
+}
+
+main "$@"
