@@ -399,8 +399,37 @@ install_dotfiles() {
   local repo=$1 relative_dir=$2 destination
   destination=$HOME/$relative_dir
   clone_or_update "$repo" "$destination" dotfiles
+  backup_dotfile_conflicts "$destination"
   log 'stowing dotfiles into the remote home directory'
   stow --dir="$destination" --target="$HOME" --restow .
+}
+
+backup_dotfile_conflicts() {
+  local dotfiles_dir=$1
+  local timestamp backup_root relative source target source_real target_real
+  local moved=0
+  timestamp=$(date -u +%Y%m%dT%H%M%SZ)
+  backup_root=$HOME/$STATE_DIR_REL/pre-stow/$timestamp
+
+  while IFS= read -r -d '' relative; do
+    source=$dotfiles_dir/$relative
+    target=$HOME/$relative
+    [[ -f $source || -L $source ]] || continue
+    [[ -e $target || -L $target ]] || continue
+
+    source_real=$(realpath "$source" 2>/dev/null || true)
+    target_real=$(realpath "$target" 2>/dev/null || true)
+    [[ -n $source_real && $source_real == "$target_real" ]] && continue
+
+    mkdir -p "$backup_root/$(dirname "$relative")"
+    log "backing up pre-existing dotfile target: $relative"
+    mv "$target" "$backup_root/$relative"
+    moved=1
+  done < <(git -C "$dotfiles_dir" ls-files -z)
+
+  if ((moved)); then
+    log "pre-existing dotfiles were preserved in $backup_root"
+  fi
 }
 
 install_project_dependencies() {
