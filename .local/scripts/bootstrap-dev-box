@@ -143,6 +143,7 @@ rsync_private_tree() {
   while true; do
     status=0
     rsync -az --human-readable --stats \
+      -e 'ssh -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=3' \
       --partial --partial-dir=.rsync-partial \
       --backup --backup-dir="$remote_root/$backup_rel" \
       --chmod=go-rwx \
