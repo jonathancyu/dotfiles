@@ -138,7 +138,8 @@ rsync_private_tree() {
   # The local expansions are shell-quoted above; $HOME intentionally expands remotely.
   # shellcheck disable=SC2029
   ssh "$host" "umask 077; mkdir -p \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted; chmod 700 \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted"
-  rsync -a --human-readable --stats \
+  rsync -az --human-readable --stats \
+    --partial --partial-dir=.rsync-partial \
     --backup --backup-dir="$remote_root/$backup_rel" \
     --chmod=go-rwx \
     "$@" \
@@ -156,7 +157,7 @@ sync_codex() {
   timestamp=$(date -u +%Y%m%dT%H%M%SZ)
   backup_rel=$STATE_DIR_REL/backups/$timestamp/codex
   snapshot_dir=$(mktemp -d "${TMPDIR:-/tmp}/codex-snapshot.XXXXXX")
-  trap 'rm -rf "$snapshot_dir"' RETURN
+  trap 'rm -rf "$snapshot_dir"' EXIT INT TERM HUP
 
   log "copying Codex state to $host (worktrees excluded)"
   make_sqlite_snapshots "$source_dir" "$snapshot_dir"
@@ -178,7 +179,7 @@ sync_codex() {
     rsync_private_tree "$snapshot_dir" "$host" "$remote_dir" "$backup_rel"
   fi
   rm -rf "$snapshot_dir"
-  trap - RETURN
+  trap - EXIT INT TERM HUP
   log "Codex sync complete; remote-only files were preserved"
 }
 
@@ -367,13 +368,13 @@ install_aws_cli() {
   esac
   url="https://awscli.amazonaws.com/awscli-exe-linux-${arch}.zip"
   temp_dir=$(mktemp -d "${TMPDIR:-/tmp}/aws-cli.XXXXXX")
-  trap 'rm -rf "$temp_dir"' RETURN
+  trap 'rm -rf "$temp_dir"' EXIT INT TERM HUP
   log 'installing/updating AWS CLI v2 in ~/.local'
   curl -fsSL "$url" -o "$temp_dir/awscliv2.zip"
   unzip -q "$temp_dir/awscliv2.zip" -d "$temp_dir"
   "$temp_dir/aws/install" --update --install-dir "$HOME/.local/aws-cli" --bin-dir "$HOME/.local/bin"
   rm -rf "$temp_dir"
-  trap - RETURN
+  trap - EXIT INT TERM HUP
 }
 
 clone_or_update() {
