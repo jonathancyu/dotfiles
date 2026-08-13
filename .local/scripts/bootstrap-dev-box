@@ -42,6 +42,7 @@ Environment overrides:
   REMOTE_CODEX_DIR       Remote Codex path (default: .codex, relative to remote $HOME).
   REMOTE_AWS_DIR         Remote AWS path (default: .aws, relative to remote $HOME).
   NVM_VERSION            nvm release used by remote-install (default: v0.40.3).
+  SYNC_RETRIES           Retries after a dropped rsync connection (default: 5).
 
 Security and sync behavior:
   - All data moves directly over SSH; no secrets are put in Git or temp cloud storage.
@@ -138,12 +139,21 @@ rsync_private_tree() {
   # The local expansions are shell-quoted above; $HOME intentionally expands remotely.
   # shellcheck disable=SC2029
   ssh "$host" "umask 077; mkdir -p \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted; chmod 700 \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted"
-  rsync -az --human-readable --stats \
-    --partial --partial-dir=.rsync-partial \
-    --backup --backup-dir="$remote_root/$backup_rel" \
-    --chmod=go-rwx \
-    "$@" \
-    "$source_dir/" "$host:$remote_rel/"
+  local attempt=1 retries=${SYNC_RETRIES:-5} status
+  while true; do
+    status=0
+    rsync -az --human-readable --stats \
+      --partial --partial-dir=.rsync-partial \
+      --backup --backup-dir="$remote_root/$backup_rel" \
+      --chmod=go-rwx \
+      "$@" \
+      "$source_dir/" "$host:$remote_rel/" || status=$?
+    ((status == 0)) && break
+    ((attempt < retries)) || die "rsync failed after $attempt attempts (exit $status)"
+    log "rsync connection failed (exit $status); retrying in 10 seconds ($attempt/$retries)"
+    sleep 10
+    ((attempt += 1))
+  done
   # shellcheck disable=SC2029
   ssh "$host" "chmod -R go-rwx \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted"
 }
