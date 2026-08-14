@@ -43,6 +43,7 @@ Environment overrides:
   REMOTE_AWS_DIR         Remote AWS path (default: .aws, relative to remote $HOME).
   NVM_VERSION            nvm release used by remote-install (default: v0.40.3).
   SYNC_RETRIES           Retries after a dropped rsync connection (default: 5).
+  SSH_CONNECT_TIMEOUT    Initial SSH/DERP handshake timeout in seconds (default: 30).
 
 Security and sync behavior:
   - All data moves directly over SSH; no secrets are put in Git or temp cloud storage.
@@ -87,8 +88,9 @@ infer_dotfiles_repo() {
 
 check_ssh() {
   local host=$1
+  local connect_timeout=${SSH_CONNECT_TIMEOUT:-30}
   log "checking SSH connectivity to $host"
-  ssh -o BatchMode=yes -o ConnectTimeout=10 "$host" 'true' ||
+  ssh -o BatchMode=yes -o ConnectTimeout="$connect_timeout" "$host" 'true' ||
     die "cannot reach $host over SSH yet; retry when the box is ready"
 }
 
@@ -140,10 +142,11 @@ rsync_private_tree() {
   # shellcheck disable=SC2029
   ssh "$host" "umask 077; mkdir -p \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted; chmod 700 \"\$HOME\"/$remote_rel_quoted \"\$HOME\"/$backup_rel_quoted"
   local attempt=1 retries=${SYNC_RETRIES:-5} status
+  local connect_timeout=${SSH_CONNECT_TIMEOUT:-30}
   while true; do
     status=0
     rsync -az --human-readable --stats \
-      -e 'ssh -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=3' \
+      -e "ssh -o ConnectTimeout=$connect_timeout -o ServerAliveInterval=15 -o ServerAliveCountMax=3" \
       --partial --partial-dir=.rsync-partial \
       --backup --backup-dir="$remote_root/$backup_rel" \
       --chmod=go-rwx \
