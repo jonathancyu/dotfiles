@@ -425,7 +425,8 @@ install_dotfile_submodules() {
 }
 
 install_tmux_plugins() {
-  local plugin_dir=$HOME/.tmux/plugins temporary_session='' install_status=0
+  local plugin_dir=$HOME/.tmux/plugins socket_name='' tmux_context=''
+  local install_status=0
 
   # Empty directories can be left behind by old gitlinks and make TPM think a
   # plugin is already installed. rmdir is intentionally harmless if non-empty.
@@ -435,18 +436,26 @@ install_tmux_plugins() {
   if [[ -x $plugin_dir/tpm/bin/install_plugins ]]; then
     log 'installing tmux plugins declared in ~/.tmux.conf'
     # TPM 3.1 can lose its plugin path under tmux 3.4 when no server is
-    # running. A temporary session keeps the server alive during installation.
-    if ! tmux list-sessions >/dev/null 2>&1; then
-      temporary_session=bootstrap-tpm-$$
-      tmux new-session -d -s "$temporary_session"
-    fi
+    # running. Use an isolated socket so a stale default socket cannot block
+    # setup and a real user server is never replaced or stopped.
+    if tmux list-sessions >/dev/null 2>&1; then
+      "$plugin_dir/tpm/bin/install_plugins" || install_status=$?
+      if ((install_status == 0)); then
+        tmux source-file "$HOME/.tmux.conf" || install_status=$?
+      fi
+    else
+      socket_name=bootstrap-tpm-$$
+      tmux -L "$socket_name" -f /dev/null new-session -d -s bootstrap-tpm
+      tmux_context=$(tmux -L "$socket_name" display-message -p '#{socket_path},#{pid},0')
 
-    "$plugin_dir/tpm/bin/install_plugins" || install_status=$?
-    if ((install_status == 0)); then
-      tmux source-file "$HOME/.tmux.conf"
-    fi
-    if [[ -n $temporary_session ]]; then
-      tmux kill-session -t "$temporary_session" 2>/dev/null || true
+      TMUX="$tmux_context" tmux source-file "$HOME/.tmux.conf" || install_status=$?
+      if ((install_status == 0)); then
+        TMUX="$tmux_context" "$plugin_dir/tpm/bin/install_plugins" || install_status=$?
+      fi
+      if ((install_status == 0)); then
+        TMUX="$tmux_context" tmux source-file "$HOME/.tmux.conf" || install_status=$?
+      fi
+      tmux -L "$socket_name" kill-server 2>/dev/null || true
     fi
     return "$install_status"
   else
