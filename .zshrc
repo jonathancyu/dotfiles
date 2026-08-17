@@ -115,6 +115,7 @@ autoflake_staged() {
   echo "✅ Autoflake complete."
 }
 alias ui=autoflake_staged
+alias python=python3
 
 # tmux
 alias ts="tmux-sessionizer"
@@ -202,7 +203,6 @@ alias dcu='docker compose up -d'
 alias dcd='docker compose down'
 
 # Github
-export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
 alias pr='gh pr checkout'
 
 # AWS
@@ -223,6 +223,8 @@ alias cc='claude --dangerously-skip-permissions'
 # make
 alias ma='VERBOSE=true make api'
 alias mt='VERBOSE=true make task-server'
+
+alias pp='pwd | pbcopy'
 
 # Source custom functions
 for function_file in ~/.zsh/functions/*.zsh; do
@@ -310,3 +312,6 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+source /Users/jonathan/.daytona.completion_script.zsh
+eval "$(mise activate zsh)"

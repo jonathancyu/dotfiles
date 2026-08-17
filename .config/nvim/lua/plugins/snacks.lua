@@ -1,7 +1,12 @@
+local dashboard_patterns = require("config.dashboard_patterns")
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  init = function()
+    dashboard_patterns.setup()
+  end,
   opts = {
     scroll = { enabled = false },
     notifier = { enabled = true },
@@ -49,6 +54,47 @@ return {
         },
         keys = {
           q = "close",
+        },
+      },
+    },
+
+    dashboard = {
+      preset = {
+        header = dashboard_patterns.header(),
+        keys = {
+          { icon = " ", key = "n", desc = " New File", action = ":ene | startinsert" },
+          {
+            icon = " ",
+            key = "f",
+            desc = " Find File",
+            action = function()
+              if Snacks.git.get_root() ~= nil then
+                Snacks.picker.git_files()
+              else
+                LazyVim.pick("files")()
+              end
+            end,
+          },
+          { icon = " ", key = "g", desc = " Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          {
+            icon = " ",
+            key = "p",
+            desc = " Pattern",
+            action = function()
+              dashboard_patterns.preview()
+            end,
+          },
+          { icon = " ", key = "r", desc = " Review", action = ":CodeDiff main..." },
+          { icon = " ", key = "d", desc = " Diff", action = ":CodeDiff" },
+          {
+            icon = " ",
+            key = "c",
+            desc = " Config",
+            action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+          },
+          { icon = " ", key = "s", desc = " Restore Session", section = "session" },
+          { icon = "󰒲 ", key = "l", desc = " Lazy", action = ":Lazy" },
+          { icon = " ", key = "q", desc = " Quit", action = ":qa" },
         },
       },
     },

@@ -1,9 +1,10 @@
 return {
-  "esmuellert/vscode-diff.nvim",
+  "esmuellert/codediff.nvim",
   dependencies = { "MunifTanjim/nui.nvim" },
   cmd = "CodeDiff",
   keys = {
     { "\\", "<cmd>CodeDiff<cr>", desc = "CodeDiff" },
+    { "<leader>cr", "<cmd>CodeDiff<cr>", desc = "CodeDiff" },
   },
   opts = {
     keymaps = {

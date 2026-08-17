@@ -1,0 +1,235 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/scripts:$HOME/.local/bin:$PATH"
+
+KITTY_APP="/Applications/kitty.app"
+TMUX="${TMUX_BIN:-tmux}"
+NVIM="${NVIM_BIN:-nvim}"
+NVIM_LISTEN_DIR="${NVIM_LISTEN_DIR:-/tmp/codex-nvim-$(id -u)}"
+
+usage() {
+    echo "usage: codex-open-in-tmux-nvim <path> [path ...]" >&2
+}
+
+shell_quote() {
+    printf "'%s'" "$(printf "%s" "$1" | sed "s/'/'\\\\''/g")"
+}
+
+vim_single_quote() {
+    printf "%s" "$1" | sed "s/'/''/g"
+}
+
+resolve_path() {
+    local path=$1
+    local dir
+    local base
+
+    path=${path/#\~/$HOME}
+
+    if [[ -d $path ]]; then
+        (cd "$path" && pwd -P)
+        return
+    fi
+
+    dir=$(dirname "$path")
+    base=$(basename "$path")
+
+    if [[ -d $dir ]]; then
+        printf "%s/%s\n" "$(cd "$dir" && pwd -P)" "$base"
+    else
+        printf "%s\n" "$path"
+    fi
+}
+
+path_dir() {
+    local path=$1
+
+    if [[ -d $path ]]; then
+        printf "%s\n" "$path"
+    else
+        dirname "$path"
+    fi
+}
+
+repo_root_for() {
+    local path=$1
+    local dir
+
+    dir=$(path_dir "$path")
+    git -C "$dir" rev-parse --show-toplevel 2>/dev/null || printf "%s\n" "$dir"
+}
+
+session_name_for() {
+    local root=$1
+
+    basename "$root" | tr . _
+}
+
+nvim_socket_for() {
+    local session=$1
+
+    printf "%s/%s.sock\n" "$NVIM_LISTEN_DIR" "$session"
+}
+
+ensure_session() {
+    local session=$1
+    local root=$2
+
+    if ! "$TMUX" has-session -t "=$session" 2>/dev/null; then
+        "$TMUX" new-session -ds "$session" -c "$root"
+    fi
+}
+
+find_nvim_pane() {
+    local session=$1
+
+    "$TMUX" list-panes -s -t "=$session" \
+        -F "#{pane_id}|#{window_id}|#{pane_current_command}" 2>/dev/null |
+        awk -F '|' '$3 == "nvim" || $3 == "vim" { print $1 "|" $2; exit }'
+}
+
+open_in_existing_nvim() {
+    local pane=$1
+    local window=$2
+    shift 2
+
+    local path
+    local escaped
+    local cmd
+
+    "$TMUX" select-window -t "$window"
+    "$TMUX" select-pane -t "$pane"
+
+    for path in "$@"; do
+        escaped=$(vim_single_quote "$path")
+        cmd=":execute 'edit' fnameescape('$escaped')"
+        "$TMUX" send-keys -t "$pane" Escape
+        "$TMUX" send-keys -t "$pane" -l "$cmd"
+        "$TMUX" send-keys -t "$pane" Enter
+    done
+}
+
+open_in_new_nvim_window() {
+    local session=$1
+    local root=$2
+    local socket=$3
+    shift 3
+
+    local quoted_paths=()
+    local path
+    local cmd
+    local window
+
+    for path in "$@"; do
+        quoted_paths+=("$(shell_quote "$path")")
+    done
+
+    mkdir -p "$(dirname "$socket")"
+
+    cmd="exec $(shell_quote "$NVIM") --listen $(shell_quote "$socket") ${quoted_paths[*]}"
+    window=$("$TMUX" new-window -P -F "#{window_id}" -t "=$session:" -n nvim -c "$root" "$cmd")
+
+    "$TMUX" select-window -t "$window"
+}
+
+open_via_nvim_server() {
+    local socket=$1
+    shift
+
+    [[ -S $socket ]] || return 1
+
+    "$NVIM" --server "$socket" --remote-silent "$@" >/dev/null 2>&1
+}
+
+open_paths_in_nvim() {
+    local session=$1
+    local root=$2
+    shift 2
+
+    local pane_info
+    local pane
+    local window
+    local socket
+
+    socket=$(nvim_socket_for "$session")
+    pane_info=$(find_nvim_pane "$session" || true)
+
+    if open_via_nvim_server "$socket" "$@"; then
+        if [[ -n $pane_info ]]; then
+            pane=${pane_info%%|*}
+            window=${pane_info#*|}
+            "$TMUX" select-window -t "$window"
+            "$TMUX" select-pane -t "$pane"
+        fi
+    elif [[ -n $pane_info ]]; then
+        pane=${pane_info%%|*}
+        window=${pane_info#*|}
+        open_in_existing_nvim "$pane" "$window" "$@"
+    else
+        open_in_new_nvim_window "$session" "$root" "$socket" "$@"
+    fi
+}
+
+switch_attached_client() {
+    local session=$1
+    local client
+
+    if [[ -n ${TMUX:-} ]]; then
+        "$TMUX" switch-client -t "=$session"
+        return 0
+    fi
+
+    client=$(
+        "$TMUX" list-clients -F "#{client_tty}|#{client_termname}|#{client_activity}" 2>/dev/null |
+            sort -t '|' -k3,3nr |
+            awk -F '|' '$2 == "xterm-kitty" { print $1; exit }'
+    )
+
+    if [[ -n $client ]]; then
+        "$TMUX" switch-client -c "$client" -t "=$session"
+        open -a "$KITTY_APP" >/dev/null 2>&1 || true
+        return 0
+    fi
+
+    return 1
+}
+
+launch_kitty_client() {
+    local session=$1
+    local root=$2
+
+    open -a "$KITTY_APP" --args --single-instance -d "$root" "$TMUX" attach -t "=$session" >/dev/null 2>&1
+}
+
+main() {
+    if [[ $# -eq 0 ]]; then
+        usage
+        exit 64
+    fi
+
+    local first_path
+    local root
+    local session
+    local paths=()
+    local path
+
+    for path in "$@"; do
+        paths+=("$(resolve_path "$path")")
+    done
+
+    first_path=${paths[0]}
+    root=$(repo_root_for "$first_path")
+    session=$(session_name_for "$root")
+
+    ensure_session "$session" "$root"
+    open_paths_in_nvim "$session" "$root" "${paths[@]}"
+
+    if ! switch_attached_client "$session"; then
+        launch_kitty_client "$session" "$root"
+    fi
+}
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+    main "$@"
+fi

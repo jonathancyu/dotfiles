@@ -1,0 +1,11 @@
+let's create one on the I would like to test all of the tools.
+1 - use the following prompt
+I would like to test all of the tools.
+Please call every tool you have available with reasonable arguments. They should all work. Then, pause for me to review the results
+
+2 - use the following prompt with an intelligent agent (opus 4.6+)
+For each group of tools (work orders, requirements, blueprints, artifacts, ...) try to find edge cases in how the tool behaves. Pause after every run to let me validate that the tools functioned as expected.
+
+The tester should check that there are no egregious bugs in the agent. In this step, it is expected to see tool call errors, as the agent will be intentionally passing bad arguments.
+
+

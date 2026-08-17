@@ -108,13 +108,15 @@ P = 'main'
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 ctrl-t = 'exec-and-forget open -a "/Applications/kitty.app/"'
 ctrl-shift-c = 'exec-and-forget open -a "/Applications/Codex.app/"'
-# ctrl-shift-c = 'exec-and-forget open -a "/Applications/Cursor.app/"'
+ctrl-shift-r = 'exec-and-forget open -a "/Applications/Cursor.app/"'
+ctrl-shift-d = 'exec-and-forget open -a "/Users/jonathan/Applications/Software Factory.app/"'
 # ctrl-shift-c = 'exec-and-forget open -a "/Applications/Zed.app/"'
 ctrl-shift-i = 'exec-and-forget open -a "/Applications/IntelliJ IDEA.app/"'
 ctrl-m = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
 ctrl-shift-f = 'exec-and-forget open -a "/Applications/Google Chrome.app/"'
-ctrl-shift-p = 'exec-and-forget open -a "/Applications/PyCharm.app/"'
+ctrl-shift-p = 'exec-and-forget open -a "/Applications/1Password.app/"'
 ctrl-shift-s = 'exec-and-forget open -a "/Applications/Slack.app/"'
+
 # You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
 # alt-enter = '''exec-and-forget osascript -e '
 # tell application "Terminal"
