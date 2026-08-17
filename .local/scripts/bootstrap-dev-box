@@ -392,7 +392,7 @@ install_aws_cli() {
 }
 
 clone_or_update() {
-  local repo=$1 destination=$2 label=$3
+  local repo=$1 destination=$2 label=$3 submodules=${4:-recursive}
   if [[ -d $destination/.git ]]; then
     if [[ -n $(git -C "$destination" status --porcelain) ]]; then
       log "$label checkout has local changes; leaving it untouched: $destination"
@@ -405,18 +405,50 @@ clone_or_update() {
   else
     log "cloning $label"
     mkdir -p "$(dirname "$destination")"
-    git clone --recurse-submodules "$repo" "$destination"
+    git clone "$repo" "$destination"
   fi
-  git -C "$destination" submodule update --init --recursive
+  if [[ $submodules == recursive ]]; then
+    git -C "$destination" submodule update --init --recursive
+  fi
+}
+
+install_dotfile_submodules() {
+  local dotfiles_dir=$1 path
+
+  # Initialize only submodules that are both registered and tracked. This skips
+  # historical orphan gitlinks without preventing a fresh box from bootstrapping.
+  while IFS= read -r path; do
+    if git -C "$dotfiles_dir" ls-files -s -- "$path" | grep -q '^160000 '; then
+      git -C "$dotfiles_dir" submodule update --init --recursive -- "$path"
+    fi
+  done < <(git -C "$dotfiles_dir" config --file .gitmodules --get-regexp '^submodule\..*\.path$' | awk '{print $2}')
+}
+
+install_tmux_plugins() {
+  local plugin_dir=$HOME/.tmux/plugins
+
+  # Empty directories can be left behind by old gitlinks and make TPM think a
+  # plugin is already installed. rmdir is intentionally harmless if non-empty.
+  rmdir "$plugin_dir/tmux" "$plugin_dir/tmux-sensible" \
+    "$plugin_dir/tmux-yank" "$plugin_dir/tmux-battery" 2>/dev/null || true
+
+  if [[ -x $plugin_dir/tpm/bin/install_plugins ]]; then
+    log 'installing tmux plugins declared in ~/.tmux.conf'
+    "$plugin_dir/tpm/bin/install_plugins"
+  else
+    log 'TPM is unavailable; skipping tmux plugin installation'
+  fi
 }
 
 install_dotfiles() {
   local repo=$1 relative_dir=$2 destination
   destination=$HOME/$relative_dir
-  clone_or_update "$repo" "$destination" dotfiles
+  clone_or_update "$repo" "$destination" dotfiles none
+  install_dotfile_submodules "$destination"
   backup_dotfile_conflicts "$destination"
   log 'stowing dotfiles into the remote home directory'
   stow --dir="$destination" --target="$HOME" --restow .
+  install_tmux_plugins
 }
 
 backup_dotfile_conflicts() {

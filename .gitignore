@@ -1,2 +1,6 @@
 **/.DS_STORE
 .projectdirectories
+
+# TPM installs the plugins declared in .tmux.conf. Only TPM itself is tracked.
+.tmux/plugins/*
+!.tmux/plugins/tpm
